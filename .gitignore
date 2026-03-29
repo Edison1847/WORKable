@@ -1,0 +1,32 @@
+# Root node modules
+node_modules/
+l1-intake/node_modules/
+main-dashboard/node_modules/
+
+# Environment
+.env*
+*.local
+
+# Build
+dist/
+dist-auth/
+l1-intake/dist/
+main-dashboard/dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# SQLite temp files
+server/*.db-journal
+server/*.db-shm
+server/*.db-wal
+
+# Optional: keep the main DB for prototype, but ignore backups if they are too many
+server/backups/

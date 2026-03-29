@@ -1,0 +1,675 @@
+{
+  "ver": "5.1",
+  "ts": "2026-03-29T16:16:19.616Z",
+  "raw": {
+    "companies": [
+      {
+        "id": 1,
+        "name": "ZERO",
+        "industry": "FOOD",
+        "headcount": "20",
+        "currency": "SLR",
+        "financial_year": "Jan-Dec",
+        "revenue_target": 1000000,
+        "total_salary_budget": 60000,
+        "created_at": "2026-03-29 06:33:35"
+      }
+    ],
+    "departments": [
+      {
+        "id": "d1",
+        "company_id": 1,
+        "name": "Operations"
+      },
+      {
+        "id": "d2",
+        "company_id": 1,
+        "name": "Engineering"
+      },
+      {
+        "id": "d3",
+        "company_id": 1,
+        "name": "Sales"
+      },
+      {
+        "id": "d4",
+        "company_id": 1,
+        "name": "Marketing"
+      },
+      {
+        "id": "d5",
+        "company_id": 1,
+        "name": "HR"
+      }
+    ],
+    "roles": [
+      {
+        "id": "r1",
+        "department_id": "d1",
+        "title": "CEO",
+        "grade": "L10",
+        "min_salary": 200000,
+        "max_salary": 300000
+      },
+      {
+        "id": "1774766027955jjj3",
+        "department_id": "d2",
+        "title": "Chief Engineer",
+        "grade": "",
+        "min_salary": 100000,
+        "max_salary": 200000
+      },
+      {
+        "id": "1774766048044mz4e",
+        "department_id": "d2",
+        "title": "Junior Engineer",
+        "grade": "",
+        "min_salary": 50000,
+        "max_salary": 80000
+      },
+      {
+        "id": "1774766064643hi71",
+        "department_id": "d5",
+        "title": "Manager",
+        "grade": "",
+        "min_salary": 10000,
+        "max_salary": 20000
+      }
+    ],
+    "employees": [
+      {
+        "id": "e1",
+        "company_id": 1,
+        "name": "Alice Smith",
+        "role": "CEO",
+        "manager": "None",
+        "department_id": "d1",
+        "is_ai": 0
+      },
+      {
+        "id": "177476608393172br",
+        "company_id": 1,
+        "name": "George",
+        "role": "Chief Engineer",
+        "manager": "Alice Smith",
+        "department_id": "d2",
+        "is_ai": 0
+      },
+      {
+        "id": "1774766092235ff3i",
+        "company_id": 1,
+        "name": "John",
+        "role": "Junior Engineer",
+        "manager": "George",
+        "department_id": "d2",
+        "is_ai": 0
+      },
+      {
+        "id": "1774766112827lyvw",
+        "company_id": 1,
+        "name": "Ann",
+        "role": "Manager",
+        "manager": "Alice Smith",
+        "department_id": "d5",
+        "is_ai": 0
+      },
+      {
+        "id": "ai_1774772662747_0",
+        "company_id": 1,
+        "name": "Olivia Wilson",
+        "role": "Manager",
+        "manager": "George",
+        "department_id": "d5",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662747_1",
+        "company_id": 1,
+        "name": "Jane Rodriguez",
+        "role": "Junior Engineer",
+        "manager": "Ann",
+        "department_id": "d2",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662747_2",
+        "company_id": 1,
+        "name": "Lucas Davis",
+        "role": "Manager",
+        "manager": "Alice Smith",
+        "department_id": "d5",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662747_3",
+        "company_id": 1,
+        "name": "Lucas Gonzalez",
+        "role": "Chief Engineer",
+        "manager": "John",
+        "department_id": "d2",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662747_4",
+        "company_id": 1,
+        "name": "Daniel Johnson",
+        "role": "Manager",
+        "manager": "Jane Rodriguez",
+        "department_id": "d5",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662747_5",
+        "company_id": 1,
+        "name": "James Hernandez",
+        "role": "Manager",
+        "manager": "Ann",
+        "department_id": "d5",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662747_6",
+        "company_id": 1,
+        "name": "James Williams",
+        "role": "Chief Engineer",
+        "manager": "James Hernandez",
+        "department_id": "d2",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662747_7",
+        "company_id": 1,
+        "name": "Anna Davis",
+        "role": "Chief Engineer",
+        "manager": "George",
+        "department_id": "d2",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662747_8",
+        "company_id": 1,
+        "name": "Emily Rodriguez",
+        "role": "Chief Engineer",
+        "manager": "Lucas Davis",
+        "department_id": "d2",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662747_9",
+        "company_id": 1,
+        "name": "Emily Miller",
+        "role": "Chief Engineer",
+        "manager": "Lucas Davis",
+        "department_id": "d2",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662747_10",
+        "company_id": 1,
+        "name": "Mia Williams",
+        "role": "Manager",
+        "manager": "Olivia Wilson",
+        "department_id": "d5",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662747_11",
+        "company_id": 1,
+        "name": "Emma Smith",
+        "role": "Junior Engineer",
+        "manager": "Ann",
+        "department_id": "d2",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662747_12",
+        "company_id": 1,
+        "name": "Jane Miller",
+        "role": "Junior Engineer",
+        "manager": "Emily Rodriguez",
+        "department_id": "d2",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662748_13",
+        "company_id": 1,
+        "name": "John Anderson",
+        "role": "Manager",
+        "manager": "Olivia Wilson",
+        "department_id": "d5",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662748_14",
+        "company_id": 1,
+        "name": "John Garcia",
+        "role": "Junior Engineer",
+        "manager": "Daniel Johnson",
+        "department_id": "d2",
+        "is_ai": 1
+      },
+      {
+        "id": "ai_1774772662748_15",
+        "company_id": 1,
+        "name": "Emily Garcia",
+        "role": "Manager",
+        "manager": "Lucas Gonzalez",
+        "department_id": "d5",
+        "is_ai": 1
+      }
+    ],
+    "diagnostics": [
+      {
+        "id": 6,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "John",
+        "department_name": "d2",
+        "payload": "{\"supervisorName\":\"George\",\"p1\":{\"clarity\":7,\"weeklyHrs\":40,\"burnout\":3,\"capabilityGap\":5},\"activities\":[\"maintenances machine-1\",\"attend user feedbacks\"],\"status\":\"complete\",\"name\":\"John\",\"dept\":\"d2\",\"globalOrgHealth\":6,\"activityDetails\":[{\"name\":\"maintenances machine-1\",\"criticality\":\"Med\",\"percentTime\":20,\"engaged\":\"Neutral\",\"goodDefined\":\"Partial\",\"skillMatch\":\"Match\"},{\"name\":\"attend user feedbacks\",\"criticality\":\"Med\",\"percentTime\":20,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"}],\"p3\":{\"targetsAchievable\":\"Neutral\",\"whoReviews\":\"George\",\"reviewFrequency\":\"Quarterly\",\"blockers\":\"\",\"improvements\":\"\",\"meetingsVsFocus\":70,\"enthusiasm\":4}}",
+        "is_ai": 0,
+        "created_at": "2026-03-29 07:08:55"
+      },
+      {
+        "id": 13,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "George",
+        "department_name": "d2",
+        "payload": "{\"p1\":{\"orgHealth\":3,\"targetClarity\":4,\"weeklyHrs\":40,\"burnout\":4,\"capGap\":7,\"legacyBurden\":68},\"status\":\"complete\",\"name\":\"George\",\"dept\":\"d2\",\"supervisorName\":\"Alice Smith\",\"worker_diagnostic\":true,\"activities\":[\"maintain all the machines\",\"train juniors\"],\"activityDetails\":[{\"name\":\"maintain all the machines\",\"contrib\":\"Med\",\"percentTime\":11,\"energy\":3,\"successClear\":true,\"skillMatch\":\"Match\"},{\"name\":\"train juniors\",\"contrib\":\"Med\",\"percentTime\":20,\"energy\":4,\"successClear\":true,\"skillMatch\":\"Match\"}],\"p4\":{\"realistic\":\"Neutral\",\"reviewer\":\"Alice Smith\",\"freq\":\"Annually\",\"blockers\":\"too many meetings\",\"changes\":\"reduce meeting \",\"meetingRatio\":76}}",
+        "is_ai": 0,
+        "created_at": "2026-03-29 07:21:59"
+      },
+      {
+        "id": 17,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "John",
+        "department_name": "d2",
+        "payload": "{\"p1\":{\"orgHealth\":3,\"targetClarity\":4,\"weeklyHrs\":40,\"burnout\":5,\"capGap\":2,\"legacyBurden\":81},\"status\":\"complete\",\"name\":\"John\",\"dept\":\"d2\",\"supervisorName\":\"George\",\"worker_diagnostic\":true,\"activities\":[\"procurements for machine-1\",\"maintain machine-1\"],\"activityDetails\":[{\"name\":\"procurements for machine-1\",\"contrib\":\"Med\",\"percentTime\":54,\"energy\":3,\"successClear\":true,\"skillMatch\":\"Match\"},{\"name\":\"maintain machine-1\",\"contrib\":\"Low\",\"percentTime\":57,\"energy\":2,\"successClear\":true,\"skillMatch\":\"Match\"}],\"p4\":{\"realistic\":\"Neutral\",\"reviewer\":\"George\",\"freq\":\"Quarterly\",\"blockers\":\"too much work\",\"changes\":\"may need to take another junior engineer\",\"meetingRatio\":63}}",
+        "is_ai": 0,
+        "created_at": "2026-03-29 07:24:10"
+      },
+      {
+        "id": 21,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "Ann",
+        "department_name": "d5",
+        "payload": "{\"p1\":{\"orgHealth\":3,\"targetClarity\":7,\"weeklyHrs\":40,\"burnout\":5,\"capGap\":4,\"legacyBurden\":75},\"status\":\"complete\",\"name\":\"Ann\",\"dept\":\"d5\",\"supervisorName\":\"Alice Smith\",\"worker_diagnostic\":true,\"activities\":[\"recruitment of the company\",\"maintain records of the company\"],\"activityDetails\":[{\"name\":\"recruitment of the company\",\"contrib\":\"High\",\"percentTime\":68,\"energy\":2,\"successClear\":true,\"skillMatch\":\"Match\"},{\"name\":\"maintain records of the company\",\"contrib\":\"Low\",\"percentTime\":67,\"energy\":1,\"successClear\":false,\"skillMatch\":\"Misaligned\"}],\"p4\":{\"realistic\":\"Neutral\",\"reviewer\":\"Alice Smith\",\"freq\":\"Annually\",\"blockers\":\"lots of meeting\\ntoo much work\",\"changes\":\"reduce meeting\\ntake more staff\\ngo paperless \",\"meetingRatio\":81}}",
+        "is_ai": 0,
+        "created_at": "2026-03-29 07:25:55"
+      },
+      {
+        "id": 22,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "George",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"George\",\"dept\":\"Engineering\",\"supervisorName\":\"Alice Smith\",\"supervisorRole\":\"Chief Engineer\",\"status\":\"complete\",\"p1\":{\"orgHealth\":6,\"targetClarity\":6,\"weeklyHrs\":44,\"burnout\":2,\"capGap\":5,\"enthusiasm\":6},\"globalOrgHealth\":9,\"activities\":[\"Process Refinement\",\"Project Oversight\",\"Stakeholder Management\"],\"activityDetails\":[{\"name\":\"Process Refinement\",\"criticality\":\"Low\",\"percentTime\":37,\"engaged\":\"Active\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"},{\"name\":\"Project Oversight\",\"criticality\":\"High\",\"percentTime\":12,\"engaged\":\"Disengaged\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Stretch\"},{\"name\":\"Stakeholder Management\",\"criticality\":\"High\",\"percentTime\":11,\"engaged\":\"Disengaged\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"}],\"p3\":{\"targetsAchievable\":\"Neutral\",\"whoReviews\":\"Alice Smith\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Communication gaps between teams\",\"improvements\":\"Upgrade our core stack\",\"meetingsVsFocus\":44,\"enthusiasm\":5},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 23,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "Ann",
+        "department_name": "HR",
+        "payload": "{\"name\":\"Ann\",\"dept\":\"HR\",\"supervisorName\":\"Alice Smith\",\"supervisorRole\":\"Manager\",\"status\":\"complete\",\"p1\":{\"orgHealth\":7,\"targetClarity\":8,\"weeklyHrs\":42,\"burnout\":2,\"capGap\":4,\"enthusiasm\":15},\"globalOrgHealth\":6,\"activities\":[\"Client Interaction\",\"Stakeholder Management\"],\"activityDetails\":[{\"name\":\"Client Interaction\",\"criticality\":\"Med\",\"percentTime\":30,\"engaged\":\"Disengaged\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Stretch\"},{\"name\":\"Stakeholder Management\",\"criticality\":\"Med\",\"percentTime\":10,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"}],\"p3\":{\"targetsAchievable\":\"Unrealistic\",\"whoReviews\":\"Alice Smith\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Legacy tooling is slowing us down\",\"improvements\":\"Direct feedback loops\",\"meetingsVsFocus\":57,\"enthusiasm\":10},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 24,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "Olivia Wilson",
+        "department_name": "HR",
+        "payload": "{\"name\":\"Olivia Wilson\",\"dept\":\"HR\",\"roleTitle\":\"Manager\",\"supervisorName\":\"George\",\"status\":\"complete\",\"p1\":{\"orgHealth\":5,\"targetClarity\":8,\"weeklyHrs\":46,\"burnout\":3,\"capGap\":7,\"legacyBurden\":20},\"activities\":[\"Project Oversight\",\"Code Review\",\"Stakeholder Management\"],\"activityDetails\":[{\"name\":\"Project Oversight\",\"contrib\":\"Med\",\"percentTime\":33,\"energy\":3,\"successClear\":true,\"skillMatch\":\"Overqualified\"},{\"name\":\"Code Review\",\"contrib\":\"High\",\"percentTime\":17,\"energy\":3,\"successClear\":true,\"skillMatch\":\"Overqualified\"},{\"name\":\"Stakeholder Management\",\"contrib\":\"Low\",\"percentTime\":25,\"energy\":5,\"successClear\":true,\"skillMatch\":\"Overqualified\"}],\"p4\":{\"realistic\":\"Unrealistic\",\"reviewer\":\"George\",\"freq\":\"Weekly\",\"blockers\":\"Unclear target definitions\",\"changes\":\"Direct feedback loops\",\"meetingRatio\":50,\"enthusiasm\":17},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 25,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "Olivia Wilson",
+        "department_name": "HR",
+        "payload": "{\"name\":\"Olivia Wilson\",\"dept\":\"HR\",\"supervisorName\":\"George\",\"supervisorRole\":\"Manager\",\"status\":\"complete\",\"p1\":{\"orgHealth\":9,\"targetClarity\":6,\"weeklyHrs\":46,\"burnout\":2,\"capGap\":3,\"enthusiasm\":14},\"globalOrgHealth\":7,\"activities\":[\"Resource Allocation\",\"Stakeholder Management\"],\"activityDetails\":[{\"name\":\"Resource Allocation\",\"criticality\":\"Low\",\"percentTime\":12,\"engaged\":\"Active\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"},{\"name\":\"Stakeholder Management\",\"criticality\":\"Low\",\"percentTime\":23,\"engaged\":\"Disengaged\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"}],\"p3\":{\"targetsAchievable\":\"Unrealistic\",\"whoReviews\":\"George\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Lack of cross-functional resources\",\"improvements\":\"Direct feedback loops\",\"meetingsVsFocus\":67,\"enthusiasm\":7},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 26,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "Jane Rodriguez",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"Jane Rodriguez\",\"dept\":\"Engineering\",\"roleTitle\":\"Junior Engineer\",\"supervisorName\":\"Ann\",\"status\":\"complete\",\"p1\":{\"orgHealth\":9,\"targetClarity\":8,\"weeklyHrs\":45,\"burnout\":2,\"capGap\":7,\"legacyBurden\":38},\"activities\":[\"Resource Allocation\",\"Technical Leadership\",\"Strategy Sync\"],\"activityDetails\":[{\"name\":\"Resource Allocation\",\"contrib\":\"Low\",\"percentTime\":15,\"energy\":3,\"successClear\":true,\"skillMatch\":\"Match\"},{\"name\":\"Technical Leadership\",\"contrib\":\"Low\",\"percentTime\":10,\"energy\":5,\"successClear\":true,\"skillMatch\":\"Match\"},{\"name\":\"Strategy Sync\",\"contrib\":\"High\",\"percentTime\":19,\"energy\":5,\"successClear\":false,\"skillMatch\":\"Overqualified\"}],\"p4\":{\"realistic\":\"Neutral\",\"reviewer\":\"Ann\",\"freq\":\"Weekly\",\"blockers\":\"Legacy tooling is slowing us down\",\"changes\":\"More flexible working hours\",\"meetingRatio\":21,\"enthusiasm\":7},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 27,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "Jane Rodriguez",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"Jane Rodriguez\",\"dept\":\"Engineering\",\"supervisorName\":\"Ann\",\"supervisorRole\":\"Junior Engineer\",\"status\":\"complete\",\"p1\":{\"orgHealth\":6,\"targetClarity\":8,\"weeklyHrs\":54,\"burnout\":2,\"capGap\":4,\"enthusiasm\":22},\"globalOrgHealth\":9,\"activities\":[\"Strategy Sync\",\"Process Refinement\"],\"activityDetails\":[{\"name\":\"Strategy Sync\",\"criticality\":\"Low\",\"percentTime\":20,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"},{\"name\":\"Process Refinement\",\"criticality\":\"Med\",\"percentTime\":20,\"engaged\":\"Disengaged\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"}],\"p3\":{\"targetsAchievable\":\"Neutral\",\"whoReviews\":\"Ann\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Too many meetings\",\"improvements\":\"Direct feedback loops\",\"meetingsVsFocus\":28,\"enthusiasm\":11},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 28,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "Lucas Davis",
+        "department_name": "HR",
+        "payload": "{\"name\":\"Lucas Davis\",\"dept\":\"HR\",\"roleTitle\":\"Manager\",\"supervisorName\":\"Alice Smith\",\"status\":\"complete\",\"p1\":{\"orgHealth\":8,\"targetClarity\":6,\"weeklyHrs\":46,\"burnout\":2,\"capGap\":7,\"legacyBurden\":15},\"activities\":[\"Process Refinement\",\"Code Review\",\"Resource Allocation\"],\"activityDetails\":[{\"name\":\"Process Refinement\",\"contrib\":\"Low\",\"percentTime\":34,\"energy\":4,\"successClear\":true,\"skillMatch\":\"Overqualified\"},{\"name\":\"Code Review\",\"contrib\":\"Med\",\"percentTime\":10,\"energy\":4,\"successClear\":false,\"skillMatch\":\"Match\"},{\"name\":\"Resource Allocation\",\"contrib\":\"Low\",\"percentTime\":25,\"energy\":5,\"successClear\":true,\"skillMatch\":\"Overqualified\"}],\"p4\":{\"realistic\":\"Unrealistic\",\"reviewer\":\"Alice Smith\",\"freq\":\"Weekly\",\"blockers\":\"Lack of cross-functional resources\",\"changes\":\"Upgrade our core stack\",\"meetingRatio\":21,\"enthusiasm\":6},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 30,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "Lucas Gonzalez",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"Lucas Gonzalez\",\"dept\":\"Engineering\",\"roleTitle\":\"Chief Engineer\",\"supervisorName\":\"John\",\"status\":\"complete\",\"p1\":{\"orgHealth\":5,\"targetClarity\":7,\"weeklyHrs\":49,\"burnout\":3,\"capGap\":3,\"legacyBurden\":15},\"activities\":[\"Stakeholder Management\",\"Project Oversight\",\"Resource Allocation\"],\"activityDetails\":[{\"name\":\"Stakeholder Management\",\"contrib\":\"Low\",\"percentTime\":36,\"energy\":3,\"successClear\":true,\"skillMatch\":\"Overqualified\"},{\"name\":\"Project Oversight\",\"contrib\":\"Low\",\"percentTime\":20,\"energy\":1,\"successClear\":true,\"skillMatch\":\"Stretched\"},{\"name\":\"Resource Allocation\",\"contrib\":\"Low\",\"percentTime\":12,\"energy\":1,\"successClear\":false,\"skillMatch\":\"Stretched\"}],\"p4\":{\"realistic\":\"Achievable\",\"reviewer\":\"John\",\"freq\":\"Weekly\",\"blockers\":\"Unclear target definitions\",\"changes\":\"More flexible working hours\",\"meetingRatio\":53,\"enthusiasm\":17},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 31,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "Lucas Gonzalez",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"Lucas Gonzalez\",\"dept\":\"Engineering\",\"supervisorName\":\"John\",\"supervisorRole\":\"Chief Engineer\",\"status\":\"complete\",\"p1\":{\"orgHealth\":9,\"targetClarity\":9,\"weeklyHrs\":48,\"burnout\":2,\"capGap\":3,\"enthusiasm\":23},\"globalOrgHealth\":9,\"activities\":[\"Technical Leadership\",\"Strategy Sync\"],\"activityDetails\":[{\"name\":\"Technical Leadership\",\"criticality\":\"Low\",\"percentTime\":23,\"engaged\":\"Active\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"},{\"name\":\"Strategy Sync\",\"criticality\":\"Low\",\"percentTime\":29,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"}],\"p3\":{\"targetsAchievable\":\"Achievable\",\"whoReviews\":\"John\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Lack of cross-functional resources\",\"improvements\":\"Direct feedback loops\",\"meetingsVsFocus\":52,\"enthusiasm\":15},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 32,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "Daniel Johnson",
+        "department_name": "HR",
+        "payload": "{\"name\":\"Daniel Johnson\",\"dept\":\"HR\",\"roleTitle\":\"Manager\",\"supervisorName\":\"Jane Rodriguez\",\"status\":\"complete\",\"p1\":{\"orgHealth\":9,\"targetClarity\":7,\"weeklyHrs\":46,\"burnout\":2,\"capGap\":3,\"legacyBurden\":19},\"activities\":[\"Resource Allocation\",\"Technical Leadership\",\"Stakeholder Management\"],\"activityDetails\":[{\"name\":\"Resource Allocation\",\"contrib\":\"Low\",\"percentTime\":21,\"energy\":2,\"successClear\":false,\"skillMatch\":\"Overqualified\"},{\"name\":\"Technical Leadership\",\"contrib\":\"Low\",\"percentTime\":19,\"energy\":2,\"successClear\":true,\"skillMatch\":\"Overqualified\"},{\"name\":\"Stakeholder Management\",\"contrib\":\"Low\",\"percentTime\":39,\"energy\":3,\"successClear\":true,\"skillMatch\":\"Stretched\"}],\"p4\":{\"realistic\":\"Achievable\",\"reviewer\":\"Jane Rodriguez\",\"freq\":\"Weekly\",\"blockers\":\"Too many meetings\",\"changes\":\"Direct feedback loops\",\"meetingRatio\":47,\"enthusiasm\":15},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 33,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "Daniel Johnson",
+        "department_name": "HR",
+        "payload": "{\"name\":\"Daniel Johnson\",\"dept\":\"HR\",\"supervisorName\":\"Jane Rodriguez\",\"supervisorRole\":\"Manager\",\"status\":\"complete\",\"p1\":{\"orgHealth\":7,\"targetClarity\":9,\"weeklyHrs\":48,\"burnout\":2,\"capGap\":2,\"enthusiasm\":13},\"globalOrgHealth\":9,\"activities\":[\"Process Refinement\"],\"activityDetails\":[{\"name\":\"Process Refinement\",\"criticality\":\"Med\",\"percentTime\":10,\"engaged\":\"Active\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"}],\"p3\":{\"targetsAchievable\":\"Unrealistic\",\"whoReviews\":\"Jane Rodriguez\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Unclear target definitions\",\"improvements\":\"Streamline the approval process\",\"meetingsVsFocus\":31,\"enthusiasm\":22},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 34,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "James Hernandez",
+        "department_name": "HR",
+        "payload": "{\"name\":\"James Hernandez\",\"dept\":\"HR\",\"roleTitle\":\"Manager\",\"supervisorName\":\"Ann\",\"status\":\"complete\",\"p1\":{\"orgHealth\":7,\"targetClarity\":6,\"weeklyHrs\":43,\"burnout\":1,\"capGap\":4,\"legacyBurden\":11},\"activities\":[\"Project Oversight\",\"Stakeholder Management\",\"Code Review\"],\"activityDetails\":[{\"name\":\"Project Oversight\",\"contrib\":\"Med\",\"percentTime\":25,\"energy\":3,\"successClear\":true,\"skillMatch\":\"Stretched\"},{\"name\":\"Stakeholder Management\",\"contrib\":\"High\",\"percentTime\":26,\"energy\":3,\"successClear\":true,\"skillMatch\":\"Overqualified\"},{\"name\":\"Code Review\",\"contrib\":\"High\",\"percentTime\":26,\"energy\":1,\"successClear\":true,\"skillMatch\":\"Overqualified\"}],\"p4\":{\"realistic\":\"Neutral\",\"reviewer\":\"Ann\",\"freq\":\"Weekly\",\"blockers\":\"Communication gaps between teams\",\"changes\":\"Better internal documentation\",\"meetingRatio\":54,\"enthusiasm\":10},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 35,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "James Hernandez",
+        "department_name": "HR",
+        "payload": "{\"name\":\"James Hernandez\",\"dept\":\"HR\",\"supervisorName\":\"Ann\",\"supervisorRole\":\"Manager\",\"status\":\"complete\",\"p1\":{\"orgHealth\":7,\"targetClarity\":6,\"weeklyHrs\":44,\"burnout\":1,\"capGap\":2,\"enthusiasm\":24},\"globalOrgHealth\":6,\"activities\":[\"Technical Leadership\",\"Code Review\"],\"activityDetails\":[{\"name\":\"Technical Leadership\",\"criticality\":\"Med\",\"percentTime\":25,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"},{\"name\":\"Code Review\",\"criticality\":\"Med\",\"percentTime\":14,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Stretch\"}],\"p3\":{\"targetsAchievable\":\"Neutral\",\"whoReviews\":\"Ann\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Resource delays\",\"improvements\":\"Better internal documentation\",\"meetingsVsFocus\":62,\"enthusiasm\":20},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 36,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "James Williams",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"James Williams\",\"dept\":\"Engineering\",\"roleTitle\":\"Chief Engineer\",\"supervisorName\":\"James Hernandez\",\"status\":\"complete\",\"p1\":{\"orgHealth\":5,\"targetClarity\":9,\"weeklyHrs\":43,\"burnout\":3,\"capGap\":6,\"legacyBurden\":39},\"activities\":[\"Resource Allocation\",\"Process Refinement\"],\"activityDetails\":[{\"name\":\"Resource Allocation\",\"contrib\":\"Med\",\"percentTime\":10,\"energy\":2,\"successClear\":false,\"skillMatch\":\"Match\"},{\"name\":\"Process Refinement\",\"contrib\":\"Low\",\"percentTime\":24,\"energy\":3,\"successClear\":false,\"skillMatch\":\"Overqualified\"}],\"p4\":{\"realistic\":\"Unrealistic\",\"reviewer\":\"James Hernandez\",\"freq\":\"Weekly\",\"blockers\":\"Legacy tooling is slowing us down\",\"changes\":\"Incorporate more AI automation\",\"meetingRatio\":28,\"enthusiasm\":10},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 37,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "James Williams",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"James Williams\",\"dept\":\"Engineering\",\"supervisorName\":\"James Hernandez\",\"supervisorRole\":\"Chief Engineer\",\"status\":\"complete\",\"p1\":{\"orgHealth\":9,\"targetClarity\":9,\"weeklyHrs\":46,\"burnout\":1,\"capGap\":3,\"enthusiasm\":17},\"globalOrgHealth\":7,\"activities\":[\"Client Interaction\",\"Process Refinement\"],\"activityDetails\":[{\"name\":\"Client Interaction\",\"criticality\":\"Low\",\"percentTime\":15,\"engaged\":\"Disengaged\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Stretch\"},{\"name\":\"Process Refinement\",\"criticality\":\"High\",\"percentTime\":29,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"}],\"p3\":{\"targetsAchievable\":\"Neutral\",\"whoReviews\":\"James Hernandez\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Too many meetings\",\"improvements\":\"More flexible working hours\",\"meetingsVsFocus\":31,\"enthusiasm\":12},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 38,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "Anna Davis",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"Anna Davis\",\"dept\":\"Engineering\",\"roleTitle\":\"Chief Engineer\",\"supervisorName\":\"George\",\"status\":\"complete\",\"p1\":{\"orgHealth\":6,\"targetClarity\":7,\"weeklyHrs\":42,\"burnout\":3,\"capGap\":5,\"legacyBurden\":33},\"activities\":[\"Client Interaction\",\"Technical Leadership\",\"Stakeholder Management\"],\"activityDetails\":[{\"name\":\"Client Interaction\",\"contrib\":\"Low\",\"percentTime\":10,\"energy\":4,\"successClear\":false,\"skillMatch\":\"Match\"},{\"name\":\"Technical Leadership\",\"contrib\":\"High\",\"percentTime\":12,\"energy\":1,\"successClear\":true,\"skillMatch\":\"Overqualified\"},{\"name\":\"Stakeholder Management\",\"contrib\":\"Low\",\"percentTime\":22,\"energy\":3,\"successClear\":true,\"skillMatch\":\"Overqualified\"}],\"p4\":{\"realistic\":\"Achievable\",\"reviewer\":\"George\",\"freq\":\"Weekly\",\"blockers\":\"Lack of cross-functional resources\",\"changes\":\"Direct feedback loops\",\"meetingRatio\":27,\"enthusiasm\":11},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 39,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "Anna Davis",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"Anna Davis\",\"dept\":\"Engineering\",\"supervisorName\":\"George\",\"supervisorRole\":\"Chief Engineer\",\"status\":\"complete\",\"p1\":{\"orgHealth\":6,\"targetClarity\":8,\"weeklyHrs\":42,\"burnout\":1,\"capGap\":4,\"enthusiasm\":14},\"globalOrgHealth\":9,\"activities\":[\"Process Refinement\",\"Project Oversight\",\"Technical Leadership\"],\"activityDetails\":[{\"name\":\"Process Refinement\",\"criticality\":\"Med\",\"percentTime\":28,\"engaged\":\"Active\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"},{\"name\":\"Project Oversight\",\"criticality\":\"Med\",\"percentTime\":13,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"},{\"name\":\"Technical Leadership\",\"criticality\":\"High\",\"percentTime\":36,\"engaged\":\"Disengaged\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"}],\"p3\":{\"targetsAchievable\":\"Achievable\",\"whoReviews\":\"George\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Legacy tooling is slowing us down\",\"improvements\":\"Incorporate more AI automation\",\"meetingsVsFocus\":57,\"enthusiasm\":17},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 40,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "Emily Rodriguez",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"Emily Rodriguez\",\"dept\":\"Engineering\",\"roleTitle\":\"Chief Engineer\",\"supervisorName\":\"Lucas Davis\",\"status\":\"complete\",\"p1\":{\"orgHealth\":5,\"targetClarity\":9,\"weeklyHrs\":45,\"burnout\":2,\"capGap\":5,\"legacyBurden\":32},\"activities\":[\"Client Interaction\",\"Stakeholder Management\",\"Resource Allocation\"],\"activityDetails\":[{\"name\":\"Client Interaction\",\"contrib\":\"High\",\"percentTime\":36,\"energy\":1,\"successClear\":true,\"skillMatch\":\"Overqualified\"},{\"name\":\"Stakeholder Management\",\"contrib\":\"Med\",\"percentTime\":18,\"energy\":5,\"successClear\":false,\"skillMatch\":\"Match\"},{\"name\":\"Resource Allocation\",\"contrib\":\"Med\",\"percentTime\":22,\"energy\":5,\"successClear\":false,\"skillMatch\":\"Match\"}],\"p4\":{\"realistic\":\"Neutral\",\"reviewer\":\"Lucas Davis\",\"freq\":\"Weekly\",\"blockers\":\"Communication gaps between teams\",\"changes\":\"Incorporate more AI automation\",\"meetingRatio\":20,\"enthusiasm\":16},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 41,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "Emily Rodriguez",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"Emily Rodriguez\",\"dept\":\"Engineering\",\"supervisorName\":\"Lucas Davis\",\"supervisorRole\":\"Chief Engineer\",\"status\":\"complete\",\"p1\":{\"orgHealth\":6,\"targetClarity\":6,\"weeklyHrs\":41,\"burnout\":1,\"capGap\":4,\"enthusiasm\":14},\"globalOrgHealth\":6,\"activities\":[\"Project Oversight\",\"Stakeholder Management\",\"Client Interaction\"],\"activityDetails\":[{\"name\":\"Project Oversight\",\"criticality\":\"Med\",\"percentTime\":10,\"engaged\":\"Disengaged\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"},{\"name\":\"Stakeholder Management\",\"criticality\":\"High\",\"percentTime\":33,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Stretch\"},{\"name\":\"Client Interaction\",\"criticality\":\"High\",\"percentTime\":30,\"engaged\":\"Active\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"}],\"p3\":{\"targetsAchievable\":\"Neutral\",\"whoReviews\":\"Lucas Davis\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Legacy tooling is slowing us down\",\"improvements\":\"Incorporate more AI automation\",\"meetingsVsFocus\":34,\"enthusiasm\":13},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 42,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "Emily Miller",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"Emily Miller\",\"dept\":\"Engineering\",\"roleTitle\":\"Chief Engineer\",\"supervisorName\":\"Lucas Davis\",\"status\":\"complete\",\"p1\":{\"orgHealth\":7,\"targetClarity\":9,\"weeklyHrs\":47,\"burnout\":1,\"capGap\":3,\"legacyBurden\":26},\"activities\":[\"Technical Leadership\",\"Project Oversight\",\"Code Review\"],\"activityDetails\":[{\"name\":\"Technical Leadership\",\"contrib\":\"Low\",\"percentTime\":37,\"energy\":4,\"successClear\":true,\"skillMatch\":\"Stretched\"},{\"name\":\"Project Oversight\",\"contrib\":\"Low\",\"percentTime\":19,\"energy\":5,\"successClear\":false,\"skillMatch\":\"Stretched\"},{\"name\":\"Code Review\",\"contrib\":\"Med\",\"percentTime\":24,\"energy\":5,\"successClear\":true,\"skillMatch\":\"Stretched\"}],\"p4\":{\"realistic\":\"Achievable\",\"reviewer\":\"Lucas Davis\",\"freq\":\"Weekly\",\"blockers\":\"Legacy tooling is slowing us down\",\"changes\":\"More flexible working hours\",\"meetingRatio\":23,\"enthusiasm\":6},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 43,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "Emily Miller",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"Emily Miller\",\"dept\":\"Engineering\",\"supervisorName\":\"Lucas Davis\",\"supervisorRole\":\"Chief Engineer\",\"status\":\"complete\",\"p1\":{\"orgHealth\":9,\"targetClarity\":7,\"weeklyHrs\":46,\"burnout\":3,\"capGap\":2,\"enthusiasm\":13},\"globalOrgHealth\":9,\"activities\":[\"Stakeholder Management\",\"Resource Allocation\",\"Process Refinement\"],\"activityDetails\":[{\"name\":\"Stakeholder Management\",\"criticality\":\"Med\",\"percentTime\":23,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Stretch\"},{\"name\":\"Resource Allocation\",\"criticality\":\"High\",\"percentTime\":18,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Stretch\"},{\"name\":\"Process Refinement\",\"criticality\":\"High\",\"percentTime\":12,\"engaged\":\"Active\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Stretch\"}],\"p3\":{\"targetsAchievable\":\"Neutral\",\"whoReviews\":\"Lucas Davis\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Too many meetings\",\"improvements\":\"Better internal documentation\",\"meetingsVsFocus\":54,\"enthusiasm\":16},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 44,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "Mia Williams",
+        "department_name": "HR",
+        "payload": "{\"name\":\"Mia Williams\",\"dept\":\"HR\",\"roleTitle\":\"Manager\",\"supervisorName\":\"Olivia Wilson\",\"status\":\"complete\",\"p1\":{\"orgHealth\":9,\"targetClarity\":9,\"weeklyHrs\":44,\"burnout\":2,\"capGap\":5,\"legacyBurden\":39},\"activities\":[\"Stakeholder Management\",\"Process Refinement\"],\"activityDetails\":[{\"name\":\"Stakeholder Management\",\"contrib\":\"High\",\"percentTime\":30,\"energy\":4,\"successClear\":true,\"skillMatch\":\"Stretched\"},{\"name\":\"Process Refinement\",\"contrib\":\"High\",\"percentTime\":18,\"energy\":5,\"successClear\":true,\"skillMatch\":\"Overqualified\"}],\"p4\":{\"realistic\":\"Achievable\",\"reviewer\":\"Olivia Wilson\",\"freq\":\"Weekly\",\"blockers\":\"Communication gaps between teams\",\"changes\":\"More flexible working hours\",\"meetingRatio\":47,\"enthusiasm\":17},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 45,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "Mia Williams",
+        "department_name": "HR",
+        "payload": "{\"name\":\"Mia Williams\",\"dept\":\"HR\",\"supervisorName\":\"Olivia Wilson\",\"supervisorRole\":\"Manager\",\"status\":\"complete\",\"p1\":{\"orgHealth\":8,\"targetClarity\":8,\"weeklyHrs\":52,\"burnout\":2,\"capGap\":2,\"enthusiasm\":14},\"globalOrgHealth\":9,\"activities\":[\"Code Review\",\"Strategy Sync\",\"Project Oversight\"],\"activityDetails\":[{\"name\":\"Code Review\",\"criticality\":\"Low\",\"percentTime\":37,\"engaged\":\"Active\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"},{\"name\":\"Strategy Sync\",\"criticality\":\"Low\",\"percentTime\":13,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"},{\"name\":\"Project Oversight\",\"criticality\":\"Med\",\"percentTime\":21,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Stretch\"}],\"p3\":{\"targetsAchievable\":\"Unrealistic\",\"whoReviews\":\"Olivia Wilson\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Too many meetings\",\"improvements\":\"Upgrade our core stack\",\"meetingsVsFocus\":64,\"enthusiasm\":18},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 46,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "Emma Smith",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"Emma Smith\",\"dept\":\"Engineering\",\"roleTitle\":\"Junior Engineer\",\"supervisorName\":\"Ann\",\"status\":\"complete\",\"p1\":{\"orgHealth\":8,\"targetClarity\":8,\"weeklyHrs\":44,\"burnout\":1,\"capGap\":3,\"legacyBurden\":14},\"activities\":[\"Project Oversight\",\"Resource Allocation\",\"Client Interaction\"],\"activityDetails\":[{\"name\":\"Project Oversight\",\"contrib\":\"Low\",\"percentTime\":23,\"energy\":3,\"successClear\":true,\"skillMatch\":\"Match\"},{\"name\":\"Resource Allocation\",\"contrib\":\"High\",\"percentTime\":13,\"energy\":5,\"successClear\":true,\"skillMatch\":\"Stretched\"},{\"name\":\"Client Interaction\",\"contrib\":\"Med\",\"percentTime\":11,\"energy\":5,\"successClear\":true,\"skillMatch\":\"Match\"}],\"p4\":{\"realistic\":\"Neutral\",\"reviewer\":\"Ann\",\"freq\":\"Weekly\",\"blockers\":\"Unclear target definitions\",\"changes\":\"Incorporate more AI automation\",\"meetingRatio\":57,\"enthusiasm\":16},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 47,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "Emma Smith",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"Emma Smith\",\"dept\":\"Engineering\",\"supervisorName\":\"Ann\",\"supervisorRole\":\"Junior Engineer\",\"status\":\"complete\",\"p1\":{\"orgHealth\":6,\"targetClarity\":6,\"weeklyHrs\":53,\"burnout\":1,\"capGap\":2,\"enthusiasm\":24},\"globalOrgHealth\":6,\"activities\":[\"Project Oversight\",\"Code Review\"],\"activityDetails\":[{\"name\":\"Project Oversight\",\"criticality\":\"Low\",\"percentTime\":28,\"engaged\":\"Active\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"},{\"name\":\"Code Review\",\"criticality\":\"High\",\"percentTime\":25,\"engaged\":\"Disengaged\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"}],\"p3\":{\"targetsAchievable\":\"Unrealistic\",\"whoReviews\":\"Ann\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Legacy tooling is slowing us down\",\"improvements\":\"More flexible working hours\",\"meetingsVsFocus\":23,\"enthusiasm\":21},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 48,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "Jane Miller",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"Jane Miller\",\"dept\":\"Engineering\",\"roleTitle\":\"Junior Engineer\",\"supervisorName\":\"Emily Rodriguez\",\"status\":\"complete\",\"p1\":{\"orgHealth\":9,\"targetClarity\":6,\"weeklyHrs\":47,\"burnout\":3,\"capGap\":7,\"legacyBurden\":10},\"activities\":[\"Project Oversight\",\"Code Review\",\"Technical Leadership\"],\"activityDetails\":[{\"name\":\"Project Oversight\",\"contrib\":\"Med\",\"percentTime\":30,\"energy\":2,\"successClear\":true,\"skillMatch\":\"Match\"},{\"name\":\"Code Review\",\"contrib\":\"Med\",\"percentTime\":18,\"energy\":3,\"successClear\":true,\"skillMatch\":\"Overqualified\"},{\"name\":\"Technical Leadership\",\"contrib\":\"Low\",\"percentTime\":17,\"energy\":1,\"successClear\":true,\"skillMatch\":\"Overqualified\"}],\"p4\":{\"realistic\":\"Unrealistic\",\"reviewer\":\"Emily Rodriguez\",\"freq\":\"Weekly\",\"blockers\":\"Too many meetings\",\"changes\":\"Direct feedback loops\",\"meetingRatio\":35,\"enthusiasm\":22},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 49,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "Jane Miller",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"Jane Miller\",\"dept\":\"Engineering\",\"supervisorName\":\"Emily Rodriguez\",\"supervisorRole\":\"Junior Engineer\",\"status\":\"complete\",\"p1\":{\"orgHealth\":9,\"targetClarity\":8,\"weeklyHrs\":51,\"burnout\":1,\"capGap\":3,\"enthusiasm\":6},\"globalOrgHealth\":9,\"activities\":[\"Strategy Sync\",\"Process Refinement\"],\"activityDetails\":[{\"name\":\"Strategy Sync\",\"criticality\":\"Med\",\"percentTime\":11,\"engaged\":\"Disengaged\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"},{\"name\":\"Process Refinement\",\"criticality\":\"Med\",\"percentTime\":22,\"engaged\":\"Disengaged\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"}],\"p3\":{\"targetsAchievable\":\"Unrealistic\",\"whoReviews\":\"Emily Rodriguez\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Lack of cross-functional resources\",\"improvements\":\"Better internal documentation\",\"meetingsVsFocus\":60,\"enthusiasm\":8},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 50,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "John Anderson",
+        "department_name": "HR",
+        "payload": "{\"name\":\"John Anderson\",\"dept\":\"HR\",\"roleTitle\":\"Manager\",\"supervisorName\":\"Olivia Wilson\",\"status\":\"complete\",\"p1\":{\"orgHealth\":7,\"targetClarity\":8,\"weeklyHrs\":46,\"burnout\":3,\"capGap\":5,\"legacyBurden\":32},\"activities\":[\"Process Refinement\",\"Strategy Sync\",\"Code Review\"],\"activityDetails\":[{\"name\":\"Process Refinement\",\"contrib\":\"Low\",\"percentTime\":26,\"energy\":1,\"successClear\":true,\"skillMatch\":\"Match\"},{\"name\":\"Strategy Sync\",\"contrib\":\"Low\",\"percentTime\":23,\"energy\":5,\"successClear\":false,\"skillMatch\":\"Overqualified\"},{\"name\":\"Code Review\",\"contrib\":\"High\",\"percentTime\":12,\"energy\":4,\"successClear\":true,\"skillMatch\":\"Match\"}],\"p4\":{\"realistic\":\"Unrealistic\",\"reviewer\":\"Olivia Wilson\",\"freq\":\"Weekly\",\"blockers\":\"Lack of cross-functional resources\",\"changes\":\"More flexible working hours\",\"meetingRatio\":32,\"enthusiasm\":5},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 51,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "John Anderson",
+        "department_name": "HR",
+        "payload": "{\"name\":\"John Anderson\",\"dept\":\"HR\",\"supervisorName\":\"Olivia Wilson\",\"supervisorRole\":\"Manager\",\"status\":\"complete\",\"p1\":{\"orgHealth\":6,\"targetClarity\":9,\"weeklyHrs\":54,\"burnout\":3,\"capGap\":3,\"enthusiasm\":5},\"globalOrgHealth\":8,\"activities\":[\"Technical Leadership\",\"Process Refinement\",\"Project Oversight\"],\"activityDetails\":[{\"name\":\"Technical Leadership\",\"criticality\":\"Low\",\"percentTime\":13,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"},{\"name\":\"Process Refinement\",\"criticality\":\"Low\",\"percentTime\":21,\"engaged\":\"Active\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Stretch\"},{\"name\":\"Project Oversight\",\"criticality\":\"Med\",\"percentTime\":22,\"engaged\":\"Disengaged\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"}],\"p3\":{\"targetsAchievable\":\"Achievable\",\"whoReviews\":\"Olivia Wilson\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Communication gaps between teams\",\"improvements\":\"Incorporate more AI automation\",\"meetingsVsFocus\":42,\"enthusiasm\":7},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 52,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "John Garcia",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"John Garcia\",\"dept\":\"Engineering\",\"roleTitle\":\"Junior Engineer\",\"supervisorName\":\"Daniel Johnson\",\"status\":\"complete\",\"p1\":{\"orgHealth\":6,\"targetClarity\":7,\"weeklyHrs\":43,\"burnout\":1,\"capGap\":5,\"legacyBurden\":16},\"activities\":[\"Stakeholder Management\",\"Client Interaction\",\"Strategy Sync\"],\"activityDetails\":[{\"name\":\"Stakeholder Management\",\"contrib\":\"Med\",\"percentTime\":32,\"energy\":4,\"successClear\":false,\"skillMatch\":\"Overqualified\"},{\"name\":\"Client Interaction\",\"contrib\":\"Low\",\"percentTime\":18,\"energy\":4,\"successClear\":true,\"skillMatch\":\"Match\"},{\"name\":\"Strategy Sync\",\"contrib\":\"High\",\"percentTime\":19,\"energy\":4,\"successClear\":true,\"skillMatch\":\"Match\"}],\"p4\":{\"realistic\":\"Achievable\",\"reviewer\":\"Daniel Johnson\",\"freq\":\"Weekly\",\"blockers\":\"Unclear target definitions\",\"changes\":\"Upgrade our core stack\",\"meetingRatio\":29,\"enthusiasm\":5},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 53,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "John Garcia",
+        "department_name": "Engineering",
+        "payload": "{\"name\":\"John Garcia\",\"dept\":\"Engineering\",\"supervisorName\":\"Daniel Johnson\",\"supervisorRole\":\"Junior Engineer\",\"status\":\"complete\",\"p1\":{\"orgHealth\":7,\"targetClarity\":6,\"weeklyHrs\":47,\"burnout\":3,\"capGap\":2,\"enthusiasm\":6},\"globalOrgHealth\":8,\"activities\":[\"Code Review\",\"Process Refinement\"],\"activityDetails\":[{\"name\":\"Code Review\",\"criticality\":\"Low\",\"percentTime\":17,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"},{\"name\":\"Process Refinement\",\"criticality\":\"Low\",\"percentTime\":28,\"engaged\":\"Disengaged\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Stretch\"}],\"p3\":{\"targetsAchievable\":\"Unrealistic\",\"whoReviews\":\"Daniel Johnson\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Resource delays\",\"improvements\":\"Streamline the approval process\",\"meetingsVsFocus\":67,\"enthusiasm\":6},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 54,
+        "company_id": 1,
+        "type": "worker",
+        "employee_name": "Emily Garcia",
+        "department_name": "HR",
+        "payload": "{\"name\":\"Emily Garcia\",\"dept\":\"HR\",\"roleTitle\":\"Manager\",\"supervisorName\":\"Lucas Gonzalez\",\"status\":\"complete\",\"p1\":{\"orgHealth\":7,\"targetClarity\":7,\"weeklyHrs\":49,\"burnout\":3,\"capGap\":5,\"legacyBurden\":26},\"activities\":[\"Strategy Sync\",\"Process Refinement\"],\"activityDetails\":[{\"name\":\"Strategy Sync\",\"contrib\":\"Med\",\"percentTime\":33,\"energy\":2,\"successClear\":true,\"skillMatch\":\"Overqualified\"},{\"name\":\"Process Refinement\",\"contrib\":\"Med\",\"percentTime\":37,\"energy\":1,\"successClear\":false,\"skillMatch\":\"Overqualified\"}],\"p4\":{\"realistic\":\"Achievable\",\"reviewer\":\"Lucas Gonzalez\",\"freq\":\"Weekly\",\"blockers\":\"Resource delays\",\"changes\":\"More flexible working hours\",\"meetingRatio\":26,\"enthusiasm\":8},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 55,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "Emily Garcia",
+        "department_name": "HR",
+        "payload": "{\"name\":\"Emily Garcia\",\"dept\":\"HR\",\"supervisorName\":\"Lucas Gonzalez\",\"supervisorRole\":\"Manager\",\"status\":\"complete\",\"p1\":{\"orgHealth\":9,\"targetClarity\":7,\"weeklyHrs\":41,\"burnout\":2,\"capGap\":3,\"enthusiasm\":17},\"globalOrgHealth\":9,\"activities\":[\"Resource Allocation\",\"Code Review\",\"Strategy Sync\"],\"activityDetails\":[{\"name\":\"Resource Allocation\",\"criticality\":\"Med\",\"percentTime\":27,\"engaged\":\"Active\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"},{\"name\":\"Code Review\",\"criticality\":\"Low\",\"percentTime\":35,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"},{\"name\":\"Strategy Sync\",\"criticality\":\"Med\",\"percentTime\":12,\"engaged\":\"Active\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Mismatch\"}],\"p3\":{\"targetsAchievable\":\"Neutral\",\"whoReviews\":\"Lucas Gonzalez\",\"reviewFrequency\":\"Weekly\",\"blockers\":\"Resource delays\",\"improvements\":\"More flexible working hours\",\"meetingsVsFocus\":30,\"enthusiasm\":11},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 1,
+        "created_at": "2026-03-29 08:31:20"
+      },
+      {
+        "id": 61,
+        "company_id": 1,
+        "type": "ceo_audit",
+        "employee_name": "George",
+        "department_name": "Executive",
+        "payload": "{\"supervisorName\":\"Alice Smith\",\"p1\":{\"clarity\":3,\"weeklyHrs\":40,\"burnout\":3,\"capabilityGap\":5},\"activities\":[\"attend to use feed backs of the products\",\"responsible of smooth delivery of products to market\",\"making new products\"],\"status\":\"complete\",\"name\":\"George\",\"dept\":\"Executive\",\"activityDetails\":[{\"name\":\"attend to use feed backs of the products\",\"criticality\":\"High\",\"percentTime\":14,\"engaged\":\"Neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"},{\"name\":\"responsible of smooth delivery of products to market\",\"criticality\":\"High\",\"percentTime\":36,\"engaged\":\"neutral\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"},{\"name\":\"making new products\",\"criticality\":\"Med\",\"percentTime\":20,\"engaged\":\"low\",\"goodDefined\":\"No\",\"skillMatch\":\"Match\"}],\"p3\":{\"targetsAchievable\":\"Neutral\",\"whoReviews\":\"\",\"reviewFrequency\":\"Yearly\",\"blockers\":\"too much meetings\",\"improvements\":\"delegate his work\",\"meetingsVsFocus\":71,\"enthusiasm\":4}}",
+        "is_ai": 0,
+        "created_at": "2026-03-29 09:45:10"
+      },
+      {
+        "id": 64,
+        "company_id": 1,
+        "type": "ceo_audit",
+        "employee_name": "Ann",
+        "department_name": "Executive",
+        "payload": "{\"supervisorName\":\"Alice Smith\",\"p1\":{\"clarity\":7,\"weeklyHrs\":40,\"burnout\":4,\"capabilityGap\":5},\"activities\":[\"recruitments\",\"handle staff matters\"],\"status\":\"complete\",\"name\":\"Ann\",\"dept\":\"Executive\",\"activityDetails\":[{\"name\":\"recruitments\",\"criticality\":\"Med\",\"percentTime\":45,\"engaged\":\"high\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"},{\"name\":\"handle staff matters\",\"criticality\":\"Med\",\"percentTime\":78,\"engaged\":\"high\",\"goodDefined\":\"Yes\",\"skillMatch\":\"Match\"}],\"p3\":{\"targetsAchievable\":\"Neutral\",\"whoReviews\":\"\",\"reviewFrequency\":\"Yearly\",\"blockers\":\"too much meetings\\ntoo much documentation\",\"improvements\":\"delegate work to others\\ngoing paperless \",\"meetingsVsFocus\":68,\"enthusiasm\":4}}",
+        "is_ai": 0,
+        "created_at": "2026-03-29 09:48:13"
+      },
+      {
+        "id": 71,
+        "company_id": 1,
+        "type": "ceo_audit",
+        "employee_name": "Lucas Davis",
+        "department_name": "Executive",
+        "payload": "{\"supervisorName\":\"Alice Smith\",\"p1\":{\"clarity\":4,\"weeklyHrs\":40,\"burnout\":5,\"capabilityGap\":5},\"activities\":[\"train junior staff\",\"managing people\"],\"status\":\"complete\",\"name\":\"Lucas Davis\",\"dept\":\"Executive\",\"activityDetails\":[{\"name\":\"train junior staff\",\"criticality\":\"Med\",\"percentTime\":27,\"engaged\":\"neutral\",\"goodDefined\":\"Pending\",\"skillMatch\":\"Match\"},{\"name\":\"managing people\",\"criticality\":\"Low\",\"percentTime\":57,\"engaged\":\"neutral\",\"goodDefined\":\"Pending\",\"skillMatch\":\"Match\"}],\"p3\":{\"targetsAchievable\":\"Neutral\",\"whoReviews\":\"\",\"reviewFrequency\":\"Yearly\",\"blockers\":\"lack of experience\",\"improvements\":\"need more training \",\"meetingsVsFocus\":68,\"enthusiasm\":2}}",
+        "is_ai": 0,
+        "created_at": "2026-03-29 10:31:57"
+      },
+      {
+        "id": 72,
+        "company_id": 1,
+        "type": "supervisor",
+        "employee_name": "Lucas Davis",
+        "department_name": "Executive",
+        "payload": "{\"name\":\"Lucas Davis\",\"dept\":\"Executive\",\"supervisorName\":\"Alice Smith\",\"supervisorRole\":\"Manager\",\"status\":\"complete\",\"p1\":{\"clarity\":4,\"weeklyHrs\":40,\"burnout\":5,\"capabilityGap\":5},\"globalOrgHealth\":8,\"activities\":[\"train junior staff\",\"managing people\"],\"activityDetails\":[{\"name\":\"train junior staff\",\"criticality\":\"Med\",\"percentTime\":27,\"engaged\":\"neutral\",\"goodDefined\":\"Pending\",\"skillMatch\":\"Match\"},{\"name\":\"managing people\",\"criticality\":\"Low\",\"percentTime\":57,\"engaged\":\"neutral\",\"goodDefined\":\"Pending\",\"skillMatch\":\"Match\"}],\"p3\":{\"targetsAchievable\":\"Neutral\",\"whoReviews\":\"\",\"reviewFrequency\":\"Yearly\",\"blockers\":\"lack of experience\",\"improvements\":\"need more training \",\"meetingsVsFocus\":68,\"enthusiasm\":2},\"is_ai\":true,\"batch_uuid\":\"batch_1774772662747\"}",
+        "is_ai": 0,
+        "created_at": "2026-03-29 10:31:57"
+      }
+    ],
+    "nlp_signals": []
+  }
+}

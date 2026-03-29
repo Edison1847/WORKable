@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(start cmd:*)",
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(1 python -c \":*)",
+      "Bash(npm run:*)",
+      "Bash(npm install:*)",
+      "Bash(find D:/Projects/Analogy/Workable_1/WebApp -name *.db -o -name *lightsql* -o -name *light*sql*)",
+      "Bash(sqlite3 \"D:/Projects/Analogy/Workable_1/WebApp/server/workable.db\" \".tables\")",
+      "Bash(find D:ProjectsAnalogyWorkable_1WebApp -type f \\\\\\(-name *.config.* -o -name *.conf -o -name *.env* -o -name appsettings* -o -name web.config \\\\\\))",
+      "Bash(find D:ProjectsAnalogyWorkable_1WebApp -type f -name *.json -path */server/* ! -path */node_modules/*)",
+      "Bash(find D:ProjectsAnalogyWorkable_1WebAppserver -type f ! -path */node_modules/*)",
+      "Bash(grep -E \"\\\\.\\(js|ts|jsx|tsx\\)$\")",
+      "Bash(ls:*)",
+      "Bash(sqlite3 workable.db \".tables\")",
+      "Bash(where sqlite3:*)",
+      "Bash(where sqlite3.exe)",
+      "Bash(node -e \":*)",
+      "Bash(xargs grep:*)",
+      "Bash(node backfill_nlp.js)",
+      "WebFetch(domain:localhost)",
+      "Bash(grep -r \"form\\\\|submit\\\\|input\" /d/Projects/Analogy/Workable_1/WebApp/main-dashboard/src --include=*.tsx --include=*.ts -l)"
+    ]
+  }
+}

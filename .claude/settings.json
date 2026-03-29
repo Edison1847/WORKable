@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \":*)",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//d/Projects/Analogy/Workable_1/WebApp/main-dashboard/src/components/**)",
+      "Bash(curl -s http://localhost:3000/api/intake)"
+    ]
+  }
+}

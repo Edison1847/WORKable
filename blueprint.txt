@@ -1,0 +1,595 @@
+
+
+INNOVATION QUOTIENT (PVT) LTD  —  www.iq.lk
+Master Architecture Blueprint  ·  Version 5.0  ·  March 2026  ·  Pre-Build Review
+WORKable
+Next-Generation Organisational Intelligence Platform
+Human Performance Analytics  ·  Decision Automation  ·  Continuous Learning
+STATUS
+Pre-Build Review — Internal
+DATE
+March 2026
+VERSION
+v5.0 — Full Architecture
+CLASSIFICATION
+Confidential — Not for Distribution
+WORKable
+"Turning subjective work experience into objective operational intelligence."
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 2
+INTRODUCTION & STANDARD VARIABLES
+About This Document  ·  Tag Legend  ·  Variable Taxonomy
+WORKable — Master Architecture Blueprint v5.0
+WORKable  is  a  next-generation  organisational  intelligence  platform  that  continuously  diagnoses  how  work
+actually  happens  inside  a  company  and  converts  it  into  clear,  actionable  decisions  that  improve  efficiency,
+reduce cost, and enhance human performance. This blueprint documents the complete architecture of version
+5.0  —  all  five  layers,  the  continuous  learning  loop,  the  AI  architecture,  and  all  innovations  introduced  in  this
+version.
+Tag Legend
+[DEMO]  =  new  innovation  added  in  v5  for  demo  contrast  against  v4  baseline.  [online]  =  requires  live  internet  data
+feed. [FUTURE] = concept confirmed for roadmap — not in current build scope.
+Standard Variable Taxonomy — ISO 30414:2023 Aligned
+CODEVARIABLE NAMEDEFINITIONSTANDARD
+HC-EFF-001Human System Index (HSI)Composite org performance 0–100, 5 dimensionsISO 30414
+HC-EFF-002Wasted Salary Ratio (WSR)% salary on low-value or mismatched workISO 30414 / GRI 404
+HC-EFF-003Revenue per Human Capital UnitRevenue per HSI unit — efficiency measureSEC S-K / ISO 30414
+HC-WEL-001Burnout Risk Index (BRI)% workforce at critical wellbeing thresholdGRI 403 / ISO 30414
+HC-WEL-002Recovery Depth Score (RDS)Avg days/month genuinely recovered (0–31)GRI 403
+HC-WEL-003Cognitive Load Ratio (CLR)Meeting hours as % of total working hoursWEF HCI
+HC-ALN-001Alignment Gap Index (AGI)Avg gap worker/manager signal scoresISO 30414
+HC-ALN-002Manager Blind-Spot Score (MBS)Per-manager perception gap vs direct reportsISO 30414
+HC-CAP-001Capability Fit Score (CFS)% activities where skill matches task demandISO 30414 / GRI 404
+HC-CAP-002Skill Underutilisation Rate (SUR)% workforce with capability above task demandWEF HCI / ISO 30414
+HC-RET-001Attrition Risk Cost (ARC)Financial exposure from high-risk individualsSEC S-K / GRI 401
+HC-RET-002Temporal Drift Index (TDI)% workforce materially diverged from role defISO 30414
+HC-ENT-001Org Entropy Score (OES)Signal incoherence measure 0–100WEF HCI
+HC-ENT-002Crisis Proximity Index (CPI)Distance from human system crisis 0–100ISO 30414
+HC-FIN-001Human Capital ROI (HCROI)Revenue per $1 salary adjusted for wasteSEC S-K / ISO 30414
+HC-FIN-002Cost of Inaction (CoI)Monthly accumulation on unactioned nudgesSEC S-K
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 3
+HC-FIN-003Human Capital Statement (HCS)ISO 30414 standardised financial documentISO 30414 / GRI / SEC S-K
+HC-BIO-001Org Biological Age (OBA)True functional age vs chronological age [FUTURE]WEF HCI / ISO 30414
+HC-BRD-001Employer Brand Health ScoreInternal HSI vs external perception gap [online]GRI 401 / SEC S-K
+HC-SUC-001Successor Readiness Index (SRI)% critical roles with ready internal successorISO 30414 / SEC S-K
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 4
+SECTION 01
+Platform Definition & Core Proposition
+WORKable is not a survey tool, a consulting report, or a static analytics dashboard. It is a diagnostic engine that
+learns from every intervention and becomes progressively more accurate over time. It creates a new category
+— Objective Human System Intelligence.
+#CORE QUESTIONHOW WORKABLE ANSWERS IT
+01Are employees doing the right work?Structural clarity audit — supervisor vs worker task alignment
+02Are they using the right skills?Human-task fit analysis — capability vs activity matching
+03Are they paying a hidden biological or cognitive cost?Engagement & wellbeing signals — burnout, fatigue, recovery
+COMPETITIVE ADVANTAGEWHAT IT MEANS
+Objective measurementStructured operational data — not opinion surveys
+Direct financial linkageEvery insight converted to a dollar figure — wasted salary, attrition cost, revenue uplift
+Scalable via AIDeep reveals engine runs across entire organisation simultaneously
+Compounding advantageSystem learns from every completed action — accuracy improves with each audit cycle
+Proprietary datasetIntervention outcomes build a dataset no competitor can replicate
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 5
+SECTION 02
+Architecture Overview — 5 Layers + Continuous Learning Loop
+Data  flows  from  L1  (input)  →  L2  (store)  →  L3  (thinking)  →  L4  (decision)  →  L5  (interaction).  The  continuous
+learning loop feeds completed action outcomes back to L1, making the system progressively smarter over time.
+LAYERROLEKEY COMPONENTS
+L5 — Interaction SystemThe face — what leaders see and act onMain dashboard · Manager views · 3D Org Digital Twin · Auto-Priority Board · Nudge cards · 4 PDF deliverables · Benchmarking
+L4 — Decision & ActionThe judgment — from insight to recommendationRule-based recommendations · Simulation engine · Nudge mechanism · Action state bridge (Pending→Completed)
+L3 — Thinking SystemThe brain — four tiers of progressive intelligenceTier A: Signal prep · Tier B: 13 direct analytics · Tier C: 30+ deep reveals · Tier D: HSI · Culture · Financial impact
+L2 — Data StoreThe memory — structured storage with separation enforcementTime-series · Graph · Relational · Longitudinal audit · Separation enforcement · Semantic embedding
+L1 — Input SystemThe senses — structured dual-input collection per activityCompany onboarding · Worker profile · 14 diagnostic questions · Worker and manager independent
+Learning LoopOutcomes → Model improvementCompleted actions → Signal delta measured → Model updated → Smarter decisions (Intervention Genome)
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 6
+SECTION 03
+Layer 1 — Input System
+Unit  of  analysis:  each  individual  work  activity  —  not  the  person  as  a  whole.  Worker  and  manager  answer
+independently. The gap between their views is the primary data source.
+[DEMO] Progressive Disclosure Onboarding
+Questions  released  in  stages  based  on  completion  state  and  role  context.  Prevents  cognitive  overload,  improves
+data quality. Unlocks deeper tiers only when prior tiers are complete.
+[DEMO] First Pulse — 3-Question Pre-Diagnostic
+60-second LLM-powered pre-diagnostic before full onboarding. Captures the three most urgent signals. Produces an
+immediate preliminary read on the organisation. AI type: LLM with structured context.
+[DEMO] Emotional Tone Layer on Free Text
+NLP classifier (sentiment + urgency) on Q9 (blockers), Q11 (improvements), Q14 (recovery). Detects fear patterns,
+resignation language, and urgency spikes. AI type: NLP classifier.
+[DEMO] Consistency Fingerprinting
+Detects  statistical  anomalies  in  worker  response  patterns  within  a  single  audit  cycle.  Flags  implausibly  uniform  or
+internally inconsistent responses. AI type: ML anomaly detection.
+[DEMO] Worker Trust Score
+Composite response reliability measure — consistency fingerprint + audit stability + emotional tone. Used for internal
+signal weighting. Never shown to the worker. AI type: ML composite model.
+[DEMO] Temporal Drift Signal
+Compares each worker's activity description embedding across consecutive audit cycles. Material divergence flags
+role drift. Powers HC-RET-002 Temporal Drift Index. AI type: embedding + cosine similarity.
+Company Onboarding — One-Time Setup
+SECTIONDATA COLLECTEDTAG
+Company profileName, industry, headcount, departments, currency, financial year—
+Org structureDepartment names, heads, headcount per team, reporting lines—
+Role & salary bandsRole titles, seniority grades, min/max salary bands per roleHC-EFF-002
+Direct report relationshipsEmployee name, role, direct manager, department — or CSV upload—
+Financial targetsAnnual revenue target, total salary budget. Auto-calculated: revenue/employee, salary % revenueHC-EFF-003
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 7
+Worker Profile — One-Time Onboarding
+SECTIONDATA COLLECTEDTAG
+Basic profileRole title, department, direct manager, employment type—
+ExperienceYears total experience, years in current roleExtra
+QualificationHighest relevant qualification, field of study, certificationsExtra
+Skill proficiencySelf-rated proficiency per skill (1–5 scale), pre-populated from role titleExtra
+Work contextPrimary location, typical hours/day, meetings/week, collaboration styleExtra
+The 14 Diagnostic Questions
+#WORKER QUESTIONMANAGER QUESTIONTAG
+1List the main activities you actually do regularlyList activities you expect this person to perform regularly—
+2How much does each activity contribute to meaningful results?How critical is each activity to business outcomes?—
+3What % of your working week does each activity consume?What % of this person's week do you expect each activity to take?—
+4How energised or drained do you feel doing each activity?Does this person appear engaged performing each activity?—
+5Do you know exactly what a successful outcome looks like?Have you clearly defined what "good" looks like?—
+6Do the targets feel realistic given your time and resources?Are the targets you set genuinely achievable?—
+7Who reviews your work? Is accountability clear and fair?Who is responsible for reviewing this person's work?—
+8How often is your work reviewed? Is oversight appropriate?How frequently do you review this person's output?—
+9What slows you down? Name specific blockersWhat prevents this person from full effectiveness?—
+10Taking your full workload — how sustainable is it?Worker-only by design—
+11What one or two changes would most improve your best work?What changes would most improve this person's effectiveness?—
+12Meetings vs focused work proportion? [cognitive load signal]Worker-only by designExtra
+13Manager-only by designRate this person's skill match per activity: Stretched/Matched/UnderutilisedExtra
+14How many days this month did you feel genuinely recovered? [recovery signal]Worker-only by designExtra
+15Who are the 3 people you rely on most to get work done? [shadow org signal]Worker-only by design[DEMO]
+16Avg days work is delayed waiting for manager decisions? [latency signal]Worker-only by design[DEMO]
+17Did the last management action improve your effectiveness? [learning loop]Worker-only by design[DEMO]
+
+Anonymous Psychological Safety Layer [DEMO]
+"This layer is strictly anonymous and aggregated at the department level (min N=5) to protect individual identity."
+#ANONYMOUS QUESTIONTARGET ANALYTICSTAG
+1Do you feel safe to challenge decisions without fear of consequences?Voice Suppression[DEMO]
+2Is leadership communication perceived as honest and transparent?The Mirror[DEMO]
+3Are there informal power dynamics that bypass the org chart?Shadow Organisation[DEMO]
+4Does management focus more on results or time-surveillance?Fear/Surveillance[DEMO]
+5Is there a 'blame culture' when things go wrong?Dark Energy Report[DEMO]
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 8
+SECTION 04
+Layer 2 — Data Store
+Layer 2 transforms, structures, and stores raw inputs — and enforces the rules that make the data trustworthy.
+Separation enforcement is the architectural trust guarantee.
+Separation Enforcement — The Trust Guarantee
+Worker  and  manager  answers  are  stored  in  completely  separate  tables  with  a  database-level  rule  preventing
+any direct join without passing through the comparison engine. If workers believed their manager could see their
+raw responses, they would answer strategically and all diagnostic value would collapse.
+[DEMO] Separation Enforcement — Immutable Audit Log
+Every access to the separation layer is cryptographically logged. Attempts to join worker and manager tables outside
+the controlled comparison engine produce an alert and are written to an append-only tamper-evident audit log. This
+is a GDPR, POPIA, and PDPA compliance mechanism.
+STOREWHAT IT HOLDSPOWERS
+Time-seriesEvery numerical signal per person per activity per audit dateTrend detection, Chronic Overload Loop, Future State Engine
+Graph storeRelationships between entities — people, roles, teams, activitiesOrg twin layout, hidden network detection, Shadow Org View
+RelationalStructured reference data — worker profiles, onboarding, salary bandsFinancial model, manager effectiveness, all reporting
+Longitudinal auditAppend-only complete org-wide snapshots frozen at a point in timeVoice Suppression detection, Org Memory System, benchmarking
+Semantic Embedding Layer — Hidden Work Detection
+Converts free-text activity descriptions into numerical vectors. Similarity score below threshold (default 0.4) flags
+the activity as hidden work. AI type: embedding model.
+[DEMO] Organisational Dark Matter
+Hidden work activities are clustered spatially. When multiple workers in the same department independently report
+activities  not  appearing  in  any  manager's  expected  list,  these  form  a  Dark  Matter  cluster  —  work  the  organisation
+funds but does not officially recognise or manage.
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 9
+SECTION 05
+Layer 3 — Thinking System
+Tier A — Signal Preparation
+SUB-LAYERINPUTSCOMPUTESOUTPUTS TO TIER B/C/D
+Structural clarity auditQ1,Q2,Q3,Q5,Q7,Q8,Q9 — worker vs managerAlignment Score (0–100)Prepared signals + alignment score + completeness flag
+Human-task fit analysisQ4, Q6, Q13 (manager), worker skill profileCapability Fit Score (0–100)Prepared signals + capability score + completeness flag
+Engagement & wellbeingQ4, Q10, Q14 + HRV (Calmable premium)Wellbeing Risk Score (0–100)Unified energy signal + wellbeing score + completeness flag
+[DEMO] Reveal Confidence Scores (Bayesian)
+Each fired reveal carries a confidence score: sample size × audit cycle count × response consistency. Confidence
+gates whether a reveal reaches the nudge queue. AI type: Bayesian model.
+[DEMO] Tier B Trend Velocity
+Every Tier B signal carries a velocity arrow: improving fast / stable / declining fast. Computed from rate of change
+across last 2–3 audit cycles. A declining 6/10 is different from a stable 6/10.
+Tier B — 13 Direct Analytics Signals
+SIGNALSOURCE QWHAT IT SHOWSCODE
+Time allocationQ3 workerActual % of week per activityHC-EFF-002
+Perceived value scoreQ2 workerWorker rating of activity contribution (0–10)—
+Strategic value scoreQ2 managerManager rating of activity importance (0–10)—
+Motivation indexQ4 workerEnergy / drain level per activityHC-WEL-001
+Goals clarity levelQ5 worker + mgrWhether success criteria understood by both sides—
+Fairness scoreQ6 workerPerceived workload realism (0–10)—
+Ownership mapQ7 worker + mgrClarity of accountability per activity—
+Monitoring cadenceQ8 worker + mgrActual vs expected oversight frequency—
+Blocker mapQ9 worker + mgrFriction sources from both perspectives—
+Work sustainabilityQ10 workerOverall workload health (0–10)HC-WEL-001
+Meeting load ratio HQ12 workerMeetings vs deep work proportionHC-WEL-003
+Capability fit HQ13 managerStretched / Matched / Underutilised per activityHC-CAP-001
+Recovery index HQ14 workerDays per month feeling genuinely recoveredHC-WEL-002
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 10
+Tier C — Deep Reveals Engine (30+ Named Reveals)
+CATEGORYNAMED REVEALSKEY FORMULA
+Efficiency & wasteHigh Time–Low Value, High Time–High Friction, Effort Misallocation, Over-Engineered WorkQ3>30% AND Q2<4/10
+Energy & sustainabilityHigh Time–Low Happiness, Health Risk, Target Unrealism, Activity–Skill MismatchQ3>30% AND Q4<4/10
+Alignment gapsValue Misalignment, Time Expectation Gap, Strategic Blind Spot, Friction Visibility Gap|Q2w − Q2m| > 3 pts
+Execution & qualityHigh Value–Low Clarity, High Value–Low Oversight, Accountability GapQ2>7/10 AND Q5<5/10
+Opportunity & growthHigh Value–Low Time, Under-Supported Critical Work, Motivation–Value DisconnectQ2>7/10 AND Q3<10%
+Hidden & structuralHidden Work (embedding-matched), Oversight ImbalanceQ1 similarity < 0.4
+Burnout & sustainabilityChronic Overload Loop, High Effort–Low Meaning, Friction Fatigue, Support VoidQ3>30% AND Q2<4 AND Q6<5
+Culture & operating modelFear/Surveillance, Neglect Culture, Role Ambiguity, Bureaucratic Drag, Voice SuppressionQ8 high AND Q2 low (>60% team)
+[DEMO] Cross-Person Reveal Clustering
+When  the  same  reveal  fires  for  multiple  people  in  the  same  team  +  timeframe,  it  becomes  a  cluster.  Cluster  =
+systemic pattern, not individual issue. AI type: spatial/temporal association rule mining.
+[DEMO] Reveal Interaction Map (Syndrome Pairs)
+Identifies co-occurrence patterns in reveals. High Effort–Low Meaning + Support Void = burnout syndrome. Labels
+them as named syndromes with combined financial impact and compound action. AI type: association rule mining.
+[DEMO] Organisational Immune System
+Detects self-opposition patterns — reveals actively working against each other. A Reallocate nudge accepted while
+Target Unrealism is also active = the interventions cancel each other. AI type: constraint satisfaction model.
+[DEMO] Organisational Entropy Score (OES) — HC-ENT-001
+Weighted variance across all Tier B signals for all people in all activities. High entropy = the organisation is pulling in
+many directions simultaneously. Entropy rising over consecutive cycles is the earliest leading indicator of a human
+system crisis. AI type: statistical variance model — deterministic by design.
+Tier D — Computed Outputs
+OUTPUTHOW COMPUTEDBUSINESS VALUECODE
+Human System Index (HSI)
+0–100
+Five dimensions fed by Tier A + Tier C: Efficiency, Alignment, Capability, Energy (inverted), ExecutionSingle CEO number. Trend shows whether org is improving.HC-EFF-001
+Culture diagnosticsWhen 60%+ of a team shows same reveal pattern: Misaligned Priorities, Fear/Surveillance, Neglect, Role Ambiguity, Bureaucratic Drag, Voice SuppressionSystemic conditions vs individual performance issues.—
+Financial impact model HReveals × salary bands × time allocation (Q3). Produces: wasted salary, revenue uplift, attrition risk cost, cost of inaction, total recoverable value.Translates every finding into a business case.HC-FIN-001
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 11
+SECTION 06
+Layer 4 — Decision & Action
+Rule-Based Recommendations — Full Action Taxonomy (8 Types)
+FIRED REVEALACTION TYPEWHAT IT MEANS
+High time – low valueEliminate or AutomateRemove or automate — consumes salary without sufficient return
+High frictionRedesignProcess or system is broken — redesign the workflow, not the person
+High value – low timeReallocateCritical work under-resourced — shift capacity toward it
+Low goals clarityClarifySuccess criteria undefined — manager must set explicit standards
+Target unrealismRe-scopeExpectations unachievable — targets must be adjusted to reality
+Accountability gapCoach / ReviewOwnership unclear — management conversation and clarification needed
+Support void under loadSupportWorker overloaded and under-supported — specific intervention required
+Activity–skill mismatchReallocate or Re-scopePerson mismatched to the work — reassign or redefine the role
+[DEMO] Action Sequencing — Dependency Graph + Prescribed Order
+Actions  are  not  independent.  Clarify  must  precede  Coach.  Re-scope  must  precede  Reallocate.  Every  Action
+Command Centre output includes a prescribed execution order. AI type: constraint-satisfaction dependency graph.
+[DEMO] Inaction Cost Clock — Daily $ Accumulator
+Every pending nudge carries a daily financial counter. The clock starts the moment the nudge fires and increments
+daily  by  the  pro-rated  financial  impact.  Current  total:  $71,000/month.  AI  type:  deterministic  arithmetic  —  no  AI  by
+design (auditability requirement).
+[DEMO] Pre-Mortem Engine
+Given current reveal trajectories, projects the most probable adverse outcome sequence if no action is taken — and
+identifies the minimum intervention set that breaks the chain at the earliest point. AI type: LLM with pre-fetched signal
+context. Upgrades to agent when signal history exceeds context window.
+[DEMO] Intervention Genome — Multi-Dimensional Outcome Prediction
+The  core  long-term  moat.  Every  completed  action  stored  with:  reveal  type,  action  type,  org  context,  time  to
+completion, signal delta at next audit. Powers prediction: given this reveal in this org context, which action produces
+the best outcome? AI type: ML outcome prediction model — trained continuously.
+[DEMO] What-If Studio
+Open-ended  NL  scenario  simulation.  Manager  types  any  scenario  in  plain  English.  An  agent  translates  it  into
+simulation parameters, runs multiple variants, and returns ranked outcome comparison. AI type: genuine agentic —
+open-ended NL → simulation calls → multi-step reasoning → explanation.
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 12
+Action State Bridge
+STATEDEFINITIONLEARNING LOOP ROLE
+PendingNudge generated — manager has not yet respondedBaseline recorded
+AcceptedManager committed to the action — clock startsTime-to-acceptance metric
+In ProgressAction underway — system monitors signals for changeReal-time signal tracking begins
+CompletedAction done — outcome measured at next audit cycleSignal delta recorded: did it work?
+DismissedManager chose not to act — reason optionally capturedDismissal pattern analysis
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 13
+SECTION 07
+Layer 5 — Interaction System
+Layer 5 is the only layer a user ever directly sees. Five distinct surfaces.
+SURFACEKEY CONTENTPRIMARY USER
+Main dashboardHSI + 5 dimension bars · Signal Pulse strip (5 direct signals + velocity + sparklines) · Signal Correlation Map · Living Signal Narrative · Action Command Centre (all 8 types, 4 urgency bands) · Signal-to-Action trace · Bottleneck map · Perception gap · Top 10 value leaks · Dept heatmap · Risk radar · Workflow snapshot · Benchmarking · Manager effectiveness · Culture diagnosticsCEO, COO, HR Director
+Manager dashboardDirect reports signals · Nudge cards addressed to this manager · Team alignment · Capability fit · Wellbeing riskDepartment managers
+3D Org Digital TwinDepts as nodes colour-coded by HSI · dependency flows · click-to-drill into any team's revealsCEO, board
+4 PDF documentsBoard Intelligence Report · Executive Action Plan · HR Intelligence Report · Manager Field GuideBoard, exec, HR, managers
+Insights & benchmarkingInnovation potential · Burnout % by level · Resignation trends · Emerging conflicts · Peer benchmarkingHR Director, C-suite
+Direct Signals — Signal Pulse Strip (Dashboard)
+SIGNALSOURCEDASHBOARDDOCUMENTSCODE
+TimeQ3 — % week per activityLive gauge + velocity—HC-EFF-002
+ValueQ2 — perceived + strategic scoreLive gauge + velocity——
+MotivationQ4 — energy/drain per activityLive gauge + velocityHR ReportHC-WEL-001
+ControlQ7+Q8 — oversight + accountabilityLive gauge + velocityBoard Report—
+FrictionQ9 — blockers + systemic issuesLive gauge + velocityExecutive Action Plan—
+Deep Reveals — Dashboard + Document Placement
+REVEALDASHBOARD PANELDOCUMENTORG HEALTH MAP QUADRANT
+WasteTop 10 Value Leaks (ranked by $)Board + Executive Action PlanTop-left (red urgency)
+MisalignmentSupervisor–subordinate perception gapBoard ReportBottom-left (blue — conversation needed)
+RiskRisk Radar panelBoard + HR ReportTop-right (amber urgency)
+OpportunityValue Leaks (green rows)Executive Action Plan (dedicated section)Bottom-right (green — growth upside)
+[DEMO] Signal Correlation Map
+Shows  which  two  direct  signals  are  most  tightly  coupled  this  cycle  and  what  the  combination  diagnoses:
+Time↑+Friction↑  =  broken  process.  Motivation↓+Value↓  =  meaning  crisis.  Control↑+Motivation↓  =  surveillance
+culture. One sentence below the signal strip.
+[DEMO] Living Signal Narrative — Narrative Intelligence Header
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 14
+LLM-generated paragraph synthesising all 5 direct signals + 4 deep reveals into one coherent organisational story.
+Updated  every  audit  cycle.  No  dashboard  literacy  required.  AI  type:  LLM  with  structured  Tier  D  context  —  not  an
+agent.
+[DEMO] Signal-to-Action Trace
+Every  nudge  card  shows  the  exact  signal  chain:  "Time  (Q3:  38%)  →  High  Time–Low  Value  reveal  →  Eliminate
+recommendation → $148K recoverable." Three steps, one line. Makes WORKable's reasoning visible and therefore
+credible. Directly increases action rate.
+[DEMO] Action Command Centre — Primary Dashboard Panel
+Replaces  the  2×2  matrix  on  the  live  dashboard.  47  recommendations  in  4  urgency  bands:  Act  Now  (Redesign,
+Reallocate) · Plan This Quarter (Automate, Eliminate, Re-scope) · People Actions (Clarify, Support, Coach/Review) ·
+Monitor. Each carries: value, confidence, time-to-impact. The 2×2 matrix appears in the PDF Executive Action Plan
+as a strategic board categorisation tool.
+[DEMO] Dark Energy Report
+LLM  agent  surfaces  invisible  forces:  voice  suppression,  fear  culture,  role  ambiguity  accumulation,  chronic  friction
+tolerance. Standalone section in Board Intelligence Report. AI type: LLM agent with retrieval from longitudinal audit
+store.
+[DEMO] Crisis Proximity Index (CPI) — HC-ENT-002
+ML  model  trained  on  pre-crisis  signal  patterns.  Produces  0–100  proximity  score.  When  CPI  >  60,  system
+automatically  escalates  nudge  priority  and  surfaces  pre-mortem  timeline.  AI  type:  ML  classifier  trained  on
+intervention genome.
+[DEMO] Successor Readiness Map — HC-SUC-001
+Signal fingerprint similarity: each worker's multi-dimensional signal vector compared against the fingerprint of roles to
+be  succeeded.  Produces  readiness  score  and  development  gap  in  months.  Requires  2+  audit  cycles.  AI  type:
+embedding + similarity model.
+[DEMO] Human Capital Statement — HC-FIN-003
+ISO 30414:2023 standardised financial-format document. Auto-generated from Tier D by LLM formatter. All 20 HC-
+coded variables included. Delivered in Board Intelligence Report.
+[DEMO] Signal Fingerprinting
+Each person and role represented as a multi-dimensional vector across Tier B signals. Enables: role matching, team
+composition analysis, redeployment candidate identification. AI type: embedding + similarity model.
+[DEMO] Signal Comparison Mode
+Split-panel view comparing any two entities or time periods side by side. Delta between panels highlighted in colour.
+Available in both dashboard and PDF.
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 15
+[DEMO] Living Org Story
+LLM-generated  longitudinal  narrative  timeline  —  the  story  of  how  the  org's  human  system  has  evolved  across  all
+audit cycles. Delivered in Board Intelligence Report. AI type: LLM with full longitudinal audit store context.
+[DEMO] Manager Blind-Spot Score
+Average absolute gap between manager's perception and team's self-reported signals. Calculated per manager per
+audit cycle. Shown only to CEO in manager effectiveness panel. Never shown to the manager without a facilitated
+debrief context.
+[DEMO] Invisible Board Member — RAG Agent
+"What is our single biggest human capital risk?" → agent retrieves CPI, burnout cluster data, attrition risk cost and
+synthesises  a  board-quality  answer  in  real  time  during  board  meetings.  AI  type:  genuine  RAG  agent  —  unknown
+questions, real-time retrieval, multi-step reasoning.
+Online Features — Require Live Internet Data Feed
+[online] Industry Discourse Layer
+Retrieves the most relevant recent commentary from industry thought leaders on the exact reveals firing. When High
+Time–Low Value fires in Finance, surfaces what the smartest people in financial services are currently saying about
+finance function efficiency.
+[online] Competitor Talent Intelligence
+Monitors  public  signals  (job  postings,  LinkedIn  patterns,  Glassdoor  reviews)  from  identified  competitors  to  detect
+talent movement patterns that may affect the org's recruitment or retention position.
+[online] Employer Brand Health Score — HC-BRD-001
+Gap  between  internal  HSI  score  and  external  employer  perception  (public  review  platforms).  A  widening  gap  is  a
+leading indicator of recruitment difficulty within 2–3 quarters.
+[online] Cultural Contagion Tracker
+Identifies  cohorts  of  recent  hires  from  a  single  previous  employer  and  tracks  whether  their  behavioural  signal
+patterns are spreading to their current colleagues.
+[online] Economic Stress Correlator
+Maps external macro-economic indicators against internal wellbeing and motivation signals. Separates org-specific
+dysfunction from economy-driven stress. Prevents misattribution.
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 16
+SECTION 08
+Continuous Learning Loop
+STAGEWHAT HAPPENS
+Intervention triggeredA nudge card fires in L4 based on a Tier C reveal. Manager responds: Accept, In Progress, or Dismiss.
+Action executedManager implements the action. Status moves to Completed in the action state bridge.
+Outcome measuredAt next audit cycle, all relevant signals compared against pre-intervention baseline.
+Model updatedPositive outcomes reinforce reveal-to-action mapping. Negative outcomes analysed for pattern.
+Recommendations improveFuture recommendations for similar reveals in similar contexts are refined. Confidence scores increase.
+Data Captured per Completed Action (Intervention Genome)
+• Reveal type that triggered the nudge
+• Action type from the taxonomy (Eliminate, Automate, Redesign, Reallocate, Clarify, Re-scope, Support,
+Coach/Review)
+• Organisation context: industry, headcount, department type, HSI baseline
+• Time from nudge acceptance to completion
+• Signal delta at next audit: which signals improved, by how much, and how quickly
+• Manager effectiveness score before and after
+• Whether the same reveal re-fired within 2 audit cycles (insufficient action indicator)
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 17
+SECTION 09
+AI Architecture — Component-by-Component Classification
+COMPONENTAI TYPERATIONALE
+What-If Studio (L5)Genuine agentOpen-ended NL → simulation calls → multi-step reasoning. Cannot be done in one LLM call.
+Invisible Board Member (L5)Genuine RAG agentUnknown questions at runtime, real-time retrieval, multi-step synthesis.
+Dark Energy Report (L5)LLM + longitudinal retrievalComplex synthesis but predictable structure — one context window.
+Narrative Intelligence Header (L5)LLM with structured contextFixed output structure, all signals pre-fetched. Not an agent.
+Living Org Story (L5)LLM with longitudinal contextFull audit history injected — one LLM call sufficient.
+Human Capital Statement (L5)LLM formatterStructured financial document from structured data.
+Pre-Mortem Engine (L3/L4)LLM with pre-fetched signalsAt launch: one LLM call. Upgrade to agent when history too large.
+Conversational Diagnostic (L1)LLM with structured contextSingle context window. No tool calls needed at launch.
+Simulation Engine (L4)ML regression modelDeterministic outcome prediction. Not generative.
+Crisis Proximity Index (L5)ML classifierTrained on pre-crisis signal patterns. Supervised classification.
+Intervention Genome (L4)ML outcome predictionLongitudinal supervised learning from completed actions.
+Signal Fingerprinting (L5)Embedding + similarityVector comparison. No generative component.
+Temporal Drift (L1/L2)Embedding cosine similarityActivity description comparison across cycles.
+Semantic Embedding (L2)Embedding modelHidden work detection via meaning comparison.
+Cross-Person Reveal Clustering (L3)Association rule miningSpatial/temporal co-occurrence detection.
+Reveal Interaction Map (L3)Association rule miningSyndrome pair detection from reveal co-occurrence.
+Entropy Score (L3)Statistical variance modelDeterministic computation from Tier B signals.
+Consistency Fingerprinting (L1)ML anomaly detectionResponse pattern anomaly scoring.
+Trust Score (L1)ML composite modelMulti-signal reliability scoring.
+Emotional Tone Layer (L1)NLP classifierSentiment + urgency on free text. Not generative.
+Rule-based recommendations (L4)No AI — deterministic lookupAuditability requirement: every recommendation must be traceable.
+Separation enforcement (L2)No AI — database ruleLegal compliance mechanism. Must be deterministic and auditable.
+Inaction cost clock (L4)No AI — arithmeticSimple accumulator. Auditability requires transparency.
+HSI formula (L3)No AI — weighted formulaAuditable composite. Weights documented and fixed per version.
+3D Digital Twin (L5)No AI — graph renderingLayout from org graph data. No inference required.
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 18
+SECTION 10
+Executive Action Plan — Complete Section Map
+The  Executive  Action  Plan  is  the  second  of  the  four  PDF  deliverable  documents,  addressed  to  the  CEO  and
+COO. Every section below is fully implemented in the PDF with hypothetical data.
+Section 1: Counterfactual History — What Inaction Already Cost
+Financial  record  of  dismissed  recommendations  from  the  previous  cycle.  What  was  recommended,  confidence  at
+time,  what  happened,  estimated  cost  of  inaction.  Changes  the  psychological  frame  for  every  recommendation  that
+follows.
+[DEMO] Section 2: 2×2 Action Priority Matrix — Strategic Board Overview
+Cost-to-Implement  vs  Value-Recovered  2×2  matrix.  Quadrants:  Quick  Wins  (low  cost,  high  value),  Strategic
+Investments (high cost, high value), Deprioritise, Monitor. Used in the PDF for board-level categorisation. On the live
+dashboard,  the  Action  Command  Centre  replaces  this  —  it  organises  by  urgency  and  execution  type,  not  by
+cost/value classification.
+Section 3: Action Command Centre — All 8 Types, 4 Urgency Bands
+Complete list of all 47 recommendations: Act Now (Redesign, Reallocate) · Plan This Quarter (Automate, Eliminate,
+Re-scope)  ·  People  Actions  (Clarify,  Support,  Coach/Review)  ·  Monitor.  Each  action:  value  recovered,  confidence
+score, time-to-impact, department scope, assigned manager.
+[DEMO] Section 4: Signal-to-Action Trace
+Every action annotated with its signal chain: Q fired → reveal triggered → action type → financial impact. Complete
+transparency from raw data to recommendation.
+Section 5: 30-60-90 Day Sequenced Roadmap with Dependency Locks
+Phase  1:  stop  the  bleed  (zero-cost,  immediate).  Phase  2:  fix  foundations  (process  redesign,  4-6  weeks).  Phase  3:
+unlock the upside (redeployment, automation). Each phase: owner, dependency lock, signal target, value at stake.
+[DEMO] Section 6: Minimum Viable Org (MVO)
+If the org kept only activities scoring above value threshold — what would it look like? MVO table by dept: current vs
+MVO  headcount,  activities  retained/eliminated  %,  salary  cost  current  vs  MVO.  Not  a  redundancy  plan  —  a  clarity
+exercise showing the productive core.
+[DEMO] Section 7: Energy Budget — Cognitive Capacity as Financial Resource
+Total  cognitive  capacity  (headcount  ×  peak  hours  ×  working  days)  =  the  budget.  Current  allocation:  deep  work,
+meetings, admin, recovery, waste. Three actions to improve Cognitive ROI. Energy hours recovered × hourly cost =
+financial value.
+Section 8: Pre-Mortem Action Plan — The Crisis You Are Walking Toward
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 19
+Month-by-month narrative progression from current signals to board-level intervention if nothing changes. Then the
+three actions, taken in the next 30 days, that break the chain at Month 1 and prevent the entire sequence.
+[DEMO] Section 9: Human Capital Redeployment Plan
+Signal  fingerprint  analysis:  who  is  underutilised,  who  is  over-stretched,  and  which  open  needs  could  be  filled  by
+specific existing individuals. Fully costed: value unlocked minus transition cost.
+[DEMO] Section 10: Culture Prescription
+For each culture classification fired: clinical intervention protocol specifying which manager behaviours change first,
+which structural changes unlock the shift, which signals to monitor weekly, and expected timeline based on historical
+intervention genome data.
+Section 11: Peer Playbook — What Similar Companies Did
+For  each  major  reveal:  anonymised  intelligence  from  the  intervention  genome.  What  3  peer  companies  did  when
+they faced the same reveal in the same industry at similar scale. Each example: action taken, value recovered, time
+to impact.
+[DEMO] Section 12: Industry Norm Deviation
+Where  the  org  deviates  >1.5  standard  deviations  from  industry  norm.  Split  into:  Protect  Your  Advantages  (positive
+outliers) and Address Your Anomalies (dangerous outliers). Historical outcome correlation attached.
+[DEMO] Section 13: Opportunity Cost View — What the Org Could Become
+For every High Value–Low Time reveal: projected output if that activity received its optimal time allocation. Growth
+framing alongside the problem framing. "Additional $480,000 annually if three high-value activities received optimal
+time allocation."
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 20
+SECTION 11
+Global Standards Alignment
+STANDARDRELEVANCEWORKABLE OUTPUTS
+ISO 30414:2023
+Human Capital Reporting
+Only internationally recognised HC metrics standard. 11 reporting areas.HC- variable taxonomy · Human Capital Statement (HC-FIN-003) · All Tier D metrics
+GRI 401–404
+ESG Employment
+Most widely used ESG framework globally. Mandatory for ESG-reporting companies.Burnout % (GRI 403-9) · Capability fit (GRI 404-1) · Attrition cost (GRI 401-1)
+SASB Human CapitalIndustry-specific financially material HC metrics. Financial services, tech, manufacturing.Engagement index · Innovation potential · Voice suppression · Workforce health index
+SEC Regulation S-KUS mandatory HC disclosure for listed companies since 2020.HC-BRD-001 (attraction) · HC-CAP-001 (development) · HC-RET-001 (retention)
+OECD Wellbeing FrameworkScientific basis for measuring human wellbeing as an economic variable.Q4+Q10+Q14 (subjective wellbeing) · Q12 (work-life balance) · Q7+Q8 (security)
+WEF Human Capital Index4 pillars: Capacity, Deployment, Development, Know-how.Wellbeing (capacity) · Capability fit (deployment) · Learning velocity (development)
+ISO 27001 / SOC 2 Type IIInformation security baseline required for enterprise HR platform deployment.Separation enforcement · Immutable audit log · AES-256 + TLS 1.3
+GDPR / POPIA / PDPA / CCPAData privacy laws for workplace monitoring and employee data.Separation enforcement · Consent architecture · Data minimisation · Retention limits
+HR-XML / SCIM 2.0Enterprise HR data exchange and identity provisioning standards.SCIM 2.0 SSO · REST API (OpenAPI 3.0) · Webhook event catalogue
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 21
+SECTION 12
+Future Expansion Roadmap
+Phase 1 — Activate Once Core Architecture Is Live
+MODULEDESCRIPTIONLOCATION
+Decision latency trackerMeasures decision time at each level, converts delay to monthly costL4 extension
+Value creation vs waste indexClassifies all activities: value-generating, neutral, or wasteTier C extension
+Explainability visualisationEach recommendation shows the exact 2–3 signals that triggered itL5 extension
+Auto-priority boardTop 5 problems, top 5 actions. Computed from reveal severity + financial impact.L5 executive surface
+Real-time org health barLive green/amber/red composite — HSI + burnout + financial wasteL5 top-level widget
+Phase 2 — Requires 6+ Months of Data Accumulation
+MODULEDESCRIPTIONLOCATION
+Organisational autopilotSystem moves from suggesting to triggering — assign tasks, recommend workflow changeNew L4/L5 layer
+Future state enginePredicts org state in 3–6 months if nothing changes. Shows future stress zones.L4 simulation extension
+Shadow organisation viewExposes who actually drives decisions and hidden leaders not on the org chart.Tier C — graph store
+Cognitive economy modelTreats attention as finite. Tracks where mental energy is spent per team.Tier A new sub-layer
+3D digital twin control roomLive control panel: adjust team size/workload, see impact instantly.L5 major upgrade
+Organisational memory system"Last time you did this, results improved 18%." Historical intervention tracking.L2 + learning loop
+Personalised manager AIEach manager gets their own assistant — what to fix today, who to support.L5 new surface
+Phase 3 — Requires Pattern Library + External Data
+MODULEDESCRIPTIONDEPENDENCY
+High-performance DNA cloningIdentifies best-performing team structure, applies it to underperforming depts.Rich longitudinal data
+Culture analytics engineInfers collaboration quality and trust levels from activity overlap patterns.Dense behavioural history
+Cross-company benchmarking"You are 27% less efficient than industry top quartile."External dataset — Phase 3 scale
+Organisational Language ModelFine-tuned per customer on their signal corpus — the ultimate competitive moat.12+ months per customer
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 22
+SECTION 13 [FUTURE — NOT YET IMPLEMENTED]
+Organisational Biological Age (OBA) — HC-BIO-001
+[FUTURE] This is a future concept — not in current build scope
+OBA requires minimum 4 audit cycles per organisation. The formula, markers, and methodology are defined here for
+the blueprint record. Implementation begins in Phase 2.
+Grounded  in  Horvath's  epigenetic  clock  (2013),  cellular  senescence  research,  VO2  max  measurement,  and
+telomere biology. Chronological age tells you how long an organisation has existed. Biological age tells you how
+well its systems are actually functioning relative to that stage of existence. The gap between the two is the most
+actionable number in organisational health.
+The 6 Biological Markers Mapped to Organisational Signals
+BIOLOGICAL MARKERBIOLOGICAL MEANINGORG EQUIVALENTWORKABLE SIGNAL
+VO2 maxMaximum oxygen uptake under stressAdaptive capacity — speed of response to changeNudge acceptance rate × signal improvement rate
+Telomere lengthProtective caps — shortens with each replicationRecovery reserve — avg days genuinely recoveredHC-WEL-002 × Q10 sustainability
+Cellular senescenceNon-functioning cells that remain and spread inflammationBurnout density — burned-out people who remainHC-WEL-001 at critical threshold
+Epigenetic clock (Horvath)True rate of ageing independent of chronological ageEntropy rate — signal incoherence accumulationHC-ENT-001 rate of change
+Inflammatory markersChronic systemic stress (CRP etc.)Friction load — Q9 severity × headcount × frequencyTier A friction composite
+NeuroplasticityBrain's capacity to rewire and learnLearning loop velocity — nudge → completion → improvementL4 action state bridge timing
+The OBA Formula
+Health  Score  =  (VO2max  ×  0.25)  +  (Telomere  ×  0.20)  +  (Senescence_inverted  ×  0.20)  +  (Epigenetic_inverted  ×
+0.15) + (Inflammation_inverted × 0.10) + (Neuroplasticity × 0.10) Biological Age = Chronological Age × (1 − (Health
+Score − 50) / 100) Ageing Rate = Biological Age ÷ Chronological Age Health Score 50 = at par. Above 50 = org is
+younger  than  its  years.  Below  50  =  older.  Weights  calibrated  from  human  biological  age  literature.  Updated  as
+intervention genome grows.
+"This 12-year-old company has the biological age of 8. But its senescence burden doubled last quarter.
+If the ageing rate reaches 1.35×, the organisation will exhaust its recovery reserve within 3 audit cycles."
+No board has heard this sentence before. That is the point.
+
+WORKable — Master Architecture Blueprint v5Innovation Quotient (Pvt) Ltd  ·  Confidential  ·  March 2026
+WORKable  ·  Organisational Intelligence Platform  ·  Strictly ConfidentialPage 23
+SECTION 14
+Data Coverage Audit
+ANALYTICS OUTPUTREQUIRED INPUTSSTATUS
+All 30+ deep revealsQ1–Q11 worker + managerCovered
+Activity–skill mismatchQ4 + Q6 + Q13 + skill profileCovered
+Hidden work detectionQ1 worker vs manager + semantic embeddingCovered
+Voice suppressionQ11 tracked across 2+ audit cyclesCovered after 2nd audit
+High effort–low recoveryQ10 + Q14 + HRV (Calmable premium)Covered at base
+HSI — capability dimensionQ13 (manager) + worker skill profileCovered
+HSI — energy dimensionQ4 + Q10 + Q14 + HRV (premium)Covered
+Wasted salary calculatorQ3 + Q2 + salary bands (onboarding)Covered
+Financial impact modelSalary bands + headcount + revenue targetCovered
+Meeting load / cognitive economyQ12 (extra) + work context profileCovered
+Organisational Biological AgeAll 6 marker signals + minimum 4 audit cyclesPartial — requires 4 cycles
+Decision latency tracker (Phase 1)Decision timestamps — not in questionnaireGap — needs calendar/HRIS integration
+Shadow organisation view (Phase 2)Informal influence data — not in questionnaireGap — needs communication tool integration
+3D twin live flow animation (Phase 2)Real-time activity streams — not in scopeGap — needs real-time integration layer
+WORKable Master Architecture Blueprint v5.0 · Innovation Quotient (Pvt) Ltd · Confidential · March 2026 · www.iq.lk

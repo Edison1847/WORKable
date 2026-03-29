@@ -1,0 +1,178 @@
+{
+  "company_setup": {
+    "company": {
+      "name": "Zero",
+      "industry": "apperal",
+      "headcount": "25",
+      "currency": "SLR",
+      "financialYear": "Jan-Dec"
+    },
+    "financials": {
+      "revenueTarget": "1000",
+      "totalSalaryBudget": "700"
+    },
+    "departments": [
+      {
+        "id": "d1",
+        "name": "Operations",
+        "roles": [
+          {
+            "id": "r1",
+            "title": "CEO",
+            "grade": "L10",
+            "minSalary": "200000",
+            "maxSalary": "300000"
+          },
+          {
+            "id": "1774615970094",
+            "title": "CTO",
+            "grade": "",
+            "minSalary": "10000",
+            "maxSalary": "20000"
+          }
+        ]
+      },
+      {
+        "id": "d2",
+        "name": "Engineering",
+        "roles": [
+          {
+            "id": "1774615979310",
+            "title": "Chief Engineer",
+            "grade": "",
+            "minSalary": "1000",
+            "maxSalary": "2000"
+          },
+          {
+            "id": "1774615991269",
+            "title": "Junior engineer",
+            "grade": "",
+            "minSalary": "500",
+            "maxSalary": "600"
+          },
+          {
+            "id": "1774616005997",
+            "title": "Assistant ",
+            "grade": "",
+            "minSalary": "100",
+            "maxSalary": "200"
+          }
+        ]
+      },
+      {
+        "id": "d3",
+        "name": "Sales",
+        "roles": []
+      },
+      {
+        "id": "d4",
+        "name": "Marketing",
+        "roles": []
+      },
+      {
+        "id": "d5",
+        "name": "HR",
+        "roles": [
+          {
+            "id": "1774616022252",
+            "title": "Manager",
+            "grade": "",
+            "minSalary": "400",
+            "maxSalary": "600"
+          },
+          {
+            "id": "1774616032076",
+            "title": "Assistant manager",
+            "grade": "",
+            "minSalary": "200",
+            "maxSalary": "300"
+          },
+          {
+            "id": "1774616043156",
+            "title": "Assistant",
+            "grade": "",
+            "minSalary": "20",
+            "maxSalary": "50"
+          }
+        ]
+      }
+    ],
+    "employees": [
+      {
+        "id": "e1",
+        "name": "Alice Smith",
+        "role": "CEO",
+        "manager": "None",
+        "departmentId": "d1"
+      },
+      {
+        "id": "1774616057572",
+        "name": "George",
+        "role": "CTO",
+        "manager": "Alice Smith",
+        "departmentId": "d1"
+      },
+      {
+        "id": "1774616070044",
+        "name": "Mark",
+        "role": "Chief Engineer",
+        "manager": "George",
+        "departmentId": "d2"
+      },
+      {
+        "id": "1774616091533",
+        "name": "Tom",
+        "role": "Junior engineer",
+        "manager": "Mark",
+        "departmentId": "d2"
+      },
+      {
+        "id": "1774616105124",
+        "name": "Jez",
+        "role": "Junior engineer",
+        "manager": "Mark",
+        "departmentId": "d2"
+      },
+      {
+        "id": "1774616117452",
+        "name": "Robert",
+        "role": "Assistant ",
+        "manager": "Tom",
+        "departmentId": "d2"
+      },
+      {
+        "id": "1774616135637",
+        "name": "Tanya",
+        "role": "Manager",
+        "manager": "George",
+        "departmentId": "d5"
+      },
+      {
+        "id": "1774616149892",
+        "name": "Rose",
+        "role": "Assistant manager",
+        "manager": "Tanya",
+        "departmentId": "d5"
+      },
+      {
+        "id": "1774616159436",
+        "name": "Andrew",
+        "role": "Assistant",
+        "manager": "Rose",
+        "departmentId": "d5"
+      }
+    ]
+  },
+  "supervisor_diagnostic": {
+    "supervisorRole": "CEO",
+    "q1_orgHealth": 7,
+    "q2_criticalScore": 4,
+    "q3_timeExpectation": 40,
+    "q4_burnoutRisk": 4,
+    "legacyBurden": 8,
+    "skillGap": 7,
+    "notes": "",
+    "name": "Alice Smith",
+    "dept": "d1"
+  }
+}
