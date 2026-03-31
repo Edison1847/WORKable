@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Zap, Activity, ShieldAlert, BarChart3, Layers } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Zap, Activity, ShieldAlert, BarChart3, Layers, Lightbulb, ChevronDown } from 'lucide-react';
 import DarkMatterNetwork from './DarkMatterNetwork';
 import SignalPulseStrip from './SignalPulseStrip';
 import ActionCommandCentre from './ActionCommandCentre';
@@ -176,40 +176,62 @@ const SectionBlock: React.FC<{
   label: string;
   children: React.ReactNode;
   delay?: number;
-}> = ({ icon, label, children, delay = 0 }) => (
+  tag?: string;
+}> = ({ icon, label, children, delay = 0, tag }) => (
   <motion.section
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.35, delay }}
   >
     {/* Section heading with fading rule */}
-    <div className="section-heading mb-5">
+    <div className="section-heading mb-5 flex items-center gap-2">
       {icon}
       {label}
+      {tag && (
+        <span className="text-[7px] font-semibold px-2 py-0.5 rounded"
+          style={{ 
+            background: 'rgba(251,191,36,0.12)', 
+            color: '#fbbf24',
+            border: '1px solid rgba(251,191,36,0.25)',
+            fontFamily: 'var(--font-mono)',
+            letterSpacing: '0.04em'
+          }}>
+          {tag}
+        </span>
+      )}
     </div>
     {children}
   </motion.section>
 );
 
-const CommandCenter: React.FC = () => (
-  <div className="space-y-10">
+const QUAD_CHIPS = [
+  { label: 'Quick Wins',      value: '$233k', color: '#34d399' },
+  { label: 'Strategic Inv.',  value: '$330k', color: '#fb923c' },
+  { label: 'Easy Maint.',     value: '$106k', color: '#38bdf8' },
+  { label: 'Deprioritise',    value: '$94k',  color: '#94a3b8' },
+];
 
-    {/* ═══ Section 1 — System Pulse ═══ */}
-    <SectionBlock
-      icon={<Layers size={12} style={{ color: '#38bdf8' }} />}
-      label="System Pulse"
-      delay={0.05}
-    >
-      <div className="space-y-6">
-        <TopKpiRow />
-        <NarrativeSynthesis />
-      </div>
-    </SectionBlock>
+const CommandCenter: React.FC = () => {
+  const [prescriptiveOpen, setPrescriptiveOpen] = useState(false);
 
-    <hr className="section-divider" />
+  return (
+    <div className="space-y-10">
 
-    {/* [HIDDEN] Intelligence Overview — hardcoded placeholder data */}
-    {false && (
+      {/* ═══ Section 1 — System Pulse ═══ */}
+      <SectionBlock
+        icon={<Layers size={12} style={{ color: '#38bdf8' }} />}
+        label="System Pulse"
+        delay={0.05}
+      >
+        <div className="space-y-6">
+          <TopKpiRow />
+          <NarrativeSynthesis />
+        </div>
+      </SectionBlock>
+
+      <hr className="section-divider" />
+
+      {/* Intelligence Overview — HumanSystemIndex live; FinancialImpactModel + ActiveNudgesSummary still illustrative */}
       <>
         <SectionBlock
           icon={<BarChart3 size={12} style={{ color: '#34d399' }} />}
@@ -225,23 +247,22 @@ const CommandCenter: React.FC = () => (
 
         <hr className="section-divider" />
       </>
-    )}
 
-    {/* [HIDDEN] Strategic Action Centre — hardcoded nudge library */}
-    {false && (
-      <>
-        <ActionCommandCentre />
-        <hr className="section-divider" />
-      </>
-    )}
+      {/* [HIDDEN] Strategic Action Centre — hardcoded nudge library */}
+      {false && (
+        <>
+          <ActionCommandCentre />
+          <hr className="section-divider" />
+        </>
+      )}
 
-    {/* [HIDDEN] Live Signals & Vulnerability — hardcoded signal values */}
-    {false && (
+      {/* Live Signals & Vulnerability — SignalPulseStrip live; DarkMatterNetwork still illustrative */}
       <>
         <SectionBlock
           icon={<Activity size={12} style={{ color: '#38bdf8' }} />}
           label="Live Signals & Vulnerability"
           delay={0.15}
+          tag="Illustrative"
         >
           <div className="grid grid-cols-1 xl:grid-cols-5 gap-6">
             <div className="xl:col-span-3">
@@ -254,26 +275,145 @@ const CommandCenter: React.FC = () => (
         </SectionBlock>
         <hr className="section-divider" />
       </>
-    )}
 
-    {/* Strategic Analysis — CrisisProximityIndex live; others still hardcoded */}
-    <SectionBlock
-      icon={<ShieldAlert size={12} style={{ color: '#f43f5e' }} />}
-      label="Strategic Analysis"
-      delay={0.2}
-    >
-      <CrisisProximityIndex />
-    </SectionBlock>
+      {/* Strategic Analysis — CrisisProximityIndex live; others still hardcoded */}
+      <SectionBlock
+        icon={<ShieldAlert size={12} style={{ color: '#f43f5e' }} />}
+        label="Strategic Analysis"
+        delay={0.2}
+      >
+        <CrisisProximityIndex />
+      </SectionBlock>
 
-    {false && (
-      <div className="space-y-6">
-        <SignalCorrelationMap />
-        <StrategicMatrix />
-        <TippingPointTimeline />
+      {false && (
+        <div className="space-y-6">
+          <SignalCorrelationMap />
+          <TippingPointTimeline />
+        </div>
+      )}
+
+      {/* ═══ Prescriptive Layer separator ═══ */}
+      <div className="relative flex items-center gap-4 py-2">
+        <div className="flex-1 h-px" style={{
+          background: 'linear-gradient(90deg, transparent, rgba(167,139,250,0.2) 30%, rgba(167,139,250,0.4) 60%, rgba(167,139,250,0.2) 80%, transparent)',
+        }} />
+        <span className="shrink-0 text-[9px] font-bold tracking-widest px-3 py-1 rounded-full"
+          style={{
+            fontFamily: 'var(--font-display)',
+            color: 'rgba(167,139,250,0.55)',
+            background: 'rgba(167,139,250,0.06)',
+            border: '1px solid rgba(167,139,250,0.15)',
+            letterSpacing: '0.14em',
+          }}>
+          PRESCRIPTIVE LAYER
+        </span>
+        <div className="flex-1 h-px" style={{
+          background: 'linear-gradient(90deg, rgba(167,139,250,0.2) 20%, rgba(167,139,250,0.4) 40%, rgba(167,139,250,0.2) 70%, transparent)',
+        }} />
       </div>
-    )}
 
-  </div>
-);
+      {/* ═══ Key Prescriptive Recommendations — collapsible ═══ */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, delay: 0.25 }}
+        className="rounded-2xl overflow-hidden"
+        style={{
+          background: 'var(--bg-card)',
+          border: '1px solid rgba(167,139,250,0.18)',
+          borderLeft: '3px solid rgba(167,139,250,0.55)',
+          boxShadow: '0 2px 24px rgba(167,139,250,0.05)',
+        }}
+      >
+        {/* ── Header / collapsed row ── */}
+        <button
+          onClick={() => setPrescriptiveOpen(v => !v)}
+          className="w-full flex items-center justify-between px-6 py-4 cursor-pointer"
+          style={{ background: 'transparent', border: 'none', textAlign: 'left' }}
+        >
+          {/* Left: icon + title + badge */}
+          <div className="flex items-center gap-3">
+            <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
+              style={{ background: 'rgba(167,139,250,0.1)', border: '1px solid rgba(167,139,250,0.22)' }}>
+              <Lightbulb size={13} style={{ color: '#a78bfa' }} />
+            </div>
+            <div>
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <span className="text-sm font-bold text-white"
+                  style={{ fontFamily: 'var(--font-display)' }}>
+                  Key Prescriptive Recommendations
+                </span>
+                <span className="text-[9px] font-bold px-2 py-0.5 rounded-full tracking-wide"
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    background: 'rgba(251,146,60,0.1)',
+                    border: '1px solid rgba(251,146,60,0.22)',
+                    color: '#fb923c',
+                    letterSpacing: '0.08em',
+                  }}>
+                  ILLUSTRATIVE MODEL
+                </span>
+              </div>
+              <p className="text-[10px] mt-0.5 text-left"
+                style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-body)' }}>
+                Strategic ROI matrix · 8 actions · $763k total recoverable
+              </p>
+            </div>
+          </div>
+
+          {/* Right: quadrant chips + toggle */}
+          <div className="flex items-center gap-4 shrink-0 ml-6">
+            {QUAD_CHIPS.map(q => (
+              <div key={q.label} className="hidden xl:flex items-center gap-1.5">
+                <div className="w-1.5 h-1.5 rounded-full shrink-0"
+                  style={{ background: q.color, boxShadow: `0 0 4px ${q.color}88` }} />
+                <span className="text-[9px] font-semibold"
+                  style={{ fontFamily: 'var(--font-display)', color: 'var(--text-secondary)' }}>
+                  {q.label}
+                </span>
+                <span className="text-[9px]"
+                  style={{ fontFamily: 'var(--font-mono)', color: q.color }}>
+                  {q.value}
+                </span>
+              </div>
+            ))}
+
+            <div className="w-7 h-7 rounded-lg flex items-center justify-center ml-1"
+              style={{
+                background: 'rgba(167,139,250,0.08)',
+                border: '1px solid rgba(167,139,250,0.2)',
+              }}>
+              <motion.div
+                animate={{ rotate: prescriptiveOpen ? 180 : 0 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <ChevronDown size={14} style={{ color: '#a78bfa' }} />
+              </motion.div>
+            </div>
+          </div>
+        </button>
+
+        {/* ── Expandable body ── */}
+        <AnimatePresence initial={false}>
+          {prescriptiveOpen && (
+            <motion.div
+              key="prescriptive-body"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              style={{ overflow: 'hidden' }}
+            >
+              <div style={{ borderTop: '1px solid rgba(167,139,250,0.12)' }}>
+                <StrategicMatrix />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+
+    </div>
+  );
+};
 
 export default CommandCenter;

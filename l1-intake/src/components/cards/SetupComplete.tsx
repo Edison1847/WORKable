@@ -15,8 +15,50 @@ export default function SetupComplete({ onBack, data }: { onBack: () => void, da
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [ceoAuditComplete, setCeoAuditComplete] = useState(false);
   
   const hasSyntheticDataToSave = data?.syntheticData && !isSaved;
+
+  // Check if CEO has completed all supervisor audits for direct reports
+  useEffect(() => {
+    if (!formData?.employees) return;
+    
+    const checkCeoAudits = async () => {
+      try {
+        const res = await fetch('http://localhost:3000/api/intake');
+        const intakeData = await res.json();
+        const allDiagnostics = intakeData.all_diagnostics || [];
+        
+        // Find CEO (manager === 'None' or no manager)
+        const ceo = formData.employees.find((e: any) => !e.manager || e.manager === 'None');
+        if (!ceo) return;
+        
+        // Get CEO's direct reports
+        const ceoDirectReports = formData.employees.filter((e: any) => e.manager === ceo.name);
+        if (ceoDirectReports.length === 0) {
+          setCeoAuditComplete(true);
+          return;
+        }
+        
+        // Check if CEO has completed supervisor audits for ALL direct reports
+        const auditedReports = new Set(
+          allDiagnostics
+            .filter((d: any) => d.type === 'supervisor' && d.supervisorName === ceo.name)
+            .map((d: any) => d.employee_name?.toLowerCase())
+        );
+        
+        const allReportsAudited = ceoDirectReports.every((r: any) => 
+          auditedReports.has(r.name?.toLowerCase())
+        );
+        
+        setCeoAuditComplete(allReportsAudited);
+      } catch (err) {
+        console.error('Error checking CEO audits:', err);
+      }
+    };
+    
+    checkCeoAudits();
+  }, [formData, isSaved]);
 
   useEffect(() => {
     // Fetch fresh data including AI generated employees
@@ -164,12 +206,18 @@ export default function SetupComplete({ onBack, data }: { onBack: () => void, da
                     </button>
                 ) : (
                     <div className="flex gap-4">
-                        <button 
-                            onClick={() => window.location.href = 'http://localhost:5173'}
-                            className="group flex items-center gap-2 px-8 py-3 rounded-xl bg-emerald-100 text-emerald-700 font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all active:scale-95"
-                        >
-                            Executive Dashboard <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                        </button>
+                        {ceoAuditComplete ? (
+                            <button 
+                                onClick={() => window.location.href = 'http://localhost:5173'}
+                                className="group flex items-center gap-2 px-8 py-3 rounded-xl bg-emerald-100 text-emerald-700 font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all active:scale-95"
+                            >
+                                Executive Dashboard <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                            </button>
+                        ) : (
+                            <div className="flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-50 text-amber-700 font-bold border border-amber-200">
+                                <CheckCircle2 size={18} /> Complete CEO Audit to unlock Dashboard
+                            </div>
+                        )}
                         <button 
                             onClick={() => navigate('/ceo-audit')}
                             className="group flex items-center gap-2 px-8 py-3 rounded-xl bg-textMain text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all active:scale-95"

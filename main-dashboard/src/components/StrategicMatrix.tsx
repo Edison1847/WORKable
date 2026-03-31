@@ -96,14 +96,14 @@ const QUAD_TOTALS = (['qw', 'si', 'em', 'dp'] as const).reduce((acc, q) => {
 
 /* Each bubble floats at its own rhythm — unique dx, dy, duration, and start phase */
 const FLOAT: Record<string, { dx: number; dy: number; dur: number; phase: number }> = {
-  qw1: { dx: 4, dy: 6, dur: 9.6, phase: 0.0 },
-  qw2: { dx: -3, dy: 5, dur: 8.4, phase: 1.1 },
-  si1: { dx: 5, dy: 7, dur: 11.2, phase: 0.5 },
-  si2: { dx: -4, dy: 5, dur: 9.0, phase: 1.8 },
-  em1: { dx: 3, dy: 4, dur: 7.8, phase: 0.7 },
-  em2: { dx: -2, dy: 5, dur: 9.4, phase: 2.2 },
-  dp1: { dx: 3, dy: 4, dur: 8.6, phase: 1.4 },
-  dp2: { dx: -3, dy: 3, dur: 7.4, phase: 0.3 },
+  qw1: { dx: 2.2, dy: 3.2, dur: 9.6,  phase: 0.0 },
+  qw2: { dx: -1.8, dy: 2.6, dur: 8.4,  phase: 1.1 },
+  si1: { dx: 2.6, dy: 3.6, dur: 11.2, phase: 0.5 },
+  si2: { dx: -2.0, dy: 2.4, dur: 9.0,  phase: 1.8 },
+  em1: { dx: 1.6, dy: 2.0, dur: 7.8,  phase: 0.7 },
+  em2: { dx: -1.2, dy: 2.4, dur: 9.4,  phase: 2.2 },
+  dp1: { dx: 1.6, dy: 2.0, dur: 8.6,  phase: 1.4 },
+  dp2: { dx: -1.6, dy: 1.6, dur: 7.4,  phase: 0.3 },
 };
 
 /* Pulse ring — staggered start so they fire at different times */
@@ -130,6 +130,17 @@ const PARTICLES = Array.from({ length: 16 }, (_, i) => ({
   delay: (i * 1.37) % 9,
   blue: i % 3 === 0,   // some are blue-tinted, rest neutral
 }));
+
+/* ─── Confidence arc helper ─────────────────────────────── */
+const toRad = (deg: number) => (deg * Math.PI) / 180;
+const arcPath = (cx: number, cy: number, r: number, startDeg: number, endDeg: number) => {
+  const x1 = cx + r * Math.cos(toRad(startDeg));
+  const y1 = cy + r * Math.sin(toRad(startDeg));
+  const x2 = cx + r * Math.cos(toRad(endDeg));
+  const y2 = cy + r * Math.sin(toRad(endDeg));
+  const large = endDeg - startDeg > 180 ? 1 : 0;
+  return `M ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${large} 1 ${x2.toFixed(2)} ${y2.toFixed(2)}`;
+};
 
 /* ─── Trend arrow helper ─────────────────────────────────── */
 const TrendArrow: React.FC<{ cx: number; cy: number; r: number; trend: 'up' | 'down' | 'flat' }> = ({ cx, cy, r, trend }) => {
@@ -205,11 +216,19 @@ const StrategicMatrix: React.FC = () => {
       <div className="relative" style={{ background: '#060a14' }}>
         <svg viewBox={`0 0 ${VB_W} ${VB_H}`} width="100%" style={{ display: 'block' }}>
           <defs>
-            {/* Radial gradients per bubble */}
+            {/* Dark glass fill gradient — same for all bubbles */}
             {BUBBLES.map(b => (
-              <radialGradient key={`g-${b.id}`} id={`g-${b.id}`} cx="40%" cy="35%" r="65%">
-                <stop offset="0%"   stopColor={b.fillA} />
-                <stop offset="100%" stopColor={b.fillB} />
+              <radialGradient key={`g-${b.id}`} id={`g-${b.id}`} cx="38%" cy="30%" r="70%">
+                <stop offset="0%"   stopColor="rgba(22,30,52,0.97)" />
+                <stop offset="55%"  stopColor="rgba(13,17,36,0.99)" />
+                <stop offset="100%" stopColor="rgba(7,10,22,1)" />
+              </radialGradient>
+            ))}
+            {/* Subtle color-tint wash per bubble */}
+            {BUBBLES.map(b => (
+              <radialGradient key={`gw-${b.id}`} id={`gw-${b.id}`} cx="50%" cy="50%" r="55%">
+                <stop offset="0%"   stopColor={b.color} stopOpacity="0.10" />
+                <stop offset="100%" stopColor={b.color} stopOpacity="0" />
               </radialGradient>
             ))}
 
@@ -417,72 +436,113 @@ const StrategicMatrix: React.FC = () => {
                   onMouseEnter={() => setHovered(b.id)}
                   onMouseLeave={() => setHovered(null)}
                 >
-                  {/* Ambient glow fill (blurred, behind everything) */}
+                  {/* ── Layer: confidence arc track + fill (outermost ring) ── */}
+                  {(() => {
+                    const conf = parseInt(b.confidence);
+                    const arcR = b.r + (b.r > 44 ? 7 : 5);
+                    const TRACK_START = 200, TRACK_END = 340;
+                    const fillEnd = TRACK_START + (conf / 100) * (TRACK_END - TRACK_START);
+                    return (
+                      <g opacity={isHov ? 0.75 : 0.38}>
+                        {/* Track */}
+                        <path d={arcPath(b.cx, b.cy, arcR, TRACK_START, TRACK_END)}
+                          fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1"
+                          strokeLinecap="round" />
+                        {/* Fill */}
+                        <path d={arcPath(b.cx, b.cy, arcR, TRACK_START, fillEnd)}
+                          fill="none" stroke={b.color} strokeWidth="1.2"
+                          strokeLinecap="round" opacity="0.7" />
+                      </g>
+                    );
+                  })()}
+
+                  {/* ── Layer: subtle outer glow on hover only ── */}
                   <motion.circle cx={b.cx} cy={b.cy}
                     fill={b.color}
-                    animate={{ r: isHov ? b.r + 18 : b.r + 10, opacity: isHov ? 0.14 : 0.07 }}
+                    animate={{ r: b.r + 14, opacity: isHov ? 0.1 : 0 }}
                     transition={{ duration: 0.3 }}
                     filter="url(#bubbleGlow)"
                   />
 
-                  {/* Pulsing ring — periodic emanation */}
+                  {/* ── Layer: soft pulse ring — muted, enterprise-appropriate ── */}
                   <motion.circle cx={b.cx} cy={b.cy}
                     fill="none" stroke={b.color}
-                    animate={{ r: [b.r + 2, b.r + 26], opacity: [0.55, 0], strokeWidth: [1.2, 0.2] }}
-                    transition={{ duration: 2.2, repeat: Infinity, repeatDelay: 2.8, ease: 'easeOut', delay: PULSE_DELAY[b.id] }}
+                    animate={{ r: [b.r + 2, b.r + 20], opacity: [0.22, 0], strokeWidth: [0.8, 0.2] }}
+                    transition={{ duration: 3.2, repeat: Infinity, repeatDelay: 4.5, ease: 'easeOut', delay: PULSE_DELAY[b.id] }}
                   />
 
-                  {/* Hover ring */}
+                  {/* ── Layer: hover focus ring ── */}
                   <motion.circle cx={b.cx} cy={b.cy}
                     fill="none" stroke={b.color}
-                    animate={{ r: isHov ? b.r + 12 : b.r + 6, opacity: isHov ? 0.5 : 0.14, strokeWidth: isHov ? 1.2 : 0.8 }}
-                    transition={{ duration: 0.25 }}
+                    animate={{ r: isHov ? b.r + 9 : b.r + 4, opacity: isHov ? 0.45 : 0.12, strokeWidth: isHov ? 1.2 : 0.7 }}
+                    transition={{ duration: 0.22 }}
                   />
 
-                  {/* Main bubble body */}
-                  <motion.circle cx={b.cx} cy={b.cy}
-                    fill={`url(#g-${b.id})`} stroke={b.color}
-                    animate={{ r: isHov ? b.r * 1.05 : b.r, strokeWidth: isHov ? 1.5 : 0.9, strokeOpacity: isHov ? 0.85 : 0.5 }}
-                    transition={{ duration: 0.25 }}
-                  />
-
-                  {/* Inner highlight arc */}
+                  {/* ── Layer: main bubble — dark glass body ── */}
                   <clipPath id={`clip-${b.id}`}>
                     <circle cx={b.cx} cy={b.cy} r={b.r} />
                   </clipPath>
-                  <circle cx={b.cx - b.r * 0.18} cy={b.cy - b.r * 0.26} r={b.r * 0.52}
-                    fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="1.5"
-                    clipPath={`url(#clip-${b.id})`} />
+                  <motion.circle cx={b.cx} cy={b.cy}
+                    fill={`url(#g-${b.id})`} stroke={b.color}
+                    animate={{ r: isHov ? b.r * 1.03 : b.r, strokeWidth: isHov ? 1.8 : 1.2, strokeOpacity: isHov ? 0.9 : 0.5 }}
+                    transition={{ duration: 0.22 }}
+                  />
 
-                  {/* Label text lines */}
+                  {/* ── Layer: color-tint wash ── */}
+                  <motion.circle cx={b.cx} cy={b.cy}
+                    fill={`url(#gw-${b.id})`}
+                    animate={{ r: isHov ? b.r * 1.03 : b.r }}
+                    transition={{ duration: 0.22 }}
+                    clipPath={`url(#clip-${b.id})`}
+                  />
+
+                  {/* ── Layer: glass sheen — top-left ellipse ── */}
+                  <ellipse
+                    cx={b.cx - b.r * 0.22} cy={b.cy - b.r * 0.30}
+                    rx={b.r * 0.46} ry={b.r * 0.24}
+                    fill="rgba(255,255,255,0.055)"
+                    clipPath={`url(#clip-${b.id})`}
+                  />
+
+                  {/* ── Layer: separator line between label and value ── */}
+                  {b.r > 35 && (
+                    <line
+                      x1={b.cx - b.r * 0.28} y1={b.cy + b.lines.length * 6.2}
+                      x2={b.cx + b.r * 0.28} y2={b.cy + b.lines.length * 6.2}
+                      stroke={b.color} strokeWidth="0.5" strokeOpacity="0.25"
+                    />
+                  )}
+
+                  {/* ── Layer: label text ── */}
                   {b.lines.map((line, li) => (
                     <text key={li}
                       x={b.cx}
                       y={b.cy - (b.lines.length - 1) * 6.5 + li * 13}
                       textAnchor="middle" dominantBaseline="middle"
-                      fontSize={b.r > 44 ? 10 : b.r > 30 ? 9 : 8}
-                      fontFamily="var(--font-display)" fontWeight="600"
-                      fill="rgba(255,255,255,0.9)" letterSpacing="0.04em"
+                      fontSize={b.r > 44 ? 10.5 : b.r > 30 ? 9.5 : 8.5}
+                      fontFamily="var(--font-display)" fontWeight="700"
+                      fill="rgba(255,255,255,0.92)" letterSpacing="0.05em"
                     >{line}</text>
                   ))}
 
-                  {/* Value (monospaced, colour-matched) */}
-                  <text x={b.cx} y={b.cy + b.lines.length * 6.5 + 3}
+                  {/* ── Layer: value — colored mono ── */}
+                  <text x={b.cx} y={b.cy + b.lines.length * 6.5 + 5}
                     textAnchor="middle" dominantBaseline="middle"
-                    fontSize={b.r > 44 ? 11 : 9} fontFamily="var(--font-mono)" fontWeight="400"
-                    fill={b.color} opacity="0.9"
+                    fontSize={b.r > 44 ? 11.5 : 9.5}
+                    fontFamily="var(--font-mono)" fontWeight="500"
+                    fill={b.color} opacity="0.95"
                   >{b.value}</text>
 
-                  {/* Dept label below small bubbles */}
+                  {/* ── Layer: dept label (small bubbles only) ── */}
                   {b.r < 32 && (
-                    <text x={b.cx} y={b.cy + b.r + 14}
+                    <text x={b.cx} y={b.cy + b.r + 15}
                       textAnchor="middle" fontSize="7.5"
-                      fontFamily="var(--font-display)" fontWeight="600"
-                      fill="rgba(255,255,255,0.28)" letterSpacing="0.07em"
+                      fontFamily="var(--font-display)" fontWeight="700"
+                      fill="rgba(255,255,255,0.22)" letterSpacing="0.09em"
                     >{b.dept.toUpperCase()}</text>
                   )}
 
-                  {/* ── Trend arrow (top-right of bubble) ── */}
+                  {/* ── Layer: trend arrow ── */}
                   <TrendArrow cx={b.cx} cy={b.cy} r={b.r} trend={b.trend} />
                 </motion.g>
               </motion.g>

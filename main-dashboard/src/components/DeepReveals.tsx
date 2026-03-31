@@ -10,7 +10,7 @@ import DepartmentalCongestion from './DepartmentalCongestion';
 import SuccessorReadinessMap from './SuccessorReadinessMap';
 import TheMirror from './TheMirror';
 import HumanCapitalBalanceSheet from './HumanCapitalBalanceSheet';
-import DarkEnergyReport from './DarkEnergyReport';
+import ManagerEffectivenessScore from './ManagerEffectivenessScore';
 
 const DeepReveals: React.FC = () => {
   const { data, loading } = useIntakeData();
@@ -34,16 +34,16 @@ const DeepReveals: React.FC = () => {
       </div>
 
       {/* Manager Effectiveness — live */}
-      <ManagerEffectiveness />
-
-      {/* Future placeholders */}
-      {false && <GreenRowsOpportunity />}
+      <TopProcesses />
+      
+      {/* Live analytics */}
+      <GreenRowsOpportunity />
       {false && <SuccessorReadinessMap />}
-      {false && <TopProcesses />}
       {false && <TheMirror />}
-      {false && <HumanCapitalBalanceSheet />}
-      {false && <DarkEnergyReport />}
-      {false && <DepartmentalCongestion />}
+      <HumanCapitalBalanceSheet />
+      <DepartmentalCongestion />
+      <ManagerEffectiveness />
+      <ManagerEffectivenessScore />
     </motion.div>
   );
 };

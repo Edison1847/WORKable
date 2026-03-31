@@ -22,7 +22,11 @@
       "Bash(xargs grep:*)",
       "Bash(node backfill_nlp.js)",
       "WebFetch(domain:localhost)",
-      "Bash(grep -r \"form\\\\|submit\\\\|input\" /d/Projects/Analogy/Workable_1/WebApp/main-dashboard/src --include=*.tsx --include=*.ts -l)"
+      "Bash(grep -r \"form\\\\|submit\\\\|input\" /d/Projects/Analogy/Workable_1/WebApp/main-dashboard/src --include=*.tsx --include=*.ts -l)",
+      "Bash(python3 \".claude/skills/ui-ux-pro-max/scripts/search.py\" \"enterprise analytics dashboard dark HR psychological safety\" --design-system)",
+      "Bash(where python3:*)",
+      "Bash(where python:*)",
+      "Bash(\"C:/Program Files/Python314/python.exe\" \".claude/skills/ui-ux-pro-max/scripts/search.py\" \"enterprise analytics dashboard dark HR psychological safety\" --design-system)"
     ]
   }
 }

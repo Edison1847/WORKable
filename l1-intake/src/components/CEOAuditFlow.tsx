@@ -216,7 +216,7 @@ export default function CEOAuditFlow() {
   const [activityDetails, setActivityDetails] = useState<any[]>([]);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [p3, setP3] = useState({
-    targetsAchievable: 'Neutral', whoReviews: '', reviewFrequency: 'Monthly', blockers: '', improvements: '', meetingsVsFocus: 50, enthusiasm: 3
+    targetsAchievable: 'Neutral', whoReviews: '', reviewFrequency: 'Monthly', blockers: '', improvements: '', meetingsVsFocus: 50, enthusiasm: 3, comfortSharing: 5
   });
 
   // Mini-Report Overlay State
@@ -693,6 +693,44 @@ export default function CEOAuditFlow() {
                       <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-3">What changes would most improve effectiveness?</label>
                       <textarea rows={2} className="w-full bg-slate-900/80 border border-slate-700 text-white text-xs rounded-xl p-4 outline-none focus:border-emerald-500 transition-all font-medium"
                                 placeholder="Process changes, resources, or management support..." value={p3.improvements} onChange={e => setP3({...p3, improvements: e.target.value})} />
+                    </div>
+                  </div>
+
+                  {/* Psychological Safety */}
+                  <div className="bg-slate-800/40 border border-slate-700/50 rounded-[2rem] p-8">
+                    <div className="flex justify-between items-center mb-4">
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Psychological Safety</label>
+                        <p className="text-[9px] text-slate-500">Do you think this employee feels comfortable sharing their opinions or concerns?</p>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-4xl font-black text-violet-400 font-display">{p3.comfortSharing}</span>
+                        <span className="text-[9px] font-bold text-slate-500 block uppercase tracking-widest">/ 10</span>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => {
+                        const isSelected = p3.comfortSharing === num;
+                        const getColor = (n: number) => {
+                          if (n <= 3) return isSelected ? 'bg-rose-500 border-rose-400 text-white' : 'bg-slate-900/80 border-slate-700 text-slate-400 hover:border-rose-500/50';
+                          if (n <= 6) return isSelected ? 'bg-amber-500 border-amber-400 text-white' : 'bg-slate-900/80 border-slate-700 text-slate-400 hover:border-amber-500/50';
+                          if (n <= 8) return isSelected ? 'bg-lime-500 border-lime-400 text-white' : 'bg-slate-900/80 border-slate-700 text-slate-400 hover:border-lime-500/50';
+                          return isSelected ? 'bg-emerald-500 border-emerald-400 text-white' : 'bg-slate-900/80 border-slate-700 text-slate-400 hover:border-emerald-500/50';
+                        };
+                        return (
+                          <button 
+                            key={num} 
+                            onClick={() => setP3({...p3, comfortSharing: num})}
+                            className={`flex-1 py-3 rounded-xl border font-bold text-sm transition-all duration-200 ${getColor(num)} ${isSelected ? 'scale-105 z-10' : 'scale-100'}`}
+                          >
+                            {num}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <div className="flex justify-between mt-2 px-1">
+                      <span className="text-[9px] text-rose-400 font-medium">Uncomfortable</span>
+                      <span className="text-[9px] text-emerald-400 font-medium">Very Comfortable</span>
                     </div>
                   </div>
 

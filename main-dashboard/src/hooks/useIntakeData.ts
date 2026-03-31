@@ -22,9 +22,6 @@ export default function useIntakeData() {
 
   useEffect(() => {
     fetchData();
-    // Optional: Refresh periodically
-    const interval = setInterval(fetchData, 5000);
-    return () => clearInterval(interval);
   }, []);
 
   return { data, loading, update: fetchData };

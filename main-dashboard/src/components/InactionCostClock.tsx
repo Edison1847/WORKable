@@ -4,16 +4,38 @@ import { Clock, AlertTriangle } from 'lucide-react';
 
 const InactionCostClock: React.FC = () => {
   const [cost, setCost] = useState(106450);
+  const [costPerDay, setCostPerDay] = useState(3548);
+  const [blockerCount, setBlockerCount] = useState(4);
   const prevRef = useRef(106450);
 
+  // Fetch initial data from backend
   useEffect(() => {
+    fetch('http://localhost:3000/api/culture/inaction-cost')
+      .then(res => res.json())
+      .then(data => {
+        if (data.totalCost) {
+          setCost(data.totalCost);
+          prevRef.current = data.totalCost;
+        }
+        if (data.costPerDay) {
+          setCostPerDay(data.costPerDay);
+        }
+        if (data.topBlockers) {
+          setBlockerCount(data.topBlockers.length);
+        }
+      })
+      .catch(err => console.error('Failed to fetch inaction cost:', err));
+  }, []);
+
+  // Increment cost based on costPerDay
+  useEffect(() => {
+    const delta = Math.floor(costPerDay / 86400); // Per second
     const id = setInterval(() => {
-      const delta = Math.floor(Math.random() * 7 + 3);
       prevRef.current = cost;
       setCost(c => c + delta);
-    }, 1600);
+    }, 1000);
     return () => clearInterval(id);
-  }, [cost]);
+  }, [cost, costPerDay]);
 
   const formatted = cost.toLocaleString('en-US');
 
@@ -45,7 +67,7 @@ const InactionCostClock: React.FC = () => {
           <span className="eyebrow" style={{ color: 'var(--text-secondary)' }}>Inaction Cost Clock</span>
         </div>
         <p className="text-[10px] mb-5" style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-body)' }}>
-          Compounding loss from 4 un-actioned critical leaks
+          Compounding loss from {blockerCount} un-actioned critical leaks
         </p>
 
         {/* Counter */}

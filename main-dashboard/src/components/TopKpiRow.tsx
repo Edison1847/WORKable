@@ -71,7 +71,14 @@ const TopKpiRow: React.FC = () => {
           alignCount++;
       }
   });
-  const alignmentGap = alignCount > 0 ? Math.round((alignSum / alignCount) * 10) : 15;
+  const alignmentGap = alignCount > 0 ? Math.round((alignSum / alignCount) * 10) : 0;
+
+  // Voice Suppression — sourced from supervisor p3 data (workers don't carry this field)
+  const supVSDiags = supervisorDiags.filter((d: any) => typeof d.p3?.voiceSuppression === 'number');
+  const avgVS = supVSDiags.length > 0
+    ? supVSDiags.reduce((s: number, d: any) => s + (d.p3.voiceSuppression as number), 0) / supVSDiags.length
+    : 0;
+  const hasVSData = supVSDiags.length > 0;
 
   // Crisis Proximity Index Logic
   const supervisorDiags2 = liveDiagnostics.filter((d: any) => d.type === 'supervisor');
@@ -136,16 +143,16 @@ const TopKpiRow: React.FC = () => {
     },
      {
       label: 'Voice Suppression',
-      value: workerDiags.length > 0 ? `${Math.round(calculateAvg('ps1_voiceSuppression', 'p1'))}/10` : '--',
-      unit: '',
-      sub: (calculateAvg('ps1_voiceSuppression', 'p1')) > 4 ? 'Silent Risk' : 'Healthy Safety',
-      color: (calculateAvg('ps1_voiceSuppression', 'p1')) > 4 ? '#f43f5e' : '#34d399',
-      bg: (calculateAvg('ps1_voiceSuppression', 'p1')) > 4 ? 'rgba(244,63,94,0.06)' : 'rgba(52,211,153,0.04)',
-      border: (calculateAvg('ps1_voiceSuppression', 'p1')) > 4 ? 'rgba(244,63,94,0.15)' : 'rgba(52,211,153,0.1)',
-      topLine: (calculateAvg('ps1_voiceSuppression', 'p1')) > 4 ? 'rgba(244,63,94,0.5)' : 'rgba(52,211,153,0.3)',
+      value: hasVSData ? `${avgVS.toFixed(1)}` : '--',
+      unit: hasVSData ? '/10' : '',
+      sub: avgVS > 6 ? 'Silent Risk' : avgVS > 4 ? 'Suppression' : 'Healthy Safety',
+      color: avgVS > 6 ? '#f43f5e' : avgVS > 4 ? '#fb923c' : '#34d399',
+      bg: avgVS > 6 ? 'rgba(244,63,94,0.06)' : avgVS > 4 ? 'rgba(251,146,60,0.06)' : 'rgba(52,211,153,0.04)',
+      border: avgVS > 6 ? 'rgba(244,63,94,0.15)' : avgVS > 4 ? 'rgba(251,146,60,0.15)' : 'rgba(52,211,153,0.1)',
+      topLine: avgVS > 6 ? 'rgba(244,63,94,0.5)' : avgVS > 4 ? 'rgba(251,146,60,0.5)' : 'rgba(52,211,153,0.3)',
       type: 'stat',
-      trend: (calculateAvg('ps1_voiceSuppression', 'p1')) > 4 ? 'up-bad' : 'neutral',
-      dynamicIcon: (calculateAvg('ps1_voiceSuppression', 'p1')) > 4 ? <ShieldAlert size={14} /> : <ShieldCheck size={14} />,
+      trend: avgVS > 4 ? 'up-bad' : 'neutral',
+      dynamicIcon: avgVS > 6 ? <ShieldAlert size={14} /> : avgVS > 4 ? <Shield size={14} /> : <ShieldCheck size={14} />,
       tooltip: "Measures the degree to which employees feel they must withhold critical feedback or concerns. A score above 4 indicates significant information bottleneck and cultural risk.",
     },
     {

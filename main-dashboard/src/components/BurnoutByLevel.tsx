@@ -1,14 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Flame, AlertTriangle } from 'lucide-react';
 
-const levels = [
-  { label: 'Executive',       pct: 28, industry: 22, color: '#fb923c', trend: '+3pp',  note: 'Elevated' },
-  { label: 'Mid-Management',  pct: 41, industry: 35, color: '#f97316', trend: '+6pp',  note: 'High Risk' },
-  { label: 'Frontline',       pct: 67, industry: 48, color: '#f43f5e', trend: '+11pp', note: 'Critical' },
-];
+interface Level {
+  label: string;
+  pct: number;
+  industry: number;
+  color: string;
+  trend: string;
+  note: string;
+}
 
-const BurnoutByLevel: React.FC = () => (
+const BurnoutByLevel: React.FC = () => {
+  const [levels, setLevels] = useState<Level[]>([
+    { label: 'Executive',       pct: 28, industry: 22, color: '#fb923c', trend: '+3pp',  note: 'Elevated' },
+    { label: 'Mid-Management',  pct: 41, industry: 35, color: '#f97316', trend: '+6pp',  note: 'High Risk' },
+    { label: 'Frontline',       pct: 67, industry: 48, color: '#f43f5e', trend: '+11pp', note: 'Critical' },
+  ]);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/culture/burnout-by-level')
+      .then(res => res.json())
+      .then(data => {
+        if (data.levels) {
+          setLevels(data.levels);
+        }
+      })
+      .catch(err => console.error('Failed to fetch burnout data:', err));
+  }, []);
+
+  return (
   <div className="rounded-2xl overflow-hidden h-full"
     style={{ background: 'var(--bg-card)', border: '1px solid var(--border-1)', borderLeft: '2px solid #f43f5e', boxShadow: 'var(--shadow-md)' }}>
 
@@ -73,6 +94,7 @@ const BurnoutByLevel: React.FC = () => (
       </div>
     </div>
   </div>
-);
+  );
+};
 
 export default BurnoutByLevel;

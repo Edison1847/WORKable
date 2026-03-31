@@ -8,15 +8,16 @@ export default function Landing() {
   const [isDrawerHovered, setIsDrawerHovered] = useState(false);
 
   const handleRefreshDb = async () => {
-    if (!confirm('Are you sure you want to clear the entire database? This will reset all company settings and diagnostics.')) return;
+    if (!confirm('Are you sure you want to RESET CORE? This will permanently wipe all company settings, departments, and diagnostics.')) return;
     try {
       const res = await fetch('http://localhost:3000/api/refresh', { method: 'POST' });
       if (res.ok) {
         localStorage.removeItem('workable_l1_data');
-        alert('System reset successfully.');
+        // Force a full reload to clear any React state/cache
+        window.location.reload();
       }
     } catch (err) {
-      alert('Failed to clear database.');
+      alert('Failed to clear database core.');
     }
   };
 

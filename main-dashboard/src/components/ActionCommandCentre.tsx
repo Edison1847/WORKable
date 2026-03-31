@@ -187,14 +187,15 @@ const ActionCommandCentre: React.FC = () => {
   const [expanded, setExpanded]       = useState<Set<string>>(new Set());
   const [tick, setTick]               = useState(0);
 
-  const [selectedBandId, setSelectedBandId] = useState<string | null>(null);
-  const selectedBand = ALL_BANDS.find(b => b.id === selectedBandId);
-
   // Inaction clock — increments every 8s to simulate cost accumulating
   useEffect(() => {
     const id = setInterval(() => setTick(t => t + 1), 8000);
     return () => clearInterval(id);
   }, []);
+
+  const [selectedBandId, setSelectedBandId] = useState<string | null>(null);
+  const selectedBand = ALL_BANDS.find(b => b.id === selectedBandId);
+
 
   const toggleExpand = useCallback((id: string) => {
     setExpanded(prev => {

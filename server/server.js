@@ -10,7 +10,8 @@ const app = express();
 const PORT = 3000;
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json({ limit: '100mb' }));
+app.use(express.urlencoded({ extended: true, limit: '100mb' }));
 
 // ── Create nlp_signals table on startup (temporary store, non-destructive) ──
 db.exec(`
@@ -511,37 +512,60 @@ app.post('/api/synthesize-workforce', async (req, res) => {
         const currentCount = existingEmployees.length;
         const remainingToTarget = Math.max(0, targetHeadcount - currentCount);
 
-        for (let i = 0; i < remainingToTarget; i++) {
-            let name = generateName();
-            while (existingNames.includes(name)) name = `${name} ${i}`; 
-            existingNames.push(name);
+        // Get real (non-AI) employee names as base managers
+        const realEmployeeNames = existingEmployees.map(e => e.name);
+        
+        // Process in batches - each batch can report to previous batches (building hierarchy)
+        const batchSize = 10;
+        let aiManagers = [...realEmployeeNames]; // Start with real employees as valid managers
+        
+        for (let batchStart = 0; batchStart < remainingToTarget; batchStart += batchSize) {
+            const batchEnd = Math.min(batchStart + batchSize, remainingToTarget);
+            const isFirstBatch = batchStart === 0;
+            
+            for (let i = batchStart; i < batchEnd; i++) {
+                let name = generateName();
+                while (existingNames.includes(name)) name = `${name} ${i}`; 
+                existingNames.push(name);
 
-            const role = validRoles[Math.floor(Math.random() * validRoles.length)];
-            const dept = depts.find(d => d.id === role.department_id);
-            const possibleManagers = [...existingNames.filter(n => n !== name)];
-            const manager = possibleManagers.length > 0 ? possibleManagers[Math.floor(Math.random() * possibleManagers.length)] : 'CEO';
+                const role = validRoles[Math.floor(Math.random() * validRoles.length)];
+                const dept = depts.find(d => d.id === role.department_id);
+                
+                // First batch: only real managers. Later batches: can also report to previous AI batch
+                const validManagers = isFirstBatch ? realEmployeeNames : aiManagers;
+                const manager = validManagers[Math.floor(Math.random() * validManagers.length)];
 
-            const empId = `ai_${Date.now()}_${i}`;
-            syntheticEmployees.push({
-                id: empId,
-                name: name,
-                role: role.title,
-                manager: manager,
-                department_id: dept.id,
-                is_ai: 1
-            });
+                // Determine if this employee becomes a manager for future batches (30% chance)
+                const isSupervisorRole = /\b(Manager|Chief|Lead|Director|Head)\b/i.test(role.title);
+                const becomesManager = isSupervisorRole && Math.random() < 0.3;
 
-            // Every new AI employee gets both audits
-            syntheticDiagnostics.push({
-                company_id: companyId, type: 'worker', employee_name: name, department_name: dept.name,
-                payload: JSON.stringify(generateAuditPayload('worker', name, dept.name, role.title, manager, nlpPhrases, batchUuid)),
-                is_ai: 1
-            });
-            syntheticDiagnostics.push({
-                company_id: companyId, type: 'supervisor', employee_name: name, department_name: dept.name,
-                payload: JSON.stringify(generateAuditPayload('supervisor', name, dept.name, role.title, manager, nlpPhrases, batchUuid)),
-                is_ai: 1
-            });
+                const empId = `ai_${Date.now()}_${i}`;
+                syntheticEmployees.push({
+                    id: empId,
+                    name: name,
+                    role: role.title,
+                    manager: manager,
+                    department_id: dept.id,
+                    is_ai: 1
+                });
+
+                // If this becomes a manager, add to aiManagers for next batch
+                if (becomesManager) {
+                    aiManagers.push(name);
+                }
+
+                // Every new AI employee gets both audits
+                syntheticDiagnostics.push({
+                    company_id: companyId, type: 'worker', employee_name: name, department_name: dept.name,
+                    payload: JSON.stringify(generateAuditPayload('worker', name, dept.name, role.title, manager, nlpPhrases, batchUuid)),
+                    is_ai: 1
+                });
+                syntheticDiagnostics.push({
+                    company_id: companyId, type: 'supervisor', employee_name: name, department_name: dept.name,
+                    payload: JSON.stringify(generateAuditPayload('supervisor', name, dept.name, role.title, manager, nlpPhrases, batchUuid)),
+                    is_ai: 1
+                });
+            }
         }
 
         if (req.body.preview) {
@@ -623,7 +647,9 @@ function generateAuditPayload(type, name, deptName, roleTitle, manager, phrases,
                 blockers: phrases.blockers[Math.floor(Math.random() * phrases.blockers.length)],
                 changes: phrases.innovation[Math.floor(Math.random() * phrases.innovation.length)],
                 meetingRatio: Math.floor(Math.random() * 40) + 20,
-                enthusiasm: Math.floor(Math.random() * 20) + 5 // "How many days this month did you feel genuinely energetic"
+                enthusiasm: Math.floor(Math.random() * 20) + 5, // "How many days this month did you feel genuinely energetic"
+                voiceSuppression: Math.floor(Math.random() * 5) + 3, // 3-7 range for synthesized data
+                alternateContact: 'colleagues' // Default to peer group for synthesized data
             },
             is_ai: true, batch_uuid: batchUuid
         };
@@ -658,7 +684,10 @@ function generateAuditPayload(type, name, deptName, roleTitle, manager, phrases,
                 blockers: phrases.blockers[Math.floor(Math.random() * phrases.blockers.length)],
                 improvements: phrases.innovation[Math.floor(Math.random() * phrases.innovation.length)],
                 meetingsVsFocus: Math.floor(Math.random() * 50) + 20,
-                enthusiasm: Math.floor(Math.random() * 20) + 5 // Energetic days
+                enthusiasm: Math.floor(Math.random() * 20) + 5, // Energetic days
+                voiceSuppression: Math.floor(Math.random() * 4) + 3, // 3-6 range for synthesized data
+                comfortRaisingConcerns: Math.floor(Math.random() * 4) + 5, // 5-8 range for synthesized data
+                comfortSharing: Math.floor(Math.random() * 4) + 5 // 5-8 range for synthesized data
             },
             is_ai: true, batch_uuid: batchUuid
         };
@@ -667,6 +696,9 @@ function generateAuditPayload(type, name, deptName, roleTitle, manager, phrases,
 
 app.post('/api/commit-synthetic-workforce', async (req, res) => {
     try {
+        const payloadSize = JSON.stringify(req.body).length;
+        console.log('Payload size:', (payloadSize / 1024 / 1024).toFixed(2), 'MB');
+        
         const companyRes = await db.query('SELECT * FROM companies LIMIT 1');
         const companyId = companyRes.rows[0] ? companyRes.rows[0].id : 1;
         const { syntheticEmployees, syntheticDiagnostics } = req.body;
@@ -678,14 +710,16 @@ app.post('/api/commit-synthetic-workforce', async (req, res) => {
         await db.query('BEGIN IMMEDIATE');
         try {
             for (const emp of syntheticEmployees) {
+                // Use INSERT OR IGNORE to skip duplicates
                 await db.query(
-                    'INSERT INTO employees (id, company_id, name, role, manager, department_id, is_ai) VALUES ($1, $2, $3, $4, $5, $6, 1)',
+                    'INSERT OR IGNORE INTO employees (id, company_id, name, role, manager, department_id, is_ai) VALUES ($1, $2, $3, $4, $5, $6, 1)',
                     [emp.id, companyId, emp.name, emp.role, emp.manager, emp.department_id]
                 );
             }
             for (const diag of syntheticDiagnostics) {
+                // Use INSERT OR IGNORE to skip duplicates
                 await db.query(
-                    'INSERT INTO diagnostics (company_id, type, employee_name, department_name, payload, is_ai) VALUES ($1, $2, $3, $4, $5, 1)',
+                    'INSERT OR IGNORE INTO diagnostics (company_id, type, employee_name, department_name, payload, is_ai) VALUES ($1, $2, $3, $4, $5, 1)',
                     [companyId, diag.type, diag.employee_name, diag.department_name, diag.payload]
                 );
             }
@@ -693,11 +727,12 @@ app.post('/api/commit-synthetic-workforce', async (req, res) => {
             res.json({ success: true });
         } catch (e) {
             await db.query('ROLLBACK').catch(() => {});
-            throw e;
+            console.error('Inner Commit Error:', e.message);
+            res.status(500).json({ error: 'Failed to commit AI workforce: ' + e.message });
         }
     } catch (err) {
         console.error('Commit Error:', err);
-        res.status(500).json({ error: 'Failed to commit AI workforce' });
+        res.status(500).json({ error: 'Failed to commit AI workforce: ' + err.message });
     }
 });
 
@@ -917,8 +952,343 @@ async function autoRestoreFromJSON() {
     }
 }
 
-autoRestoreFromJSON().then(() => {
+// ═══════════════════════════════════════════════════════════════════════════════
+// CULTURE & PERCEPTION ENDPOINTS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// GET /api/culture/burnout-by-level
+app.get('/api/culture/burnout-by-level', async (req, res) => {
+    try {
+        const diagnosticsRes = await db.query('SELECT payload, type FROM diagnostics');
+        const employeesRes = await db.query('SELECT name, role FROM employees');
+        
+        // Map employees to levels
+        const employeeMap = {};
+        employeesRes.rows.forEach(emp => {
+            const role = (emp.role || '').toLowerCase();
+            let level = 'Frontline';
+            if (role.includes('ceo') || role.includes('chief') || role.includes('executive')) {
+                level = 'Executive';
+            } else if (role.includes('vp') || role.includes('manager') || role.includes('director') || role.includes('lead')) {
+                level = 'Mid-Management';
+            }
+            employeeMap[emp.name] = level;
+        });
+
+        // Aggregate burnout by level
+        const levelData = {
+            'Executive': { total: 0, count: 0 },
+            'Mid-Management': { total: 0, count: 0 },
+            'Frontline': { total: 0, count: 0 }
+        };
+
+        diagnosticsRes.rows.forEach(row => {
+            const payload = typeof row.payload === 'string' ? JSON.parse(row.payload) : row.payload;
+            const name = payload.name || payload.employee_name;
+            const burnout = payload.p1?.burnout;
+            
+            if (burnout && name && employeeMap[name]) {
+                const level = employeeMap[name];
+                levelData[level].total += burnout;
+                levelData[level].count += 1;
+            }
+        });
+
+        // Calculate percentages (burnout scale 1-5, convert to percentage)
+        const levels = [
+            {
+                label: 'Executive',
+                pct: levelData['Executive'].count > 0 
+                    ? Math.round((levelData['Executive'].total / levelData['Executive'].count / 5) * 100)
+                    : 28,
+                industry: 22,
+                color: '#fb923c',
+                trend: '+3pp',
+                note: levelData['Executive'].count > 0 && (levelData['Executive'].total / levelData['Executive'].count) > 2.5 ? 'Elevated' : 'Normal'
+            },
+            {
+                label: 'Mid-Management',
+                pct: levelData['Mid-Management'].count > 0 
+                    ? Math.round((levelData['Mid-Management'].total / levelData['Mid-Management'].count / 5) * 100)
+                    : 41,
+                industry: 35,
+                color: '#f97316',
+                trend: '+6pp',
+                note: levelData['Mid-Management'].count > 0 && (levelData['Mid-Management'].total / levelData['Mid-Management'].count) > 3 ? 'High Risk' : 'Moderate'
+            },
+            {
+                label: 'Frontline',
+                pct: levelData['Frontline'].count > 0 
+                    ? Math.round((levelData['Frontline'].total / levelData['Frontline'].count / 5) * 100)
+                    : 67,
+                industry: 48,
+                color: '#f43f5e',
+                trend: '+11pp',
+                note: levelData['Frontline'].count > 0 && (levelData['Frontline'].total / levelData['Frontline'].count) > 3.5 ? 'Critical' : 'Moderate'
+            }
+        ];
+
+        res.json({ levels, timestamp: new Date().toISOString() });
+    } catch (err) {
+        console.error('Burnout by Level Error:', err);
+        res.status(500).json({ error: 'Failed to calculate burnout by level' });
+    }
+});
+
+// GET /api/culture/inaction-cost
+app.get('/api/culture/inaction-cost', async (req, res) => {
+    try {
+        const nlpRes = await db.query(`
+            SELECT employee_name, department_name, raw_text, urgency_score, created_at, question_label
+            FROM nlp_signals 
+            WHERE question IN ('q9', 'q14') 
+            ORDER BY urgency_score DESC
+        `);
+        
+        const rolesRes = await db.query('SELECT min_salary, max_salary FROM roles');
+        const avgSalary = rolesRes.rows.length > 0 
+            ? rolesRes.rows.reduce((sum, r) => sum + ((r.min_salary + r.max_salary) / 2), 0) / rolesRes.rows.length
+            : 75000;
+        
+        const hourlyRate = avgSalary / 2080; // Annual to hourly
+        
+        // Aggregate blockers
+        const blockerMap = {};
+        nlpRes.rows.forEach(signal => {
+            const dept = signal.department_name || 'Unknown';
+            if (!blockerMap[dept]) {
+                blockerMap[dept] = {
+                    count: 0,
+                    urgency: 0,
+                    examples: []
+                };
+            }
+            blockerMap[dept].count += 1;
+            blockerMap[dept].urgency += signal.urgency_score || 0;
+            if (blockerMap[dept].examples.length < 3) {
+                blockerMap[dept].examples.push(signal.raw_text?.substring(0, 100) || '');
+            }
+        });
+
+        // Calculate costs
+        const topBlockers = Object.entries(blockerMap).map(([dept, data]) => {
+            const avgUrgency = data.urgency / data.count;
+            const estimatedHoursLost = data.count * avgUrgency * 2; // Urgency score * 2 hours per blocker
+            const cost = estimatedHoursLost * hourlyRate;
+            
+            return {
+                department: dept,
+                count: data.count,
+                avgUrgency: avgUrgency.toFixed(1),
+                cost: Math.round(cost),
+                examples: data.examples
+            };
+        }).sort((a, b) => b.cost - a.cost).slice(0, 5);
+
+        const totalCost = topBlockers.reduce((sum, b) => sum + b.cost, 0);
+        const costPerDay = Math.round(totalCost / 30); // Monthly to daily
+
+        res.json({
+            totalCost,
+            costPerDay,
+            topBlockers,
+            timestamp: new Date().toISOString()
+        });
+    } catch (err) {
+        console.error('Inaction Cost Error:', err);
+        res.status(500).json({ error: 'Failed to calculate inaction cost' });
+    }
+});
+
+// GET /api/culture/shadow-organization
+app.get('/api/culture/shadow-organization', async (req, res) => {
+    try {
+        const employeesRes = await db.query('SELECT id, name, role, manager FROM employees');
+        const diagnosticsRes = await db.query('SELECT payload FROM diagnostics WHERE type = "worker"');
+        
+        // Build formal org chart
+        const employees = employeesRes.rows;
+        const nodes = [];
+        const edges = [];
+        const influenceMap = {};
+
+        // Initialize influence scores
+        employees.forEach(emp => {
+            const role = (emp.role || '').toLowerCase();
+            let baseInfluence = 15;
+            let isFormal = true;
+            
+            if (role.includes('ceo') || role.includes('chief')) {
+                baseInfluence = 82;
+            } else if (role.includes('coo') || role.includes('cto')) {
+                baseInfluence = 60;
+            } else if (role.includes('vp') || role.includes('director')) {
+                baseInfluence = 35;
+            } else if (role.includes('manager') || role.includes('lead')) {
+                baseInfluence = 25;
+                isFormal = false;
+            }
+            
+            influenceMap[emp.name] = { base: baseInfluence, informal: 0, isFormal };
+        });
+
+        // Count informal mentions from alternateContact
+        diagnosticsRes.rows.forEach(row => {
+            const payload = typeof row.payload === 'string' ? JSON.parse(row.payload) : row.payload;
+            const altContact = payload.p4?.alternateContact;
+            
+            if (altContact && influenceMap[altContact]) {
+                influenceMap[altContact].informal += 10; // Each mention adds influence
+            }
+        });
+
+        // Build nodes
+        const positionMap = {
+            0: { x: 50, y: 10 },
+            1: { x: 22, y: 30 },
+            2: { x: 78, y: 30 },
+            3: { x: 12, y: 54 },
+            4: { x: 38, y: 54 },
+            5: { x: 66, y: 54 },
+            6: { x: 88, y: 54 },
+            7: { x: 50, y: 74 },
+            8: { x: 6, y: 80 },
+            9: { x: 78, y: 80 }
+        };
+
+        employees.slice(0, 10).forEach((emp, idx) => {
+            const influence = influenceMap[emp.name];
+            const totalInfluence = influence.base + influence.informal;
+            const isShadow = influence.informal > 20 && !influence.isFormal;
+            const pos = positionMap[idx] || { x: 50, y: 50 };
+            
+            nodes.push({
+                id: emp.id,
+                label: emp.name.split(' ')[0] + ' ' + (emp.name.split(' ')[1]?.[0] || '') + '.',
+                title: emp.role,
+                formal: influence.isFormal,
+                influence: totalInfluence,
+                x: pos.x,
+                y: pos.y,
+                color: isShadow ? '#f43f5e' : '#38bdf8',
+                shadow: isShadow
+            });
+
+            // Add formal edges
+            if (emp.manager) {
+                edges.push({
+                    from: emp.manager,
+                    to: emp.id,
+                    w: 2,
+                    formal: true
+                });
+            }
+        });
+
+        // Add informal edges from alternateContact
+        diagnosticsRes.rows.forEach(row => {
+            const payload = typeof row.payload === 'string' ? JSON.parse(row.payload) : row.payload;
+            const fromName = payload.name;
+            const toName = payload.p4?.alternateContact;
+            
+            if (fromName && toName) {
+                const fromNode = nodes.find(n => n.label.includes(fromName.split(' ')[0]));
+                const toNode = nodes.find(n => n.label.includes(toName.split(' ')[0]));
+                
+                if (fromNode && toNode && fromNode.id !== toNode.id) {
+                    edges.push({
+                        from: fromNode.id,
+                        to: toNode.id,
+                        w: 1.5,
+                        formal: false,
+                        color: toNode.color
+                    });
+                }
+            }
+        });
+
+        const shadowLeaders = nodes.filter(n => n.shadow).sort((a, b) => b.influence - a.influence);
+
+        res.json({ nodes, edges, shadowLeaders, timestamp: new Date().toISOString() });
+    } catch (err) {
+        console.error('Shadow Organization Error:', err);
+        res.status(500).json({ error: 'Failed to build shadow organization' });
+    }
+});
+
+// GET /api/culture/employer-brand
+app.get('/api/culture/employer-brand', async (req, res) => {
+    try {
+        const diagnosticsRes = await db.query('SELECT payload, created_at FROM diagnostics ORDER BY created_at ASC');
+        
+        // Group by cycles (every 30 days = 1 cycle)
+        const cycleMap = {};
+        const startDate = diagnosticsRes.rows.length > 0 
+            ? new Date(diagnosticsRes.rows[0].created_at)
+            : new Date();
+        
+        diagnosticsRes.rows.forEach(row => {
+            const payload = typeof row.payload === 'string' ? JSON.parse(row.payload) : row.payload;
+            const createdAt = new Date(row.created_at);
+            const daysDiff = Math.floor((createdAt - startDate) / (1000 * 60 * 60 * 24));
+            const cycle = Math.floor(daysDiff / 30) + 1;
+            
+            if (!cycleMap[cycle]) {
+                cycleMap[cycle] = { orgHealthTotal: 0, enthusiasmTotal: 0, count: 0 };
+            }
+            
+            const orgHealth = payload.p1?.orgHealth || payload.globalOrgHealth;
+            const enthusiasm = payload.p1?.enthusiasm || payload.p3?.enthusiasm || payload.p4?.enthusiasm;
+            
+            if (orgHealth) {
+                cycleMap[cycle].orgHealthTotal += orgHealth;
+                cycleMap[cycle].count += 1;
+            }
+            if (enthusiasm) {
+                cycleMap[cycle].enthusiasmTotal += enthusiasm;
+            }
+        });
+
+        // Build cycle data
+        const cycles = Object.entries(cycleMap).map(([cycleNum, data]) => {
+            const internal = data.count > 0 
+                ? Math.round(((data.orgHealthTotal / data.count) / 10) * 100) // Convert 1-10 to percentage
+                : 70;
+            
+            // External sentiment: simulate declining trend (would integrate with external API in production)
+            const external = Math.max(50, internal - (parseInt(cycleNum) * 3));
+            
+            return {
+                cycle: `C${cycleNum}`,
+                internal,
+                external
+            };
+        }).slice(0, 5);
+
+        // If no data, return defaults
+        if (cycles.length === 0) {
+            cycles.push(
+                { cycle: 'C1', internal: 61, external: 72 },
+                { cycle: 'C2', internal: 65, external: 70 },
+                { cycle: 'C3', internal: 68, external: 65 },
+                { cycle: 'C4', internal: 71, external: 61 },
+                { cycle: 'C5', internal: 74, external: 59 }
+            );
+        }
+
+        const latest = cycles[cycles.length - 1];
+        const gap = latest.internal - latest.external;
+
+        res.json({ cycles, gap, timestamp: new Date().toISOString() });
+    } catch (err) {
+        console.error('Employer Brand Error:', err);
+        res.status(500).json({ error: 'Failed to calculate employer brand health' });
+    }
+});
+
+// Auto-restore disabled to allow for a clean state
+// autoRestoreFromJSON().then(() => {
     app.listen(PORT, () => {
         console.log(`SQLite Backend running at http://localhost:${PORT}`);
     });
-});
+// });

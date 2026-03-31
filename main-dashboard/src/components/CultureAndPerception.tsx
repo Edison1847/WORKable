@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MessageSquare, TrendingDown, Sparkles } from 'lucide-react';
-import PerceptionGap from './PerceptionGap';
 import InactionCostClock from './InactionCostClock';
 import VoiceSuppression from './VoiceSuppression';
+import DarkEnergyReport from './DarkEnergyReport';
 import TrustDecayCurve from './TrustDecayCurve';
 import BurnoutByLevel from './BurnoutByLevel';
 import CognitiveEconomyModel from './CognitiveEconomyModel';
@@ -14,13 +14,11 @@ import ShadowOrganisation from './ShadowOrganisation';
 const CultureAndPerception: React.FC = () => (
   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="space-y-5">
 
-    {/* [HIDDEN] Perception Gap + Voice Suppression — hardcoded capacity/friction gap data */}
-    {false && (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <PerceptionGap />
-        <VoiceSuppression />
-      </div>
-    )}
+    {/* Voice Suppression — live data from supervisor diagnostics */}
+    <VoiceSuppression />
+
+    {/* Dark Energy Report — live systemic force analysis */}
+    <DarkEnergyReport />
 
     {/* [HIDDEN] Trust Decay + Burnout by Level — hardcoded multi-cycle/level data */}
     {false && (

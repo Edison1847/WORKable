@@ -75,6 +75,7 @@ interface ManagerProfile {
   riskScore:         number;
   retentionRisk:     'low' | 'moderate' | 'high' | 'critical';
   flags:             string[];
+  insight:           string;
 }
 
 /* ── Component ───────────────────────────────────────────── */
@@ -84,19 +85,30 @@ const ManagerEffectiveness: React.FC = () => {
   const { data } = useIntakeData();
 
   const diags = (data?.all_diagnostics || []) as any[];
-  const supervisors = diags.filter(d => d.type === 'supervisor');
+  const allEmployees = diags.filter(d => d.type === 'worker' || d.type === 'supervisor');
   const workers = diags.filter(d => d.type === 'worker');
+  const supervisors = diags.filter(d => d.type === 'supervisor');
   const ceoDiags = diags.filter(d => d.type === 'ceo_audit');
 
   /* ── Build manager profiles ── */
   const managers: ManagerProfile[] = useMemo(() => {
-    return supervisors.map(s => {
+    const opsEmployees = allEmployees.filter((e: any) => {
+      const dept = (e.department_name || e.dept || '').toLowerCase();
+      const name = (e.employee_name || '').toLowerCase();
+      const isOps = dept.includes('operation') || dept.includes('hr') || dept.includes('engineering') || dept.includes('sales');
+      return isOps && !name.includes('ceo');
+    });
+    
+    const finalList = opsEmployees.length > 0 ? opsEmployees : supervisors;
+    
+    return finalList.map((s: any) => {
       const p1 = s.payload?.p1 || s.p1 || {};
       const p3 = s.payload?.p3 || s.p3 || {};
       
       const burnout = p1.burnout || 0;
       const capGap = p1.capGap || p1.capabilityGap || 0;
       const targetClarity = p1.targetClarity || p1.clarity || 0;
+      const orgHealth = p1.orgHealth || 0;
       
       const selfHealth = Math.round((5 - Math.min(burnout, 5)) / 5 * 100);
       const clarityScore = Math.round(Math.min(targetClarity, 10) / 10 * 100);
@@ -114,18 +126,48 @@ const ManagerEffectiveness: React.FC = () => {
       const riskScore = Math.round((burnout / 5) * 35 + (capGap / 10) * 20 + ((p3.meetingsVsFocus || 0) / 100) * 20);
       const retentionRisk = riskScore > 55 ? 'critical' : riskScore > 38 ? 'high' : riskScore > 22 ? 'moderate' : 'low';
 
+      const generateInsight = () => {
+        const positives: string[] = [];
+        const negatives: string[] = [];
+        
+        if (selfHealth >= 70) positives.push('healthy wellbeing');
+        else if (selfHealth < 40) negatives.push('low wellbeing');
+        
+        if (clarityScore >= 70) positives.push('clear direction');
+        else if (clarityScore < 40) negatives.push('unclear goals');
+        
+        if (capabilityScore >= 70) positives.push('skilled');
+        else if (capabilityScore < 40) negatives.push('skill gaps');
+        
+        if (engagementScore >= 70) positives.push('highly engaged');
+        else if (engagementScore < 40) negatives.push('disengaged');
+        
+        if (focusScore >= 70) positives.push('good focus time');
+        else if (focusScore < 40) negatives.push('too many meetings');
+        
+        if (negatives.length === 0 && positives.length >= 3) {
+          return `Top performer: ${positives.join(', ')}`;
+        } else if (negatives.length >= 3) {
+          return `Needs attention: ${negatives.join(', ')}`;
+        } else if (negatives.length > 0) {
+          return `Mixed performance - ${positives.join(', ')} but ${negatives.join(', ')}`;
+        }
+        return `Solid performance: ${positives.join(', ')}`;
+      };
+
       return {
         name: s.employee_name || 'Unknown',
-        dept: s.dept || 'General',
-        burnout, capGap, targetClarity, orgHealth: p1.orgHealth || 0,
+        dept: s.department_name || s.dept || 'Operations',
+        burnout, capGap, targetClarity, orgHealth,
         weeklyHrs: p1.weeklyHrs || 0, enthusiasm: p3.enthusiasm || 0,
         meetingsPct: p3.meetingsVsFocus || 50, targetsAchievable: p3.targetsAchievable || 'Neutral',
         whoReviews: p3.whoReviews || '', blockers: p3.blockers || '', improvements: p3.improvements || '',
         selfHealth, clarityScore, capabilityScore, engagementScore, focusScore,
         mei, riskScore, retentionRisk, flags,
+        insight: generateInsight(),
       };
     });
-  }, [supervisors]);
+  }, [allEmployees]);
 
   /* ── Departmental Aggregation ── */
   const deptMatrix = useMemo(() => {
@@ -152,17 +194,32 @@ const ManagerEffectiveness: React.FC = () => {
           w.employee_name?.toLowerCase() === cd.employee_name?.toLowerCase(),
         );
         if (!wd) return null;
-        const score = parseFloat(Math.abs((cd.p1?.clarity || 0) - (wd.p1?.targetClarity || 0)).toFixed(1));
-        return { name: cd.employee_name || '—', score };
+        const ceoClarity = cd.p1?.clarity || 0;
+        const workerClarity = wd.p1?.targetClarity || 0;
+        const score = parseFloat(Math.abs(ceoClarity - workerClarity).toFixed(1));
+        
+        const generateInsight = () => {
+          if (score <= 1) {
+            return 'CEO perception aligns with employee reality — good clarity';
+          } else if (score <= 2.5) {
+            const higher = ceoClarity > workerClarity ? 'CEO overestimates' : 'Employee underestimates';
+            return `Perception gap: ${higher} understanding by ${score.toFixed(1)} points`;
+          } else {
+            const higher = ceoClarity > workerClarity ? 'CEO significantly overestimate' : 'Employee significantly underestimates';
+            return `Major misalignment: ${higher} team clarity vs reality`;
+          }
+        };
+        
+        return { name: cd.employee_name || '—', score, insight: generateInsight() };
       })
       .filter(Boolean)
-      .sort((a: any, b: any) => b.score - a.score) as { name: string; score: number }[];
+      .sort((a: any, b: any) => b.score - a.score) as { name: string; score: number; insight: string }[];
   }, [ceoDiags, workers]);
 
   const sorted = useMemo(() => [...managers].sort((a, b) => b.mei - a.mei), [managers]);
   const displayList = showAll ? sorted : [...sorted.slice(0, 3), ...sorted.slice(-3)];
 
-  if (supervisors.length === 0) return (
+  if (managers.length === 0) return (
     <div className="rounded-2xl p-12 text-center border border-dashed border-white/10" style={{ background: 'var(--bg-card)' }}>
         <p className="text-xs text-white/40 uppercase tracking-widest">Awaiting Manager Diagnostics...</p>
     </div>
@@ -188,28 +245,6 @@ const ManagerEffectiveness: React.FC = () => {
 
       <div className="px-6 py-5 space-y-8">
         
-        {/* Departmental Heatmap Matrix */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {deptMatrix.map(d => (
-                <div key={d.dept} className="rounded-xl p-4 flex flex-col justify-between" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-1)', borderLeft: `3px solid ${meiColor(d.avgMei)}` }}>
-                    <div className="flex justify-between items-start mb-4">
-                        <span className="text-[10px] font-bold text-white uppercase tracking-wider">{d.dept}</span>
-                        <span className="text-[9px] text-white/30">{d.count} Leads</span>
-                    </div>
-                    <div className="flex items-end justify-between">
-                        <div>
-                             <p className="text-[8px] text-white/40 uppercase font-mono">Avg MEI</p>
-                             <p className="text-xl font-bold font-mono" style={{ color: meiColor(d.avgMei) }}>{d.avgMei}</p>
-                        </div>
-                        <div className="text-right">
-                             <p className="text-[8px] text-white/40 uppercase font-mono">Retention Risk</p>
-                             <p className="text-xs font-bold font-mono" style={{ color: riskColor(d.avgRisk > 40 ? 'high' : 'low') }}>{d.avgRisk}%</p>
-                        </div>
-                    </div>
-                </div>
-            ))}
-        </div>
-
         {/* Exceptions View (Individual Highlights) */}
         <div>
             <div className="flex items-center justify-between mb-4">
@@ -222,8 +257,22 @@ const ManagerEffectiveness: React.FC = () => {
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-3">
                 {displayList.map((mgr, i) => (
                     <motion.div key={mgr.name + i} onClick={() => setExpandedMgr(expandedMgr === mgr.name ? null : mgr.name)}
-                        className="rounded-xl p-3 cursor-pointer hover:bg-white/[0.04] transition-all"
+                        className="rounded-xl p-3 cursor-pointer hover:bg-white/[0.04] transition-all relative group"
                         style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border-1)', borderTop: `2px solid ${meiColor(mgr.mei)}` }}>
+                        
+                        {/* Tooltip */}
+                        <div className="absolute left-0 bottom-full mb-2 px-3 py-2 rounded-lg text-[10px] font-medium opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50"
+                            style={{
+                                background: '#1e293b',
+                                color: '#e2e8f0',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
+                                maxWidth: '220px',
+                            }}>
+                            {mgr.insight}
+                            <div className="absolute left-3 -bottom-1 w-2 h-2 rotate-45" style={{ background: '#1e293b', borderRight: '1px solid rgba(255,255,255,0.1)', borderBottom: '1px solid rgba(255,255,255,0.1)' }} />
+                        </div>
+
                         <div className="flex items-center gap-3">
                             <div className="w-8 h-8 rounded-lg flex items-center justify-center text-[10px] font-bold shrink-0"
                                 style={{ background: `${meiColor(mgr.mei)}15`, color: meiColor(mgr.mei), border: `1px solid ${meiColor(mgr.mei)}30` }}>
@@ -269,7 +318,19 @@ const ManagerEffectiveness: React.FC = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
               {blindspotData.slice(0, 4).map((m, i) => (
-                <div key={m.name} className="p-3 rounded-xl bg-white/[0.02] border border-white/5">
+                <div key={m.name} className="p-3 rounded-xl bg-white/[0.02] border border-white/5 relative group cursor-help">
+                    {/* Tooltip */}
+                    <div className="absolute left-0 bottom-full mb-2 px-3 py-2 rounded-lg text-[10px] font-medium opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50"
+                        style={{
+                            background: '#1e293b',
+                            color: '#e2e8f0',
+                            border: '1px solid rgba(255,255,255,0.1)',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
+                            maxWidth: '200px',
+                        }}>
+                        {m.insight}
+                        <div className="absolute left-3 -bottom-1 w-2 h-2 rotate-45" style={{ background: '#1e293b', borderRight: '1px solid rgba(255,255,255,0.1)', borderBottom: '1px solid rgba(255,255,255,0.1)' }} />
+                    </div>
                     <p className="text-[10px] font-bold text-white mb-1 truncate">{m.name}</p>
                     <div className="flex justify-between items-end">
                         <span className="text-[9px] text-white/30 uppercase font-mono">{bsLabel(m.score)} Gap</span>

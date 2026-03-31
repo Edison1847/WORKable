@@ -51,7 +51,7 @@ const S = StyleSheet.create({
   },
 
   // ── Cover elements ──
-  coverTopStripe: { height: 10, backgroundColor: C.sky },
+  coverTopStripe: { height: 20, backgroundColor: C.sky },
   coverContent: { flex: 1, paddingHorizontal: 56, paddingTop: 60, paddingBottom: 50, flexDirection: 'column' },
   coverEyebrow: { fontFamily: 'Helvetica', fontSize: 9, color: C.sky, letterSpacing: 3, marginBottom: 16 },
   coverWordmark: { fontFamily: 'Helvetica-Bold', fontSize: 52, color: C.white, letterSpacing: -1, lineHeight: 1 },
@@ -88,7 +88,7 @@ const S = StyleSheet.create({
   fixedFooterRight: { fontFamily: 'Helvetica', fontSize: 7, color: C.gray400 },
 
   // ── Section header ──
-  sectionHeader: { flexDirection: 'row', alignItems: 'flex-start', marginBottom: 16 },
+  sectionHeader: { flexDirection: 'row', alignItems: 'flex-start', marginBottom: 18, backgroundColor: '#F0F9FF', paddingTop: 14, paddingBottom: 14, paddingLeft: 16, paddingRight: 16, borderRadius: 6 },
   sectionHeaderBar: { width: 4, marginRight: 12, borderRadius: 2 },
   sectionHeaderText: { flex: 1 },
   sectionNum: { fontFamily: 'Helvetica', fontSize: 8, color: C.gray400, letterSpacing: 1, marginBottom: 4 },
@@ -96,7 +96,7 @@ const S = StyleSheet.create({
   sectionSub: { fontFamily: 'Helvetica', fontSize: 8.5, color: C.gray500, marginTop: 3 },
 
   // ── Typography ──
-  h3: { fontFamily: 'Helvetica-Bold', fontSize: 11, color: C.gray800, marginBottom: 8 },
+  h3: { fontFamily: 'Helvetica-Bold', fontSize: 11, color: C.gray800, marginBottom: 10, paddingBottom: 5, borderBottomWidth: 1, borderBottomColor: C.gray200, borderBottomStyle: 'solid' },
   body: { fontFamily: 'Helvetica', fontSize: 9, color: C.gray700, lineHeight: 1.5 },
   bodyBold: { fontFamily: 'Helvetica-Bold', fontSize: 9, color: C.gray800 },
   caption: { fontFamily: 'Helvetica', fontSize: 7.5, color: C.gray500 },
@@ -116,18 +116,18 @@ const S = StyleSheet.create({
 
   // ── Cards / boxes ──
   metricRow: { flexDirection: 'row', marginBottom: 16 },
-  metricCard: { flex: 1, borderRadius: 6, padding: 12, marginRight: 10 },
-  metricCardLast: { flex: 1, borderRadius: 6, padding: 12 },
-  metricCardLabel: { fontFamily: 'Helvetica', fontSize: 7, color: C.gray500, letterSpacing: 0.8, marginBottom: 4 },
-  metricCardValue: { fontFamily: 'Helvetica-Bold', fontSize: 20, lineHeight: 1 },
-  metricCardSub: { fontFamily: 'Helvetica', fontSize: 7.5, color: C.gray500, marginTop: 3 },
+  metricCard: { flex: 1, borderRadius: 8, padding: 14, marginRight: 10 },
+  metricCardLast: { flex: 1, borderRadius: 8, padding: 14 },
+  metricCardLabel: { fontFamily: 'Helvetica-Bold', fontSize: 6.5, color: 'rgba(255,255,255,0.72)', letterSpacing: 0.8, marginBottom: 6 },
+  metricCardValue: { fontFamily: 'Helvetica-Bold', fontSize: 22, lineHeight: 1, color: C.white },
+  metricCardSub: { fontFamily: 'Helvetica', fontSize: 7, color: 'rgba(255,255,255,0.58)', marginTop: 4 },
 
   infoBox: { borderRadius: 6, padding: 12, marginBottom: 10 },
   infoBoxTitle: { fontFamily: 'Helvetica-Bold', fontSize: 9, marginBottom: 4 },
   infoBoxBody: { fontFamily: 'Helvetica', fontSize: 8.5, lineHeight: 1.5, color: C.gray700 },
 
   // ── Tables ──
-  tableHeader: { flexDirection: 'row', backgroundColor: C.gray800, padding: '7 10', borderRadius: 4, marginBottom: 2 },
+  tableHeader: { flexDirection: 'row', backgroundColor: C.sky, padding: '7 10', borderRadius: 4, marginBottom: 2 },
   tableHeaderCell: { fontFamily: 'Helvetica-Bold', fontSize: 7.5, color: C.white, flex: 1 },
   tableRow: { flexDirection: 'row', padding: '7 10', borderBottomWidth: 1, borderBottomColor: C.gray200, borderBottomStyle: 'solid' },
   tableRowAlt: { flexDirection: 'row', padding: '7 10', backgroundColor: C.gray50, borderBottomWidth: 1, borderBottomColor: C.gray200, borderBottomStyle: 'solid' },
@@ -180,10 +180,13 @@ const S = StyleSheet.create({
 // ── Reusable primitives ───────────────────────────────────────────────────────
 
 const PageHeader: React.FC = () => (
-  <View style={S.fixedHeader} fixed>
-    <Text style={S.fixedHeaderLeft}>WORKable · EXECUTIVE ACTION PLAN</Text>
-    <Text style={S.fixedHeaderRight}>Audit Cycle 6 · March 2026 · Strictly Confidential</Text>
-  </View>
+  <>
+    <View fixed style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 6, backgroundColor: C.sky }} />
+    <View style={S.fixedHeader} fixed>
+      <Text style={S.fixedHeaderLeft}>WORKable · EXECUTIVE ACTION PLAN</Text>
+      <Text style={S.fixedHeaderRight}>Audit Cycle 6 · March 2026 · Strictly Confidential</Text>
+    </View>
+  </>
 );
 
 const PageFooter: React.FC = () => (
@@ -208,9 +211,134 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ num, title, sub, color })
 interface InfoBoxProps { title: string; body: string; color: string; bgColor: string }
 const InfoBox: React.FC<InfoBoxProps> = ({ title, body, color, bgColor }) => (
   <View style={[S.infoBox, { backgroundColor: bgColor, borderLeftWidth: 3, borderLeftColor: color, borderLeftStyle: 'solid' }]}>
-    <Text style={[S.infoBoxTitle, { color }]}>{title}</Text>
+    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 6 }}>
+      <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: color, marginRight: 7 }} />
+      <Text style={[S.infoBoxTitle, { color, marginBottom: 0 }]}>{title}</Text>
+    </View>
     <Text style={S.infoBoxBody}>{body}</Text>
   </View>
+);
+
+// ── Part Divider Page ─────────────────────────────────────────────────────────
+
+interface PartDividerProps {
+  partLetter: string;
+  title: string;
+  subtitle: string;
+  sections: Array<{ num: string; title: string }>;
+  accentColor: string;
+}
+
+const PartDividerPage: React.FC<PartDividerProps> = ({ partLetter, title, subtitle, sections, accentColor }) => (
+  <Page size="A4" style={[S.coverPage, { backgroundColor: C.navy }]}>
+    <View style={{ height: 6, backgroundColor: accentColor }} />
+    <View style={{ flex: 1, paddingHorizontal: 56, flexDirection: 'column', justifyContent: 'center' }}>
+      <Text style={{ fontFamily: 'Helvetica', fontSize: 11, color: accentColor, letterSpacing: 4, marginBottom: 10 }}>
+        PART {partLetter}
+      </Text>
+      <Text style={{ fontFamily: 'Helvetica-Bold', fontSize: 38, color: C.white, letterSpacing: -1, lineHeight: 1.1, marginBottom: 14 }}>
+        {title}
+      </Text>
+      <Text style={{ fontFamily: 'Helvetica', fontSize: 11, color: C.gray400, marginBottom: 40, lineHeight: 1.6 }}>
+        {subtitle}
+      </Text>
+      <View style={{ borderTopWidth: 1, borderTopColor: C.charcoal, borderTopStyle: 'solid', paddingTop: 24 }}>
+        {sections.map((s, i) => (
+          <View key={i} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14 }}>
+            <Text style={{ fontFamily: 'Helvetica-Bold', fontSize: 9, color: accentColor, width: 32, letterSpacing: 1 }}>{s.num}</Text>
+            <View style={{ width: 1, height: 14, backgroundColor: accentColor + '50', marginRight: 16 }} />
+            <Text style={{ fontFamily: 'Helvetica', fontSize: 11, color: C.gray300 }}>{s.title}</Text>
+          </View>
+        ))}
+      </View>
+    </View>
+    <View style={{ height: 4, backgroundColor: C.violet }} />
+  </Page>
+);
+
+// ── Table of Contents ─────────────────────────────────────────────────────────
+
+const TableOfContentsPage: React.FC = () => (
+  <Page size="A4" style={S.page}>
+    <PageHeader />
+    <PageFooter />
+
+    <View style={{ marginBottom: 20 }}>
+      <Text style={{ fontFamily: 'Helvetica', fontSize: 8, color: C.sky, letterSpacing: 2, marginBottom: 8 }}>DOCUMENT STRUCTURE</Text>
+      <Text style={{ fontFamily: 'Helvetica-Bold', fontSize: 22, color: C.gray800, marginBottom: 4 }}>Table of Contents</Text>
+      <Text style={{ fontFamily: 'Helvetica', fontSize: 9, color: C.gray500 }}>Audit Cycle 6 · March 2026 · 13 sections · 47 prioritised recommendations</Text>
+    </View>
+
+    {([
+      {
+        part: 'A', title: 'THE CASE FOR ACTION', color: C.red,
+        sections: [
+          { num: '01', title: 'Counterfactual History',   sub: 'Financial record of dismissed Cycle 5 recommendations — $830K realised loss' },
+          { num: '02', title: 'Pre-Mortem Action Plan',    sub: 'Month-by-month crisis projection if current trajectories continue unchanged' },
+        ],
+      },
+      {
+        part: 'B', title: 'STRATEGIC RESPONSE', color: C.violet,
+        sections: [
+          { num: '03', title: 'Action Priority Matrix',    sub: '2×2 cost vs value categorisation — Quick Wins, Strategic Investments, Monitor' },
+          { num: '04', title: 'Action Command Centre',     sub: 'All 47 recommendations · 4 urgency bands · confidence-weighted and quantified' },
+          { num: '05', title: 'Signal-to-Action Trace',    sub: 'Full traceability — every recommendation linked to its exact signal chain' },
+          { num: '06', title: '30-60-90 Day Roadmap',      sub: 'Dependency-locked phases · gated execution · Phase 2 unlocks after Phase 1 gate' },
+        ],
+      },
+      {
+        part: 'C', title: 'DEEP DIAGNOSTICS', color: C.sky,
+        sections: [
+          { num: '07', title: 'Energy Budget',             sub: 'Cognitive capacity treated as a financial resource — 46% waste identified' },
+          { num: '08', title: 'Minimum Viable Org (MVO)',  sub: 'Maximum recoverable structural waste without changing a single contract — $2.0M' },
+          { num: '09', title: 'Human Capital Redeployment',sub: 'Signal fingerprint analysis — underutilisation mapped · $634K value unlocked' },
+        ],
+      },
+      {
+        part: 'D', title: 'CULTURE & PEOPLE', color: C.violet,
+        sections: [
+          { num: '10', title: 'Culture Prescription',      sub: 'Clinical intervention protocols for 3 active culture classifications this cycle' },
+        ],
+      },
+      {
+        part: 'E', title: 'MARKET INTELLIGENCE', color: C.green,
+        sections: [
+          { num: '11', title: 'Peer Playbook',             sub: 'Anonymised outcomes from 3 highest-similarity organisations (≥81% match)' },
+          { num: '12', title: 'Industry Norm Deviation',   sub: 'Positive outliers to protect · dangerous outliers requiring active response' },
+        ],
+      },
+      {
+        part: 'F', title: 'GROWTH OUTLOOK', color: C.green,
+        sections: [
+          { num: '13', title: 'Opportunity Cost View',     sub: 'What this organisation could become — $1.05M activation value identified' },
+        ],
+      },
+    ] as Array<{ part: string; title: string; color: string; sections: Array<{ num: string; title: string; sub: string }> }>).map((group, gi) => (
+      <View key={gi} style={{ marginBottom: 12 }}>
+        <View style={{
+          flexDirection: 'row', alignItems: 'center', marginBottom: 6,
+          paddingBottom: 5, borderBottomWidth: 1,
+          borderBottomColor: group.color + '35', borderBottomStyle: 'solid',
+        }}>
+          <View style={{ width: 17, height: 17, borderRadius: 8.5, backgroundColor: group.color, alignItems: 'center', justifyContent: 'center', marginRight: 8 }}>
+            <Text style={{ fontFamily: 'Helvetica-Bold', fontSize: 8, color: C.white }}>{group.part}</Text>
+          </View>
+          <Text style={{ fontFamily: 'Helvetica-Bold', fontSize: 8.5, color: group.color, letterSpacing: 1 }}>
+            PART {group.part} — {group.title}
+          </Text>
+        </View>
+        {group.sections.map((s, si) => (
+          <View key={si} style={{ flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 4, paddingLeft: 25 }}>
+            <Text style={{ fontFamily: 'Helvetica-Bold', fontSize: 8.5, color: C.gray500, width: 28 }}>{s.num}</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={{ fontFamily: 'Helvetica-Bold', fontSize: 9.5, color: C.gray800 }}>{s.title}</Text>
+              <Text style={{ fontFamily: 'Helvetica', fontSize: 7.5, color: C.gray500, marginTop: 1 }}>{s.sub}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
+    ))}
+  </Page>
 );
 
 // ── Cover Page ────────────────────────────────────────────────────────────────
@@ -235,14 +363,17 @@ const CoverPage: React.FC = () => (
 
       <View style={S.coverStatsRow}>
         {[
-          { label: 'TOTAL RECOVERABLE VALUE', value: '$2.4M', unit: 'across 47 recommendations' },
-          { label: 'HUMAN SYSTEM INDEX', value: '61/100', unit: '▼ −4.2 this cycle' },
-          { label: 'CRISIS PROXIMITY INDEX', value: '48', unit: '⚠ Elevated — threshold: 60' },
-          { label: 'INACTION COST (PRIOR CYCLE)', value: '$830K', unit: 'Cost of dismissed nudges' },
+          { label: 'TOTAL RECOVERABLE VALUE', value: '$2.4M', unit: 'across 47 recommendations', ac: C.green },
+          { label: 'HUMAN SYSTEM INDEX',       value: '61/100', unit: '▼ −4.2 this cycle',         ac: C.amber },
+          { label: 'CRISIS PROXIMITY INDEX',   value: '48',     unit: '⚠ Elevated — threshold: 60', ac: C.orange },
+          { label: 'INACTION COST (PRIOR CYCLE)', value: '$830K', unit: 'Cost of dismissed nudges', ac: C.red },
         ].map((stat, i) => (
-          <View key={i} style={i < 3 ? S.coverStatBox : S.coverStatBoxLast}>
+          <View key={i} style={[
+            i < 3 ? S.coverStatBox : S.coverStatBoxLast,
+            { borderTopWidth: 3, borderTopColor: stat.ac, borderTopStyle: 'solid' },
+          ]}>
             <Text style={S.coverStatLabel}>{stat.label}</Text>
-            <Text style={S.coverStatValue}>{stat.value}</Text>
+            <Text style={[S.coverStatValue, { color: stat.ac }]}>{stat.value}</Text>
             <Text style={S.coverStatUnit}>{stat.unit}</Text>
           </View>
         ))}
@@ -279,14 +410,14 @@ const ExecSummaryPage: React.FC = () => (
 
     <View style={S.metricRow}>
       {[
-        { label: 'HSI SCORE',          value: '61',   unit: '/100 · Declining', color: C.amber,  bg: C.amberLight },
-        { label: 'CRISIS PROXIMITY',   value: '48',   unit: '/100 · Elevated',  color: C.orange, bg: C.orangeLight },
-        { label: 'BURNOUT RISK',        value: '41%',  unit: 'Frontline: 67%',  color: C.red,    bg: C.redLight },
-        { label: 'WASTED SALARY',       value: '14.2%',unit: '$1.9M/yr',        color: C.green,  bg: C.greenLight },
+        { label: 'HSI SCORE',          value: '61',   unit: '/100 · Declining', color: C.amber  },
+        { label: 'CRISIS PROXIMITY',   value: '48',   unit: '/100 · Elevated',  color: C.orange },
+        { label: 'BURNOUT RISK',        value: '41%',  unit: 'Frontline: 67%',  color: C.red    },
+        { label: 'WASTED SALARY',       value: '14.2%',unit: '$1.9M/yr',        color: C.green  },
       ].map((m, i) => (
-        <View key={i} style={i < 3 ? [S.metricCard, { backgroundColor: m.bg }] : [S.metricCardLast, { backgroundColor: m.bg }]}>
+        <View key={i} style={i < 3 ? [S.metricCard, { backgroundColor: m.color }] : [S.metricCardLast, { backgroundColor: m.color }]}>
           <Text style={S.metricCardLabel}>{m.label}</Text>
-          <Text style={[S.metricCardValue, { color: m.color }]}>{m.value}</Text>
+          <Text style={S.metricCardValue}>{m.value}</Text>
           <Text style={S.metricCardSub}>{m.unit}</Text>
         </View>
       ))}
@@ -395,7 +526,7 @@ const Section2Page: React.FC = () => (
     <PageHeader />
     <PageFooter />
 
-    <SectionHeader num="02" title="Action Priority Matrix" sub="Strategic board categorisation — Cost-to-Implement vs Value-Recovered" color={C.violet} />
+    <SectionHeader num="03" title="Action Priority Matrix" sub="Strategic board categorisation — Cost-to-Implement vs Value-Recovered" color={C.violet} />
 
     <Text style={[S.body, { marginBottom: 16 }]}>
       The 2×2 matrix below categorises all 47 recommendations by implementation cost and recoverable value.
@@ -461,7 +592,7 @@ const Section3Page: React.FC = () => (
     <PageHeader />
     <PageFooter />
 
-    <SectionHeader num="03" title="Action Command Centre" sub="All 47 recommendations · 4 urgency bands · Confidence-weighted and financially quantified" color={C.red} />
+    <SectionHeader num="04" title="Action Command Centre" sub="All 47 recommendations · 4 urgency bands · Confidence-weighted and financially quantified" color={C.red} />
 
     {/* Band 1: Act Now — Redesign */}
     <View style={[S.bandHeader, { backgroundColor: C.redLight }]}>
@@ -561,7 +692,7 @@ const Section4Page: React.FC = () => (
     <PageHeader />
     <PageFooter />
 
-    <SectionHeader num="04" title="Signal-to-Action Trace" sub="Every recommendation is traceable to its exact signal chain — making WORKable's reasoning visible and credible" color={C.sky} />
+    <SectionHeader num="05" title="Signal-to-Action Trace" sub="Every recommendation is traceable to its exact signal chain — making WORKable's reasoning visible and credible" color={C.sky} />
 
     <Text style={[S.body, { marginBottom: 16 }]}>
       Each action below shows the complete chain from raw diagnostic signal through the reveal engine to the
@@ -646,7 +777,7 @@ const Section5Page: React.FC = () => (
     <PageHeader />
     <PageFooter />
 
-    <SectionHeader num="05" title="30-60-90 Day Sequenced Roadmap" sub="Dependency-locked phases · Phase 2 cannot start until Phase 1 gate is cleared" color={C.green} />
+    <SectionHeader num="06" title="30-60-90 Day Sequenced Roadmap" sub="Dependency-locked phases · Phase 2 cannot start until Phase 1 gate is cleared" color={C.green} />
 
     <Text style={[S.body, { marginBottom: 16 }]}>
       The roadmap is sequenced to maximise early momentum and minimise organisational disruption.
@@ -727,7 +858,7 @@ const Section6Page: React.FC = () => (
     <PageHeader />
     <PageFooter />
 
-    <SectionHeader num="06" title="Minimum Viable Org (MVO)" sub="If the organisation kept only activities scoring above value threshold — what would it look like?" color={C.violet} />
+    <SectionHeader num="08" title="Minimum Viable Org (MVO)" sub="If the organisation kept only activities scoring above value threshold — what would it look like?" color={C.violet} />
 
     <Text style={[S.body, { marginBottom: 6 }]}>
       The MVO is not a redundancy plan. It is a clarity exercise that reveals the productive core of the organisation.
@@ -788,14 +919,14 @@ const Section7Page: React.FC = () => (
 
     <View style={{ flexDirection: 'row', marginBottom: 16 }}>
       {[
-        { label: 'TOTAL COGNITIVE BUDGET', value: '208,985', unit: 'peak-hours per year\n127 people × 7hrs × 235 days', color: C.sky, bg: C.skyLight },
-        { label: 'COGNITIVE WASTE', value: '46%', unit: '96,133 hrs wasted\n$2.1M at avg hourly rate', color: C.red, bg: C.redLight },
-        { label: 'STRATEGIC DEFICIT', value: '18pp', unit: 'Only 12% on strategy\nOptimal: 30%', color: C.amber, bg: C.amberLight },
-        { label: 'RECOVERABLE VALUE', value: '$2.1M', unit: 'Via friction + meeting\nelimination', color: C.green, bg: C.greenLight },
+        { label: 'TOTAL COGNITIVE BUDGET', value: '208,985', unit: 'peak-hours per year\n127 people × 7hrs × 235 days', color: C.sky   },
+        { label: 'COGNITIVE WASTE',         value: '46%',     unit: '96,133 hrs wasted\n$2.1M at avg hourly rate',       color: C.red   },
+        { label: 'STRATEGIC DEFICIT',       value: '18pp',    unit: 'Only 12% on strategy\nOptimal: 30%',                color: C.amber },
+        { label: 'RECOVERABLE VALUE',       value: '$2.1M',   unit: 'Via friction + meeting\nelimination',               color: C.green },
       ].map((m, i) => (
-        <View key={i} style={i < 3 ? [S.metricCard, { backgroundColor: m.bg }] : [S.metricCardLast, { backgroundColor: m.bg }]}>
+        <View key={i} style={i < 3 ? [S.metricCard, { backgroundColor: m.color }] : [S.metricCardLast, { backgroundColor: m.color }]}>
           <Text style={S.metricCardLabel}>{m.label}</Text>
-          <Text style={[S.metricCardValue, { color: m.color, fontSize: 16 }]}>{m.value}</Text>
+          <Text style={[S.metricCardValue, { fontSize: 16 }]}>{m.value}</Text>
           <Text style={S.metricCardSub}>{m.unit}</Text>
         </View>
       ))}
@@ -850,7 +981,7 @@ const Section8Page: React.FC = () => (
     <PageHeader />
     <PageFooter />
 
-    <SectionHeader num="08" title="Pre-Mortem Action Plan" sub="The crisis you are walking toward — month-by-month narrative · And the three actions that break the chain" color={C.red} />
+    <SectionHeader num="02" title="Pre-Mortem Action Plan" sub="The crisis you are walking toward — month-by-month narrative · And the three actions that break the chain" color={C.red} />
 
     <InfoBox
       title="What is a Pre-Mortem?"
@@ -1257,18 +1388,92 @@ const ActionPlanDocument: React.FC = () => (
   >
     <CoverPage />
     <ExecSummaryPage />
+    <TableOfContentsPage />
+
+    {/* ── PART A: THE CASE FOR ACTION ──────────────────────────────────── */}
+    <PartDividerPage
+      partLetter="A"
+      title="The Case for Action"
+      subtitle={"Inaction is not neutral. This part establishes what the cost of prior inaction was and\nprojects what continued inaction will cost — before a single recommendation is made."}
+      sections={[
+        { num: '01', title: 'Counterfactual History' },
+        { num: '02', title: 'Pre-Mortem Action Plan' },
+      ]}
+      accentColor={C.red}
+    />
     <Section1Page />
+    <Section8Page />
+
+    {/* ── PART B: STRATEGIC RESPONSE ───────────────────────────────────── */}
+    <PartDividerPage
+      partLetter="B"
+      title="Strategic Response"
+      subtitle={"The full playbook — prioritised, sequenced, and financially quantified.\nFrom the 2×2 strategic matrix to the gated 90-day execution roadmap."}
+      sections={[
+        { num: '03', title: 'Action Priority Matrix' },
+        { num: '04', title: 'Action Command Centre' },
+        { num: '05', title: 'Signal-to-Action Trace' },
+        { num: '06', title: '30-60-90 Day Roadmap' },
+      ]}
+      accentColor={C.violet}
+    />
     <Section2Page />
     <Section3Page />
     <Section4Page />
     <Section5Page />
-    <Section6Page />
+
+    {/* ── PART C: DEEP DIAGNOSTICS ─────────────────────────────────────── */}
+    <PartDividerPage
+      partLetter="C"
+      title="Deep Diagnostics"
+      subtitle={"Where the organisation's cognitive capital is actually going, what the structural\nwaste ceiling is, and which people are misdeployed against their highest-value potential."}
+      sections={[
+        { num: '07', title: 'Energy Budget' },
+        { num: '08', title: 'Minimum Viable Org (MVO)' },
+        { num: '09', title: 'Human Capital Redeployment' },
+      ]}
+      accentColor={C.sky}
+    />
     <Section7Page />
-    <Section8Page />
+    <Section6Page />
     <Section9Page />
+
+    {/* ── PART D: CULTURE & PEOPLE ─────────────────────────────────────── */}
+    <PartDividerPage
+      partLetter="D"
+      title="Culture & People"
+      subtitle={"Structural fixes alone are insufficient. This part addresses the behavioural\nand cultural interventions that unlock and sustain the structural changes."}
+      sections={[
+        { num: '10', title: 'Culture Prescription' },
+      ]}
+      accentColor={C.violet}
+    />
     <Section10Page />
+
+    {/* ── PART E: MARKET INTELLIGENCE ──────────────────────────────────── */}
+    <PartDividerPage
+      partLetter="E"
+      title="Market Intelligence"
+      subtitle={"Evidence from comparable organisations and industry benchmarks — validating\nthe urgency of action and identifying the advantages that must be protected."}
+      sections={[
+        { num: '11', title: 'Peer Playbook' },
+        { num: '12', title: 'Industry Norm Deviation' },
+      ]}
+      accentColor={C.green}
+    />
     <Section11Page />
     <Section12Page />
+
+    {/* ── PART F: GROWTH OUTLOOK ───────────────────────────────────────── */}
+    <PartDividerPage
+      partLetter="F"
+      title="Growth Outlook"
+      subtitle={"Beyond fixing problems — the additional $1.05M in opportunity value available\nwhen the organisation redirects recovered capacity toward its highest-value activities."}
+      sections={[
+        { num: '13', title: 'Opportunity Cost View' },
+      ]}
+      accentColor={C.green}
+    />
     <Section13Page />
   </Document>
 );

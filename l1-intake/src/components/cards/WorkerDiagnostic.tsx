@@ -42,7 +42,9 @@ export default function WorkerDiagnostic({ data, onRestart, onNext }: { data: an
     blockers: '',
     changes: '',
     meetingRatio: 50, // % of time in meetings
-    enthusiasm: 10 // Recovered/Energetic days per month
+    enthusiasm: 10, // Recovered/Energetic days per month
+    voiceSuppression: 5, // How often withhold ideas/concerns (1-10)
+    alternateContact: '' // Who they go to for help besides supervisor
   });
 
   const [showVerification, setShowVerification] = useState(false);
@@ -51,25 +53,27 @@ export default function WorkerDiagnostic({ data, onRestart, onNext }: { data: an
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const [localCompleted, setLocalCompleted] = useState<string[]>([]);
   const [dbEmployeeCount, setDbEmployeeCount] = useState(0);
+  const [allDiagnostics, setAllDiagnostics] = useState<any[]>(data?.all_diagnostics || []);
   const targetHeadcount = parseInt(companySetup?.company?.headcount || '0');
   const headcountMet = targetHeadcount > 0 && dbEmployeeCount >= targetHeadcount;
 
-  // Fetch live employee count from DB
+  // Fetch live employee count and diagnostics from DB
   useEffect(() => {
-    fetch('http://localhost:3000/api/company-setup')
-      .then(res => res.json())
-      .then(d => {
-        const totalEmps = (d.employees || []).length;
-        setDbEmployeeCount(totalEmps);
-      })
-      .catch(() => {});
+    Promise.all([
+      fetch('http://localhost:3000/api/company-setup').then(res => res.json()),
+      fetch('http://localhost:3000/api/intake').then(res => res.json())
+    ]).then(([companyData, intakeData]) => {
+      const totalEmps = (companyData.employees || []).length;
+      setDbEmployeeCount(totalEmps);
+      setAllDiagnostics(intakeData.all_diagnostics || []);
+    }).catch(() => {});
   }, [phase, localCompleted]);
 
   // ---------------------------------------------------------
   // HELPERS
   // ---------------------------------------------------------
   const getEligibleWorkers = () => {
-    const historical = (data.all_diagnostics || [])
+    const historical = allDiagnostics
       .filter((d: any) => d.type === 'worker' && (d.status === 'complete' || d.payload?.status === 'complete'))
       .map((d: any) => d.employee_name?.trim().toLowerCase());
     
@@ -85,7 +89,7 @@ export default function WorkerDiagnostic({ data, onRestart, onNext }: { data: an
   };
 
   const getComplianceSummary = () => {
-    const allDiags = [...(data.all_diagnostics || []), ...localCompleted.map(l => ({ employee_name: l, type: 'worker', payload: { status: 'complete' } }))];
+    const allDiags = [...allDiagnostics, ...localCompleted.map(l => ({ employee_name: l, type: 'worker', payload: { status: 'complete' } }))];
     const targetEmployees = employees.filter((e: any) => data.roleEligibility?.[e.id] !== 'top');
     
     const supervisorAudits = targetEmployees.filter((e: any) => 
@@ -168,7 +172,7 @@ export default function WorkerDiagnostic({ data, onRestart, onNext }: { data: an
     setActivities([]);
     setActivityDetails([]);
     setCarouselIndex(0);
-    setP4({ realistic: 'Neutral', reviewer: '', freq: 'Weekly', blockers: '', changes: '', meetingRatio: 50 });
+    setP4({ realistic: 'Neutral', reviewer: '', freq: 'Weekly', blockers: '', changes: '', meetingRatio: 50, voiceSuppression: 5, alternateContact: '' });
     setPhase(1);
   };
 
@@ -701,6 +705,64 @@ export default function WorkerDiagnostic({ data, onRestart, onNext }: { data: an
                   </div>
               </div>
 
+              {/* Voice Suppression */}
+              <div className="p-6 bg-gradient-to-br from-slate-50 to-white rounded-2xl border border-slate-100">
+                <div className="flex justify-between items-center mb-6">
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-800">Voice Suppression</h4>
+                    <p className="text-xs text-slate-400">How often do you withhold a useful idea or valid concern because it feels safer to stay quiet?</p>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-4xl font-black text-accent font-display">{p4.voiceSuppression}</span>
+                    <span className="text-[10px] font-black text-slate-300 block uppercase tracking-widest">/ 10</span>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => {
+                    const isSelected = p4.voiceSuppression === num;
+                    const getColor = (n: number) => {
+                      if (n <= 3) return isSelected ? 'bg-emerald-500 border-emerald-600 text-white shadow-lg shadow-emerald-100' : 'bg-white border-emerald-100 text-emerald-600 hover:bg-emerald-50';
+                      if (n <= 6) return isSelected ? 'bg-amber-500 border-amber-600 text-white shadow-lg shadow-amber-100' : 'bg-white border-amber-100 text-amber-600 hover:bg-amber-50';
+                      return isSelected ? 'bg-rose-500 border-rose-600 text-white shadow-lg shadow-rose-100' : 'bg-white border-rose-100 text-rose-600 hover:bg-rose-50';
+                    };
+                    return (
+                      <button 
+                        key={num} 
+                        onClick={() => setP4({...p4, voiceSuppression: num})}
+                        className={`flex-1 py-3 rounded-xl border font-bold text-sm transition-all duration-200 ${getColor(num)} ${isSelected ? 'scale-105 z-10' : 'scale-100'}`}
+                      >
+                        {num}
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className="flex justify-between mt-2 px-1">
+                  <span className="text-[9px] text-emerald-400 font-medium">Never</span>
+                  <span className="text-[9px] text-rose-400 font-medium">Always</span>
+                </div>
+              </div>
+
+              {/* Alternate Contact */}
+              <div className="p-6 bg-gradient-to-br from-blue-50/30 to-white rounded-2xl border border-blue-100/50">
+                <label className="text-sm font-bold text-slate-800 block mb-2">Other than your direct supervisor, who helps you to solve problems or get work done?</label>
+                <p className="text-[10px] text-slate-400 mb-4">Select the person you most often turn to for help or guidance.</p>
+                <select 
+                  value={p4.alternateContact} 
+                  onChange={e => setP4({...p4, alternateContact: e.target.value})} 
+                  className="w-full p-4 bg-white rounded-xl border border-gray-200 outline-none text-sm focus:border-blue-400 transition-colors font-medium"
+                >
+                  <option value="">-- Choose Contact --</option>
+                  {employees
+                    .filter((e: any) => e.name !== workerName && e.name !== supervisorName)
+                    .map((e: any) => (
+                      <option key={e.id} value={e.name}>{e.name} ({e.role || 'Team Member'})</option>
+                    ))
+                  }
+                  <option value="colleagues">Colleagues / Peer Group</option>
+                  <option value="none">I work independently</option>
+                </select>
+              </div>
+
               <div className="flex justify-between pt-8 border-t border-gray-100 mt-8">
                 <button onClick={() => setPhase(3)} className="px-6 py-3 text-gray-400 font-bold flex items-center gap-2 hover:text-gray-600 transition-colors"><ArrowLeft size={16} /> Previous</button>
                 <button onClick={completeAudit} className="px-10 py-4 bg-emerald-500 text-white rounded-xl font-bold shadow-lg shadow-emerald-200 flex items-center gap-2 hover:scale-[1.02] active:scale-95 transition-all">Submit Audit <CheckCircle2 size={18} /></button>
@@ -768,19 +830,18 @@ export default function WorkerDiagnostic({ data, onRestart, onNext }: { data: an
                                 <div className="p-5 bg-emerald-50/50 rounded-2xl border border-emerald-100 flex justify-between items-center group hover:bg-white hover:shadow-md transition-all">
                                     <span className="text-emerald-600 font-bold uppercase tracking-widest text-[10px]">Actually Audited (Unique)</span>
                                     <span className="text-2xl font-display font-bold text-emerald-600">
-                                        {[...new Set((data.all_diagnostics || []).map((d: any) => d.employee_name?.toLowerCase()))].length + localCompleted.length}
+                                        {[...new Set(allDiagnostics.map((d: any) => d.employee_name?.toLowerCase()))].length + localCompleted.length}
                                     </span>
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className={`p-5 rounded-2xl border transition-all ${compliance.supervisorAudits === compliance.totalTarget ? 'bg-emerald-50/50 border-emerald-100 text-emerald-600' : 'bg-orange-50/50 border-orange-100 text-orange-600'}`}>
-                                        <span className="font-bold uppercase tracking-widest text-[9px] block mb-1">Supervisor Audits</span>
-                                        <span className="text-xl font-display font-bold">{compliance.supervisorAudits} / {compliance.totalTarget}</span>
+                                <div className="p-5 bg-indigo-50/50 rounded-2xl border border-indigo-100 flex justify-between items-center">
+                                    <div>
+                                        <span className="text-indigo-600 font-bold uppercase tracking-widest text-[10px] block">Employees to be generated by AI</span>
+                                        <span className="text-[9px] text-indigo-400 font-medium">Remaining gap to headcount</span>
                                     </div>
-                                    <div className={`p-5 rounded-2xl border transition-all ${compliance.workerAudits === compliance.totalTarget ? 'bg-emerald-50/50 border-emerald-100 text-emerald-600' : 'bg-orange-50/50 border-orange-100 text-orange-600'}`}>
-                                        <span className="font-bold uppercase tracking-widest text-[9px] block mb-1">Self Audits</span>
-                                        <span className="text-xl font-display font-bold">{compliance.workerAudits} / {compliance.totalTarget}</span>
-                                    </div>
+                                    <span className="text-3xl font-display font-bold text-indigo-600">
+                                        {Math.max(0, (companySetup?.company?.headcount || 0) - [...new Set(allDiagnostics.map((d: any) => d.employee_name?.toLowerCase()))].length - localCompleted.length)}
+                                    </span>
                                 </div>
 
                                 {compliance.isFullyCompliant ? (

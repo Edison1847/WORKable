@@ -31,12 +31,12 @@ const RiskRadar: React.FC<{ data: any }> = ({ data }) => {
     };
 
     const workerHealth = calculateAvg('orgHealth', 'p1');
-    const supHealth = supervisorData.p1?.orgHealth || 5;
+    const supHealth = supervisorData.globalOrgHealth || supervisorData.p1?.clarity || 5;
     const blindspot = Math.abs(workerHealth - supHealth) / 10 * 100;
     const burnout = calculateAvg('burnout', 'p1') / 5 * 100;
     const capGap = calculateAvg('capGap', 'p1') / 10 * 100;
     const legacy = calculateAvg('legacyBurden', 'p1');
-    const voiceSup = calculateAvg('ps1_voiceSuppression', 'p1') / 10 * 100;
+    const voiceSup = calculateAvg('voiceSuppression', 'p4') / 10 * 100;
     const targets = (10 - calculateAvg('targetClarity', 'p1')) / 10 * 100;
 
     return [

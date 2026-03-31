@@ -6,6 +6,7 @@ import SupervisorDiagnostic from './cards/SupervisorDiagnostic';
 import WorkerDiagnostic from './cards/WorkerDiagnostic';
 import SetupComplete from './cards/SetupComplete';
 import SynthesisSummary from './cards/SynthesisSummary';
+import EngineInitialization from './EngineInitialization';
 
 const IntakeFlow = () => {
   const [step, setStep] = useState(0); // 0: Company, 1: Supervisor, 2: Worker, 3: Summary, 4: Complete
@@ -13,10 +14,13 @@ const IntakeFlow = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [stepKey, setStepKey] = useState(0);
   const [syntheticSummaryData, setSyntheticSummaryData] = useState<any>(null);
+  const [showEngineInit, setShowEngineInit] = useState(false); // Disabled per request
   const navigate = useNavigate();
 
   const calculateRoleEligibility = (employees: any[]) => {
     const roleEligibility: Record<string, 'top' | 'middle' | 'worker'> = {};
+    if (!employees || !Array.isArray(employees)) return roleEligibility;
+    
     employees.forEach((emp: any) => {
       const nameNorm = emp.name?.trim().toLowerCase();
       const hasManager = emp.manager && emp.manager !== 'None' && emp.manager.trim() !== '';
@@ -43,6 +47,14 @@ const IntakeFlow = () => {
         
         const companyJson = await companyRes.json();
         const intakeJson = await intakeRes.json();
+        
+        // FORCED CLEAN SLATE: If server is empty, wipe the browser's persistent memory
+        if (!companyJson || Object.keys(companyJson).length === 0) {
+            console.log('[SYSTEM] Server is empty. Purging browser memory...');
+            localStorage.clear();
+            sessionStorage.clear();
+        }
+        
         const employees = companyJson?.employees || [];
         const roleEligibility = calculateRoleEligibility(employees);
 
@@ -76,12 +88,8 @@ const IntakeFlow = () => {
     }
     
     setData(updatedData);
-    
-    if (step < 4) {
-      setStep(step + 1);
-    } else {
-      navigate('/');
-    }
+    if (step < 4) setStep(step + 1);
+    else navigate('/');
   };
 
   const handleRestart = () => {
@@ -91,53 +99,40 @@ const IntakeFlow = () => {
 
   if (isLoading) {
     return (
-      <div className="h-screen bg-background flex items-center justify-center">
-        <div className="text-accent animate-pulse font-display font-medium">Loading organization context...</div>
+      <div className="h-screen bg-white flex items-center justify-center">
+        <div className="text-blue-500 animate-pulse font-display font-medium">Loading organization context...</div>
       </div>
     );
   }
 
-  const steps = [
-    <CompanyProfile onNext={handleNext} initialData={data.company_setup} />,
-    <SupervisorDiagnostic 
-      key={`sup-${stepKey}`} 
-      data={data} 
-      onRestart={handleRestart}
-      onNext={() => handleNext({})}
-    />,
-    <WorkerDiagnostic 
-      key={`work-${stepKey}`}
-      data={data}
-      onRestart={handleRestart}
-      onNext={(syntheticData) => {
-        if (!syntheticData) {
-          // Direct bypass to final hierarchy if no AI generation was needed
-          setStep(4);
-        } else {
-          setSyntheticSummaryData(syntheticData);
-          handleNext({ syntheticData });
-        }
-      }}
-    />,
-    <SynthesisSummary 
-        data={syntheticSummaryData} 
-        onComplete={() => handleNext({})} 
-        onBack={() => setStep(2)}
-    />,
-    <SetupComplete 
-      key={`complete-${stepKey}`}
-      data={data}
-      onBack={() => setStep(3)}
-    />
-  ];
+  // RENDER ONLY THE ACTIVE STEP TO PREVENT FUTURE STEP CRASHES
+  const renderStep = () => {
+    switch (step) {
+      case 0:
+        return <CompanyProfile onNext={handleNext} />;
+      case 1:
+        return <SupervisorDiagnostic key={`sup-${stepKey}`} data={data} onRestart={handleRestart} onNext={() => handleNext({})} />;
+      case 2:
+        return <WorkerDiagnostic key={`work-${stepKey}`} data={data} onRestart={handleRestart} onNext={(syntheticData) => {
+          if (!syntheticData) setStep(4);
+          else { setSyntheticSummaryData(syntheticData); handleNext({ syntheticData }); }
+        }} />;
+      case 3:
+        return <SynthesisSummary data={syntheticSummaryData} onComplete={() => handleNext({})} onBack={() => setStep(2)} />;
+      case 4:
+        return <SetupComplete key={`complete-${stepKey}`} data={data} onBack={() => setStep(3)} />;
+      default:
+        return <div className="p-8 text-center text-slate-400">Step Out of Range</div>;
+    }
+  };
 
   return (
-    <div className={`${step === 4 ? 'min-h-screen overflow-auto' : 'h-screen overflow-hidden'} bg-background relative flex flex-col pt-12 px-4 pb-8`}>
-      <div className="absolute top-[-5%] left-[-5%] w-[400px] h-[400px] bg-blue-100/50 rounded-full blur-[100px] opacity-60 pointer-events-none" />
+    <div className={`${step === 4 ? 'min-h-screen overflow-auto' : 'h-screen overflow-hidden'} bg-white relative flex flex-col pt-12 px-4 pb-8`}>
+      <div className="absolute top-[-5%] left-[-5%] w-[400px] h-[400px] bg-blue-50/50 rounded-full blur-[100px] pointer-events-none" />
       
       <div className="absolute top-6 left-6 cursor-pointer" onClick={() => navigate('/')}>
-        <div className="font-display font-semibold text-xl tracking-tight text-textMain">
-          WORKable<span className="text-accent"> Intake</span>
+        <div className="font-display font-semibold text-xl tracking-tight text-slate-900">
+          WORKable<span className="text-blue-600"> Intake</span>
         </div>
       </div>
 
@@ -146,37 +141,34 @@ const IntakeFlow = () => {
           {['Company Setup', 'Supervisor Audit', 'Worker Diagnostic', 'Setup Complete'].map((label, idx) => (
             <div 
               key={label} 
-              className={`flex flex-col items-center cursor-pointer transition-all ${idx === step ? 'scale-110' : 'opacity-50'}`}
-              onClick={() => idx <= step || Object.keys(data).length > 0 ? setStep(idx) : null}
+              className={`flex flex-col items-center cursor-pointer transition-all ${idx === (step > 3 ? 3 : step) ? 'scale-110' : 'opacity-40'}`}
+              onClick={() => (idx <= step || Object.keys(data).length > 0) ? setStep(idx) : null}
             >
               <div 
-                className={`w-3 h-3 rounded-full mb-2 transition-colors duration-500 ${
-                  idx <= step ? 'bg-accent shadow-[0_0_10px_rgba(0,122,255,0.4)]' : 'bg-gray-200'
+                className={`w-2.5 h-2.5 rounded-full mb-2 transition-colors duration-500 ${
+                  idx <= (step > 3 ? 3 : step) ? 'bg-blue-600 shadow-[0_0_10px_rgba(37,99,235,0.3)]' : 'bg-slate-200'
                 }`} 
               />
-              <span className={`text-[10px] uppercase tracking-wider font-semibold ${
-                idx <= step ? 'text-accent' : 'text-gray-400'
+              <span className={`text-[9px] uppercase tracking-wider font-bold ${
+                idx <= (step > 3 ? 3 : step) ? 'text-blue-600' : 'text-slate-400'
               }`}>{label}</span>
             </div>
           ))}
-          <div className="absolute top-1.5 left-4 right-4 h-[2px] bg-gray-100 -z-10" />
-          <div 
-            className="absolute top-1.5 left-4 h-[2px] bg-accent -z-10 transition-all duration-700 ease-out" 
-            style={{ width: `calc(${(step / 3) * 100}% - 1rem)` }} 
-          />
+          <div className="absolute top-1 left-8 right-8 h-[1px] bg-slate-100 -z-10" />
         </div>
       </div>
 
-      <div className={`flex-1 w-full ${step === 4 ? 'max-w-none px-4' : 'max-w-3xl'} mx-auto relative z-10 flex flex-col min-h-0 transition-all duration-700`}>
+      <div className={`flex-1 w-full ${step === 4 ? 'max-w-none px-4' : 'max-w-3xl'} mx-auto relative z-10 flex flex-col min-h-0`}>
         <AnimatePresence mode="wait">
           <motion.div 
             key={`${step}-${stepKey}`}
             className="flex-1 w-full flex flex-col min-h-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4 }}
           >
-            {steps[step]}
+            {renderStep()}
           </motion.div>
         </AnimatePresence>
       </div>

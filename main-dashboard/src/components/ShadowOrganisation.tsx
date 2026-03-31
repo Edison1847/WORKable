@@ -1,41 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Network, Eye, AlertCircle } from 'lucide-react';
 
-const nodes = [
-  { id: 'ceo',    label: 'CEO',          title: 'Chief Executive',    formal: true,  influence: 82, x: 50, y: 10, color: '#38bdf8' },
-  { id: 'coo',    label: 'COO',          title: 'Chief Operating',    formal: true,  influence: 58, x: 22, y: 30, color: '#38bdf8' },
-  { id: 'cto',    label: 'CTO',          title: 'Chief Technology',   formal: true,  influence: 61, x: 78, y: 30, color: '#38bdf8' },
-  { id: 'vp1',    label: 'VP Ops',       title: 'VP Operations',      formal: true,  influence: 34, x: 12, y: 54, color: '#38bdf8' },
-  { id: 'vp2',    label: 'VP Eng',       title: 'VP Engineering',     formal: true,  influence: 29, x: 66, y: 54, color: '#38bdf8' },
-  { id: 'mgr1',   label: 'Sarah K.',     title: 'Senior Manager',     formal: false, influence: 88, x: 38, y: 54, color: '#f43f5e', shadow: true },
-  { id: 'mgr2',   label: 'Dev R.',       title: 'Lead Engineer',      formal: false, influence: 74, x: 88, y: 54, color: '#fb923c', shadow: true },
-  { id: 'mgr3',   label: 'Priya M.',     title: 'Strategy Analyst',   formal: false, influence: 71, x: 50, y: 74, color: '#a78bfa', shadow: true },
-  { id: 'ic1',    label: 'Team A',       title: 'Ops Team',           formal: true,  influence: 15, x: 6,  y: 80, color: '#94a3b8' },
-  { id: 'ic2',    label: 'Team B',       title: 'Eng Team',           formal: true,  influence: 12, x: 78, y: 80, color: '#94a3b8' },
-];
+interface Node {
+  id: string;
+  label: string;
+  title: string;
+  formal: boolean;
+  influence: number;
+  x: number;
+  y: number;
+  color: string;
+  shadow?: boolean;
+}
 
-const edges = [
-  { from: 'ceo',  to: 'coo',  w: 3, formal: true },
-  { from: 'ceo',  to: 'cto',  w: 3, formal: true },
-  { from: 'coo',  to: 'vp1',  w: 2, formal: true },
-  { from: 'cto',  to: 'vp2',  w: 2, formal: true },
-  // Shadow influence edges
-  { from: 'mgr1', to: 'ceo',  w: 2.5, formal: false, color: '#f43f5e' },
-  { from: 'mgr1', to: 'coo',  w: 2,   formal: false, color: '#f43f5e' },
-  { from: 'mgr1', to: 'mgr3', w: 2,   formal: false, color: '#f43f5e' },
-  { from: 'mgr2', to: 'cto',  w: 2,   formal: false, color: '#fb923c' },
-  { from: 'mgr2', to: 'vp2',  w: 1.5, formal: false, color: '#fb923c' },
-  { from: 'mgr3', to: 'ceo',  w: 1.5, formal: false, color: '#a78bfa' },
-  { from: 'mgr3', to: 'vp1',  w: 1.5, formal: false, color: '#a78bfa' },
-  { from: 'vp1',  to: 'ic1',  w: 1.5, formal: true },
-  { from: 'vp2',  to: 'ic2',  w: 1.5, formal: true },
-];
-
-const nodeMap = Object.fromEntries(nodes.map(n => [n.id, n]));
+interface Edge {
+  from: string;
+  to: string;
+  w: number;
+  formal: boolean;
+  color?: string;
+}
 
 const ShadowOrganisation: React.FC = () => {
+  const [nodes, setNodes] = useState<Node[]>([]);
+  const [edges, setEdges] = useState<Edge[]>([]);
+  const [shadowLeaders, setShadowLeaders] = useState<Node[]>([]);
   const [selected, setSelected] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/culture/shadow-organization')
+      .then(res => res.json())
+      .then(data => {
+        if (data.nodes) setNodes(data.nodes);
+        if (data.edges) setEdges(data.edges);
+        if (data.shadowLeaders) setShadowLeaders(data.shadowLeaders);
+      })
+      .catch(err => {
+        console.error('Failed to fetch shadow organization:', err);
+        // Fallback to default data
+        setNodes([
+          { id: 'ceo', label: 'CEO', title: 'Chief Executive', formal: true, influence: 82, x: 50, y: 10, color: '#38bdf8' },
+          { id: 'coo', label: 'COO', title: 'Chief Operating', formal: true, influence: 58, x: 22, y: 30, color: '#38bdf8' },
+          { id: 'cto', label: 'CTO', title: 'Chief Technology', formal: true, influence: 61, x: 78, y: 30, color: '#38bdf8' },
+        ]);
+        setEdges([
+          { from: 'ceo', to: 'coo', w: 3, formal: true },
+          { from: 'ceo', to: 'cto', w: 3, formal: true },
+        ]);
+      });
+  }, []);
+
+  const nodeMap = Object.fromEntries(nodes.map(n => [n.id, n]));
   const sel = selected ? nodeMap[selected] : null;
 
   return (
@@ -171,7 +187,7 @@ const ShadowOrganisation: React.FC = () => {
             </div>
 
             {/* Top shadows */}
-            {nodes.filter(n => n.shadow).sort((a, b) => b.influence - a.influence).map((n, i) => (
+            {shadowLeaders.map((n, i) => (
               <div key={n.id} className="flex items-center gap-2 rounded-lg p-2.5"
                 style={{ background: `${n.color}08`, border: `1px solid ${n.color}1a`, cursor: 'pointer' }}
                 onClick={() => setSelected(n.id === selected ? null : n.id)}>
