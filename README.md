@@ -9,7 +9,7 @@
 The system operates across three core specialized environments that must be running simultaneously to ensure full data-to-insight synthesis:
 
 ### 1. 📟 Backend Intelligence Engine (Node.js)
-The central nervous system of the platform. It handles the SQLite data layer, diagnostic processing, and NLP sentiment analysis.
+The central nervous system of the platform. It handles the SQLite data layer, diagnostic processing, & NLP sentiment analysis.
 - **Port:** 3000
 - **Command:** `cd server && node server.js`
 
